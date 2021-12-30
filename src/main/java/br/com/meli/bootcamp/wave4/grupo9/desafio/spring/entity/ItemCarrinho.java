@@ -1,17 +1,22 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
-@Data
-@AllArgsConstructor
-public class ItemCarrinho {
-    private Produto produto;
+@SuperBuilder
+public class ItemCarrinho extends Produto{
+    @Getter
+    @Setter
     private long quantidade;
 
     public BigDecimal calculaValorTotal(){
-        return produto.getPreco().multiply(BigDecimal.valueOf(quantidade));
+        return this.getPreco().multiply(BigDecimal.valueOf(quantidade));
+    }
+
+    public void retiraQuantidadeProduto(long qtdProduto) {
+        quantidade -= qtdProduto;
     }
 }

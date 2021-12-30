@@ -13,12 +13,12 @@ public class PersistenceExceptionAdvice {
 
     @ExceptionHandler(value = NullPointerException.class)
     protected ResponseEntity<Object> handleNullPointer(NullPointerException ex, WebRequest request) {
-        return ResponseEntity.badRequest().body("usuario... o pessoal do desenvolvimento vai passar no rh.");
+        return ResponseEntity.badRequest().body("Estamos com problema para localizar o produto soicitado tente novamente mais tarde");
     }
 
     @ExceptionHandler(value = ArithmeticException.class)
     protected ResponseEntity<Object> erroCalculo(ArithmeticException ex, WebRequest request) {
-        return ResponseEntity.badRequest().body("erro de calculo... deu certo");
+        return ResponseEntity.badRequest().body("Error ao contabilizar valores");
     }
 
 }

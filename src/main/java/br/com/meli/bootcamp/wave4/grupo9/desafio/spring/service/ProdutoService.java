@@ -1,6 +1,5 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service;
 
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.EstoqueRepository;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
@@ -38,9 +37,8 @@ public class ProdutoService {
     @Autowired
     private EstoqueRepository estoqueRepository;
 
-
     public List<Produto> listaProduto() {
-        List<Produto> produtos = null;
+        List<Produto> produtos;
         try {
             produtos = estoqueRepository.listagem();
         } catch (IOException e) {

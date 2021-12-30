@@ -17,7 +17,7 @@ import java.util.List;
  * @author Felipe
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/loja")
 public class ProdutoRepositorioController {
 
 	@Autowired
@@ -32,11 +32,8 @@ public class ProdutoRepositorioController {
 
 	@GetMapping("/produto")
 	private ResponseEntity<List<ProdutoDTO>> getList() {
-		//estoque.teste();
 		List<Produto> listaProduto = produtoRepositorioService.lista();
-		return ResponseEntity.ok(
-				ProdutoDTO.
-				converte(listaProduto));
+		return ResponseEntity.ok(ProdutoDTO.converte(listaProduto));
 	}
 
 	@PostMapping("/produto/cadastrar")

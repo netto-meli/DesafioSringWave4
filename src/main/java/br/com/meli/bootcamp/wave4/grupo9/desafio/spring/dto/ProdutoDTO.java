@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class ProdutoDTO {
     private Long id;
     private String nome;
-    private Categoria categoriaDTO;
+    private String categoriaDTO;
     private String marca;
     private BigDecimal preco;
     private boolean freteGratis;

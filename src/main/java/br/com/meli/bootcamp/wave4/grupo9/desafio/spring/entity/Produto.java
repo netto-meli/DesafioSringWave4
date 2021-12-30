@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Produto {
     private Long id;
     private String nome;
-    private Categoria categoria;
+    private String categoria;
     private String marca;
     private BigDecimal preco;
     private boolean freteGratis;

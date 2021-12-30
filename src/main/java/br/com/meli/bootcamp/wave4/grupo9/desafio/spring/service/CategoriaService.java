@@ -25,11 +25,21 @@ public class CategoriaService {
     }
 
     public Categoria inserir(Categoria obj) {
-        obj.setId((long) repository.listarCategoria().size());
+        obj.setId(getMaxId()+1);
         return repository.salvarCategoria(obj);
     }
 
     public Categoria fromDTO(CategoriaDTO objDto) {
         return new Categoria(objDto.getId(), objDto.getNome());
+    }
+
+    private Long getMaxId(){
+        Long id = 0L;
+        for ( Categoria p : repository.listarCategoria() ) {
+            if (p.getId() != null && p.getId().compareTo(id) > 0 ){
+                id = p.getId();
+            }
+        }
+        return id;
     }
 }

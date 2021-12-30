@@ -4,7 +4,7 @@
     "nome": "Serra de Bancada",
     "categoria": "Ferramentas",
     "marca": "FORDGPRO",
-    "valor": 1.800,
+    "preco": 1.800,
     "quantidadeEstoque": 5,
     "freteGratis": true,
     "estrelas": 4
@@ -14,7 +14,7 @@
     "nome": "Furadeira",
     "categoria": "Ferramentas",
     "marca": "Black & Decker",
-    "valor": 500,
+    "preco": 500,
     "quantidadeEstoque": 7,
     "freteGratis": true,
     "estrelas": 4
@@ -24,7 +24,7 @@
     "nome": "Soldadora",
     "categoria": "Ferramentas",
     "marca": "Black & Decker",
-    "valor": 350,
+    "preco": 350,
     "quantidadeEstoque": 10,
     "freteGratis": true,
     "estrelas": 3
@@ -34,7 +34,7 @@
     "nome": "Chuteira",
     "categoria": "Esportes",
     "marca": "Adidas",
-    "valor": 235,
+    "preco": 235,
     "quantidadeEstoque": 6,
     "freteGratis": true,
     "estrelas": 5
@@ -44,7 +44,7 @@
     "nome": "Mini Cama elastica",
     "categoria": "Esportes",
     "marca": "Starboard",
-    "valor": 183,
+    "preco": 183,
     "quantidadeEstoque": 4,
     "freteGratis": true,
     "estrelas": 5
@@ -54,7 +54,7 @@
     "nome": "Camiseta",
     "categoria": "Esportes",
     "marca": "Topper",
-    "valor": 80,
+    "preco": 80,
     "quantidadeEstoque": 2,
     "freteGratis": true,
     "estrelas": 3
@@ -64,7 +64,7 @@
     "nome": "Redmi Note 9",
     "categoria": "Celulares",
     "marca": "Xiaomi",
-    "valor": 2.800,
+    "preco": 2.800,
     "quantidadeEstoque": 15,
     "freteGratis": true,
     "estrelas": 4
@@ -74,7 +74,7 @@
     "nome": "Smartwatch",
     "categoria": "Celulares",
     "marca": "Noga",
-    "valor": 1.200,
+    "preco": 1.200,
     "quantidadeEstoque": 20,
     "freteGratis": false,
     "estrelas": 2
@@ -84,7 +84,7 @@
     "nome": "Camisa",
     "categoria": "Roupa",
     "marca": "Fila",
-    "valor": 79,
+    "preco": 79,
     "quantidadeEstoque": 2,
     "freteGratis": false,
     "estrelas": 3
@@ -94,7 +94,7 @@
     "nome": "Calças",
     "categoria": "Celulares",
     "marca": "Oakley",
-    "valor": 73,
+    "preco": 73,
     "quantidadeEstoque": 6,
     "freteGratis": false,
     "estrelas": 3
@@ -102,7 +102,7 @@
   {
     "id": 11,
     "nome": "Meias",
-    "valor": 10,
+    "preco": 10,
     "quantidadeEstoque": 8,
     "freteGratis": false,
     "estrelas": 1
@@ -112,7 +112,7 @@
     "nome": "Shorts",
     "categoria": "Roupas",
     "marca": "Lacoste",
-    "valor": 275,
+    "preco": 275,
     "quantidadeEstoque": 9,
     "freteGratis": true,
     "estrelas": 3

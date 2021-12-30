@@ -37,7 +37,6 @@ public class ProdutoRepositorioService {
     }
 
     public List<Produto> lista(){
-        //List<Produto> produtos = null;
         try {
             return estoqueRepository.listagem().stream().collect(Collectors.toList());
         } catch (IOException e) {

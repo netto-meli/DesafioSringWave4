@@ -54,7 +54,7 @@ public class CarrinhoService {
         ItemCarrinho itemCarrinho;
         if ( Objects.equals( cliente.getCarrinho(), null)
                 || cliente.getCarrinho().getItemCarrinho(idProduto) == null) {
-            itemCarrinho = new ItemCarrinho( qtdProdutos, estoqueRepository.getProduto(idProduto) );
+            itemCarrinho = new ItemCarrinho( qtdProdutos, estoqueRepository.get(idProduto) );
         } else {
             itemCarrinho = cliente.getCarrinho().getItemCarrinho(idProduto);
             itemCarrinho.setQuantidade( itemCarrinho.getQuantidade() + qtdProdutos );
@@ -116,7 +116,10 @@ public class CarrinhoService {
         long idCliente = Long.parseLong(clienteId);
         Cliente cliente = clienteRepository.getCliente(idCliente);
         List<ItemCarrinho> listItemCarrinho = cliente.getCarrinho().getListaItensCarrinho();
-        estoqueRepository.verificarEstoque(listItemCarrinho);
+        if ( ! estoqueRepository.verificarEstoque(listItemCarrinho) ) {
+            // TODO erro pois esta sem estoque
+            System.out.println("sem estoque");
+        }
         estoqueRepository.baixarEstoque(listItemCarrinho);
         Pedido pedido = pedidoRepository.criaPedido(listItemCarrinho);
         cliente.limparCarrinho();

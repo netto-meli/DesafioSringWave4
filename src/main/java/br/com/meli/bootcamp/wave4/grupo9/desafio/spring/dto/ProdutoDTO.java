@@ -26,14 +26,27 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 
 public class ProdutoDTO {
-    private final long id;
+    private Long id;
     private String nome;
-    private CategoriaDTO categoriaDTO;
+    private String categoriaDTO;
     private String marca;
     private BigDecimal valor;
     private boolean freteGratis;
     private int estrelas;
     private long quantidadeEstoque;
+
+    public ProdutoDTO(Produto produto) {
+        this.id = produto.getId();
+        this.nome = produto.getNome();
+        this.categoriaDTO = produto.getCategoria();
+        this.marca = produto.getMarca();
+        this.valor = produto.getValor();
+        this.freteGratis = produto.isFreteGratis();
+        this.estrelas = produto.getEstrelas();
+        this.quantidadeEstoque = produto.getQuantidadeEstoque();
+    }
+
+
 
     /*** Conversor da classe Produto: de Entidade para DTO
      *
@@ -44,7 +57,7 @@ public class ProdutoDTO {
         return new ProdutoDTO(
                 produto.getId(),
                 produto.getNome(),
-                CategoriaDTO.converte(produto.getCategoria()),
+                produto.getCategoria(),
                 produto.getMarca(),
                 produto.getValor(),
                 produto.isFreteGratis(),
@@ -52,11 +65,11 @@ public class ProdutoDTO {
                 produto.getQuantidadeEstoque());
     }
 
-    public static Produto converte(ProdutoDTO produtodto) {
+    public static Produto converteDTO(ProdutoDTO produtodto) {
         return new Produto(
                 produtodto.getId(),
                 produtodto.getNome(),
-                CategoriaDTO.converte(produtodto.getCategoriaDTO()),
+                produtodto.getCategoriaDTO(),
                 produtodto.getMarca(),
                 produtodto.getValor(),
                 produtodto.isFreteGratis(),

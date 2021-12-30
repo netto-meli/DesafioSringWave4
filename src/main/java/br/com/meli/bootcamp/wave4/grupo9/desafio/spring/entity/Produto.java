@@ -2,6 +2,7 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -11,9 +12,9 @@ import java.util.Objects;
 @Data
 
 public class Produto {
-    private final long id;
+    private Long id;
     private String nome;
-    private Categoria categoria;
+    private String categoria;
     private String marca;
     private BigDecimal valor;
     private boolean freteGratis;
@@ -32,4 +33,5 @@ public class Produto {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

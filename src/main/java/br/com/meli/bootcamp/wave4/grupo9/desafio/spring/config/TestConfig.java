@@ -14,15 +14,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TestConfig implements CommandLineRunner {
 
+    /*
+
     @Autowired
     private PedidoRepository pedidoRepository;
 
     @Autowired
     private CategoriaRepository categoriaRepository;
+    */
+
 
     @Override
     public void run(String... args) throws Exception {
-
+    /*
         Categoria cat1 = new Categoria(  1, "Ferramentas");
         categoriaRepository.salvarCategoria(cat1);
 
@@ -45,6 +49,6 @@ public class TestConfig implements CommandLineRunner {
         }
 
         //System.out.println(p1.getValorTotal());
-
+    */
     }
 }

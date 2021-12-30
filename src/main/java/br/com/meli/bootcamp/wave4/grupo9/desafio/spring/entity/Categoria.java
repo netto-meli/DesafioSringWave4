@@ -9,11 +9,9 @@ import java.util.Objects;
 @Builder
 public class Categoria {
 
-    private Long id = Long.getLong("0");
+    private long id;
     private String nome = "vazio";
 
-    public Categoria() {
-    }
 
     @Override
     public boolean equals(Object o) {

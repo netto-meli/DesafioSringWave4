@@ -40,8 +40,6 @@ public class ProdutoDTO {
         this.quantidadeEstoque = produto.getQuantidadeEstoque();
     }
 
-
-
     /*** Conversor da classe Produto: de Entidade para DTO
      *
      * @param produto Objeto Produto a ser convertido
@@ -71,7 +69,7 @@ public class ProdutoDTO {
                 produtodto.getQuantidadeEstoque() );
     }
 
-    public static List<ProdutoDTO> convertelist(List<Produto> produtos) {
+    public static List<ProdutoDTO> converteList(List<Produto> produtos) {
         return produtos.stream().map(ProdutoDTO::converte).collect(Collectors.toList());
     }
 
@@ -88,15 +86,4 @@ public class ProdutoDTO {
         return Objects.hash(id);
     }
 
-
-    /*
-    public static List<Produto> converterListaProdDTOParaListaProduto(List<ProdutoDTO> produtosDTO) {
-        List<Produto> produto = new ArrayList<>();
-        produtosDTO.forEach(prod -> {
-            Produto p = ProdutoDTO.converteProdutoDtoParaProduto(prod);
-            produto.add(p);
-        });
-        return produto;
-    }
-    */
 }

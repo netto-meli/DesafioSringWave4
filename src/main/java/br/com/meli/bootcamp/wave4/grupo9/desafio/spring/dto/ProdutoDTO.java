@@ -35,7 +35,7 @@ public class ProdutoDTO {
                 produto.getNome(),
                 CategoriaDTO.converte( produto.getCategoria() ),
                 produto.getMarca(),
-                produto.getValor(),
+                produto.getPreco(),
                 produto.isFreteGratis(),
                 produto.getEstrelas(),
                 produto.getQuantidadeEstoque());

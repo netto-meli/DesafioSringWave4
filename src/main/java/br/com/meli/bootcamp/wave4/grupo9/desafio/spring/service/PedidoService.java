@@ -36,15 +36,14 @@ public class PedidoService {
         else if(number == 1) {
             lista = pedidoRepository.listarPedido().stream().sorted((p2, p1) -> p2.getCliente().getNome().compareTo(p1.getCliente().getNome())).collect(Collectors.toList());
         }
-        /*
+
         else if(number == 2) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p1.getCalculaValorTotal().compareTo(p2.getCalculaValorTotal())).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p1.getValorTotal().compareTo(p2.getValorTotal())).collect(Collectors.toList());
         }
         else if(number == 3) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p2, p1) -> p2.getCalculaValorTotal().compareTo(p1.getCalculaValorTotal())).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p2, p1) -> p2.getValorTotal().compareTo(p1.getValorTotal())).collect(Collectors.toList());
         }
 
-         */
         return lista;
     }
 }

@@ -15,7 +15,6 @@ public class Pedido {
     private Cliente cliente;
     private List<ItemCarrinho> listaItensCarrinho;
 
-    /*
     public BigDecimal getValorTotal(){
         BigDecimal valorTotal = new BigDecimal(0);
         for(ItemCarrinho ic : listaItensCarrinho) {
@@ -23,6 +22,4 @@ public class Pedido {
         }
         return valorTotal;
     }
-
-     */
 }

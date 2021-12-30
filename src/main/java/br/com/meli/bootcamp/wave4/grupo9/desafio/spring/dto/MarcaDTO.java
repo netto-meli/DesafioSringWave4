@@ -1,13 +1,35 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Objects;
-
 @Data
-@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class MarcaDTO {
-    private final long id;
+
+
+    public MarcaDTO(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
+    private Long id;
     private String nome;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

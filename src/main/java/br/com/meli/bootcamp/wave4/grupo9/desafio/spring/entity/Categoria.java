@@ -1,15 +1,19 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.Objects;
 
-@Getter
 @AllArgsConstructor
+@Data
+@Builder
 public class Categoria {
-    private long id;
-    private String nome;
+
+    private Long id = Long.getLong("0");
+    private String nome = "vazio";
+
+    public Categoria() {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -22,6 +26,22 @@ public class Categoria {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
 }

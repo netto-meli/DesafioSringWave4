@@ -1,15 +1,30 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import java.util.Objects;
 
+
+
 @Data
-@AllArgsConstructor
+@Builder
 public class Marca {
-    private final long id;
+
+    @JsonProperty("id")
+    private Long id;
+
+    @JsonProperty("nome")
     private String nome;
+
+    public Marca(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
+    public Marca() {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -22,5 +37,21 @@ public class Marca {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

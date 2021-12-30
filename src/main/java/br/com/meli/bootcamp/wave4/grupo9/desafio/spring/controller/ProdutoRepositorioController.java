@@ -24,6 +24,7 @@ public class ProdutoRepositorioController {
 		return ResponseEntity.ok(ProdutoDTO.converte(produtoRepositorioService.obter(id)));
 	}
 
+	@GetMapping("/produto")
 	private ResponseEntity<List<ProdutoDTO>> getList() {
 		//estoque.teste();
 		List<Produto> listaProduto = produtoRepositorioService.lista();

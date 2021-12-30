@@ -29,4 +29,19 @@ public class ClienteRepository {
         listaCliente.remove(cliente);
         listaCliente.add(cliente);
     }
+
+    public List<Cliente> findAll() {
+        return null;
+    }
+
+    public Cliente save(Cliente cliente) {
+        return null;
+    }
+
+    public boolean existsById(Long clienteId) {
+        return false;
+    }
+
+    public void deleteById(Long clienteId) {
+    }
 }

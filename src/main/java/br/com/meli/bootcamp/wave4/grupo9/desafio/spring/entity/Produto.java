@@ -1,19 +1,15 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @Data
-@Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class Produto {
-    private long id;
+    private final long id;
     private String nome;
     private Categoria categoria;
     private String marca;

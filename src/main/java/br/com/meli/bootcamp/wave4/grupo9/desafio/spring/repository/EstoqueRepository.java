@@ -4,7 +4,7 @@ import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,8 +16,9 @@ import java.util.Optional;
 
 /***
  * @author Felipe
+ * @author Leonardo
  */
-@Component
+@Repository
 public class EstoqueRepository implements OurRepository<Produto, Long>{
 
     private List<Produto> produtos = new ArrayList<>();

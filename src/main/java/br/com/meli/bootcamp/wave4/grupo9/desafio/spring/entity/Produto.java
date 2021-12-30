@@ -3,12 +3,13 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Data
 @AllArgsConstructor
+@Data
 public class Produto {
     private Long id;
     private String nome;
@@ -31,4 +32,5 @@ public class Produto {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

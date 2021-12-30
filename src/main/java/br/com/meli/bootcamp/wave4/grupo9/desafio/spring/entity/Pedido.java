@@ -37,4 +37,5 @@ public class Pedido {
         if (itemCarrinho.getQuantidade() > 0 ) listaItensCarrinho.add(itemCarrinho);
         this.calculaValorTotalPedido();
     }
+
 }

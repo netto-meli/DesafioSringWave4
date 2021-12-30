@@ -2,192 +2,118 @@
   {
     "id": 1,
     "nome": "Serra de Bancada",
-    "categoria": {
-      "id": 0,
-      "nome": "Ferramentas"
-    },
-    "marca": {
-      "id": 0,
-      "nome": "FORDGPRO"
-    },
-    "preco": "R$1.800",
+    "categoria": "Ferramentas",
+    "marca": "FORDGPRO",
+    "valor": 1.800,
     "quantidadeEstoque": 5,
-    "freteGratis": "SIM",
-    "estrelas": "****"
+    "freteGratis": true,
+    "estrelas": 4
   },
   {
     "id": 2,
     "nome": "Furadeira",
-    "categoria": {
-      "id": 0,
-      "nome": "Ferramentas"
-    },
-    "marca": {
-      "id": 1,
-      "nome": "Black & Decker"
-    },
-    "preco": "R$500",
+    "categoria": "Ferramentas",
+    "marca": "Black & Decker",
+    "valor": 500,
     "quantidadeEstoque": 7,
-    "freteGratis": "SIM",
-    "estrelas": "****"
+    "freteGratis": true,
+    "estrelas": 4
   },
   {
     "id": 3,
     "nome": "Soldadora",
-    "categoria": {
-      "id": 0,
-      "nome": "Ferramentas"
-    },
-    "marca": {
-      "id": 1,
-      "nome": "Black & Decker"
-    },
-    "preco": "R$350",
+    "categoria": "Ferramentas",
+    "marca": "Black & Decker",
+    "valor": 350,
     "quantidadeEstoque": 10,
-    "freteGratis": "SIM",
-    "estrelas": "***"
+    "freteGratis": true,
+    "estrelas": 3
   },
   {
     "id": 4,
     "nome": "Chuteira",
-    "categoria": {
-      "id": 1,
-      "nome": "Esportes"
-    },
-    "marca": {
-      "id": 2,
-      "nome": "Adidas"
-    },
-    "preco": "R$235",
+    "categoria": "Esportes",
+    "marca": "Adidas",
+    "valor": 235,
     "quantidadeEstoque": 6,
-    "freteGratis": "SIM",
-    "estrelas": "*****"
+    "freteGratis": true,
+    "estrelas": 5
   },
   {
     "id": 5,
     "nome": "Mini Cama elastica",
-    "categoria": {
-      "id": 1,
-      "nome": "Esportes"
-    },
-    "marca": {
-      "id": 2,
-      "nome": "Starboard"
-    },
-    "preco": "R$183",
+    "categoria": "Esportes",
+    "marca": "Starboard",
+    "valor": 183,
     "quantidadeEstoque": 4,
-    "freteGratis": "SIM",
-    "estrelas": "*****"
+    "freteGratis": true,
+    "estrelas": 5
   },
   {
     "id": 6,
     "nome": "Camiseta",
-    "categoria": {
-      "id": 1,
-      "nome": "Esportes"
-    },
-    "marca": {
-      "id": 4,
-      "nome": "Topper"
-    },
-    "preco": "R$80",
+    "categoria": "Esportes",
+    "marca": "Topper",
+    "valor": 80,
     "quantidadeEstoque": 2,
-    "freteGratis": "NÃO",
-    "estrelas": "***"
+    "freteGratis": true,
+    "estrelas": 3
   },
   {
     "id": 7,
     "nome": "Redmi Note 9",
-    "categoria": {
-      "id": 2,
-      "nome": "Celulares"
-    },
-    "marca": {
-      "id": 5,
-      "nome": "Xiaomi"
-    },
-    "preco": "R$2.800",
+    "categoria": "Celulares",
+    "marca": "Xiaomi",
+    "valor": 2.800,
     "quantidadeEstoque": 15,
-    "freteGratis": "SIM",
-    "estrelas": "****"
+    "freteGratis": true,
+    "estrelas": 4
   },
   {
     "id": 8,
     "nome": "Smartwatch",
-    "categoria": {
-      "id": 2,
-      "nome": "Celulares"
-    },
-    "marca": {
-      "id": 6,
-      "nome": "Noga"
-    },
-    "preco": "R$1.200",
+    "categoria": "Celulares",
+    "marca": "Noga",
+    "valor": 1.200,
     "quantidadeEstoque": 20,
-    "freteGratis": "NÃO",
-    "estrelas": "**"
+    "freteGratis": false,
+    "estrelas": 2
   },
   {
     "id": 9,
     "nome": "Camisa",
-    "categoria": {
-      "id": 4,
-      "nome": "Roupas"
-    },
-    "marca": {
-      "id": 7,
-      "nome": "Fila"
-    },
-    "preco": "R$79",
+    "categoria": "Roupa",
+    "marca": "Fila",
+    "valor": 79,
     "quantidadeEstoque": 2,
-    "freteGratis": "NÃO",
-    "estrelas": "***"
+    "freteGratis": false,
+    "estrelas": 3
   },
   {
     "id": 10,
     "nome": "Calças",
-    "categoria": {
-      "id": 4,
-      "nome": "Roupas"
-    },
-    "marca": {
-      "id": 8,
-      "nome": "Oakley"
-    },
-    "preco": "R$73",
+    "categoria": "Celulares",
+    "marca": "Oakley",
+    "valor": 73,
     "quantidadeEstoque": 6,
-    "freteGratis": "NÃO",
-    "estrelas": "***"
+    "freteGratis": false,
+    "estrelas": 3
   },
   {
     "id": 11,
     "nome": "Meias",
-    "categoria": {
-      "id": 4,
-      "nome": "Roupas"
-    },
-    "marca": {
-      "id": 9,
-      "nome": "Goney"
-    },
-    "preco": "R$10",
+    "valor": 10,
     "quantidadeEstoque": 8,
-    "freteGratis": "NÃO",
-    "estrelas": "*"
+    "freteGratis": false,
+    "estrelas": 1
   },
   {
     "id": 12,
     "nome": "Shorts",
-    "categoria": {
-      "id": 4,
-      "nome": "Roupas"
-    },
-    "marca": {
-      "id": 10,
-      "nome": "Lacoste"
-    },
-    "preco": "R$275",
+    "categoria": "Roupas",
+    "marca": "Lacoste",
+    "valor": 275,
     "quantidadeEstoque": 9,
-    "freteGratis": "SIM",
-    "estrelas": "***"
+    "freteGratis": true,
+    "estrelas": 3
   }]

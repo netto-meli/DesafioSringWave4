@@ -1,11 +1,17 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
+import lombok.*;
+import org.springframework.stereotype.Service;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Objects;
 
+@Data
+@Builder
+@NoArgsConstructor
 /*** DTO par serialização de Categoria
  *
  * @author Felipe

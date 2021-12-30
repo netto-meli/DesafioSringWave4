@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.List;
 
 /***
  * @author Leo
@@ -57,7 +58,7 @@ public class ProdutoService {
     public List<Produto> listaProdutoCategoria(String categoria) {
         try {
             return estoqueRepository.listagem().stream()
-                    .filter(p -> p.getCategoria().getNome().equals(categoria)).
+                    .filter(p -> p.getCategoria().equals(categoria)).
                             collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,6 +122,4 @@ public class ProdutoService {
                 .filter(u -> nome.equals(u.getNome())).filter(u -> categoria.equals(u.getCategoria()))
                 .collect(Collectors.toList());
     }
-
-
 }

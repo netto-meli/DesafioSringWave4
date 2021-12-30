@@ -2,36 +2,25 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-
-public class Produto {
-    private Long id;
+@AllArgsConstructor
+public class Marca {
+    private final long id;
     private String nome;
-    private String categoria;
-    private String marca;
-    private BigDecimal preco;
-    private boolean freteGratis;
-    private int estrelas;
-    private long quantidadeEstoque;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Produto produto = (Produto) o;
-        return id == produto.id;
+        Marca marca = (Marca) o;
+        return id == marca.id;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }

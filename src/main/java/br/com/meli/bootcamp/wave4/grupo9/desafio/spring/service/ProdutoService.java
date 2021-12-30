@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.List;
 
 /***
  * Service implementacao dos métodos do carrinho:<br>
@@ -50,7 +51,7 @@ public class ProdutoService {
     public List<Produto> listaProdutoCategoria(String categoria) {
         try {
             return estoqueRepository.listagem().stream()
-                    .filter(p -> p.getCategoria().getNome().equals(categoria)).
+                    .filter(p -> p.getCategoria().equals(categoria)).
                             collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -143,6 +144,4 @@ public class ProdutoService {
                 .filter(u -> marca.equals(u.getNome())).filter(u -> estrela == (u.getEstrelas()))
                 .collect(Collectors.toList());
     }
-
-
 }

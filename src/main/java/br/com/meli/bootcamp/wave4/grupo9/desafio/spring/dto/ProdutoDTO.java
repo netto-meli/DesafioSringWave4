@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 public class ProdutoDTO {
-    private final long id;
+    private long id;
     private String nome;
     private CategoriaDTO categoriaDTO;
     private String marca;

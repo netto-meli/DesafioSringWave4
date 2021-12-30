@@ -8,7 +8,6 @@ import java.util.List;
 
 /*** DTO par serialização de Cliente
  *
- * @author
  * @author Fernando Netto
  */
 @Data
@@ -18,7 +17,7 @@ public class ClienteDTO {
      * ID do Cliente do tipo long, com modificador de acesso <i>final</i>
      * para que a ID depois de atribuída, não possa ser alterada.
      */
-    private final long id;
+    private long id;
     /***
      * Nome do Cliente do tipo String
      */

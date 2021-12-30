@@ -53,13 +53,14 @@ public class CarrinhoController {
 	}
 
 	/*** Método para retirar uma quantidade "<i>qtdRetirar</i>" de um produto no carrinho de compras do cliente.<br>
-	 * POST — /loja/retiraDoCarrinho/{idCliente}{@literal ?}idProduto={idProduto}{@literal &}qtdRetirar={qtdRetirar}
+	 * GET — /loja/retiraDoCarrinho/{idCliente}{@literal ?}idProduto={idProduto}{@literal &}qtdRetirar={qtdRetirar}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @param idProduto ID do Produto que o cliente deseja acrescentar no carrinho de compras
 	 * @param qtdRetirar Quantos itens do produto selecionado, o Cliente deseja retirar do carrinho
 	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
-	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>CREATED</b> e <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
+	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>CREATED</b> e
+	 * <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
 	 */
 	@PostMapping("/retiraDoCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO>  retiraProdutosDoCarrinho(
@@ -76,7 +77,7 @@ public class CarrinhoController {
 	}
 
 	/*** Método para limpar o carrinho de compras do cliente.<br>
-	 * POST - /loja/limpaCarrinho/{idCliente}
+	 * GET - /loja/limpaCarrinho/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @return Retorna a mensagem "Seu carrinho está vazio"
@@ -88,7 +89,7 @@ public class CarrinhoController {
 	}
 
 	/*** Método para exibir os produtos do carrinho de compras do cliente.<br>
-	 * POST — /loja/carrinhoAberto/{idCliente}
+	 * GET — /loja/carrinhoAberto/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>OK</b>
@@ -100,21 +101,21 @@ public class CarrinhoController {
 	}
 
 	/*** Método para o cliente fechar o pedido com os produtos no carrinho.<br>
-	 * POST — /loja/fechaCarrinho/{idCliente}
+	 * GET — /loja/fechaCarrinho/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
 	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>CREATED</b> e
-	 * <i>GET</i>: "/loja/exibePedido/{idPedido}" implementado no Controller: {@link br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.PedidoDTO GETNOmme}
-	 * @see br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.PedidoDTO GetNOMEE
+	 * <i>GET</i>: "/loja/pedidos/{id}" implementado no Controller:
+	 * {@link br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada}
+	 * @see br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada
 	 */
 	@GetMapping("/fechaCarrinho/{idCliente}")
-	//TODO Atualizar método no javadoc
 	public ResponseEntity<PedidoDTO> fecharPedido(@PathVariable String idCliente,
 												   UriComponentsBuilder uriBuilder){
 		Pedido pedido = carrinhoService.fecharCarrinho(idCliente);
 		URI uri = uriBuilder
-				.path("/exibePedido/{idPedido}")
+				.path("/pedidos/{id}")
 				.buildAndExpand(pedido.getId())
 				.toUri();
 		return ResponseEntity.created(uri).body(PedidoDTO.converte(pedido));

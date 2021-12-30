@@ -9,7 +9,6 @@ import java.util.List;
 
 /*** DTO par serialização de ItemCarinho
  *
- * @author
  * @author Fernando Netto
  */
 @Data

@@ -19,11 +19,13 @@ public class Cliente {
     private List<Pedido> listaPedidos;
 
     public void adicionarProdutoNoCarrinho(ItemCarrinho carrinho){
-        listaPedidos.stream()
+        Pedido ped = listaPedidos.stream()
                 .filter(pd -> Objects.equals(pd.getId(), null))
                 .findAny()
-                .orElse( new Pedido(null, this.id, new ArrayList<>(), BigDecimal.ZERO))
-                .atualizaCarrinho(carrinho);
+                .orElse( new Pedido(null, this.id, new ArrayList<>(), BigDecimal.ZERO));
+        ped.atualizaCarrinho(carrinho);
+        listaPedidos.remove(ped);
+        listaPedidos.add(ped);
     }
 
     public void limparCarrinho(){

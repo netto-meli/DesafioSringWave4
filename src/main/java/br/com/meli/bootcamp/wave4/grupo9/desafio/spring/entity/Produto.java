@@ -18,6 +18,14 @@ public class Produto {
     private int estrelas;
     private long quantidadeEstoque;
 
+    public void baixarEstoque(long qtd){
+        if ( qtd > quantidadeEstoque ){
+            // TODO throw qtd acima do estoque
+            return ;
+        }
+        quantidadeEstoque -= qtd;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

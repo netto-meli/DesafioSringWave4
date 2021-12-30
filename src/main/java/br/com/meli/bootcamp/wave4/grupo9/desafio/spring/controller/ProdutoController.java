@@ -25,7 +25,6 @@ public class ProdutoController {
      *
      * @return endpoint para listar todos os produtos
      */
-
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/listarProdutos", method = RequestMethod.GET)
     public ResponseEntity<List<ProdutoDTO>> obter() {
@@ -34,7 +33,7 @@ public class ProdutoController {
 
     /***
      *
-     * @param categoria
+     * @param categoria cat
      * @return Lista de produtos filtrados pela categoria
      */
     @ResponseStatus(HttpStatus.OK)
@@ -45,15 +44,14 @@ public class ProdutoController {
 
     /***
      *
-     * @param ordenacao
-     * @retur Lista de produtos filtrados pela categoria
+     * @param ordenacao Parametro de ordenação
+     * @return Lista de produtos filtrados pela categoria
      * 0 - Alfabetica crescente
      * 1 - Alfabetica decrescente
-     * 2 - Maior -> menor preco
-     * 3 - Menor -> maior preco
-     * @return
+     * 2 - Maior para menor preco
+     * 3 - Menor para maior preco
+     * @throws IOException exc
      */
-
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/listarProdutosOrdenado", method = RequestMethod.GET)
     public ResponseEntity<List<ProdutoDTO>> obterListaOrdenada(
@@ -63,12 +61,11 @@ public class ProdutoController {
 
     /***
      *
-     * @param nome
-     * @param categoria
+     * @param nome nome
+     * @param categoria cat
      * @return lista filtrada pelo nome e categoria
-     * @throws IOException
+     * @throws IOException exceção
      */
-
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping("/listarProdutosOrdenado")
     public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros(@RequestParam String nome, String categoria) throws IOException {

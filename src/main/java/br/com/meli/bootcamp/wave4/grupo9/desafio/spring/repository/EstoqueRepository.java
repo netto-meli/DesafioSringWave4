@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 /***
  * @author Felipe
+ * @author Fernando
  * @author Leonardo
  */
 @Repository
@@ -26,8 +26,6 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
     private final String PATH = "estoque.json";
 
     public void salva(Produto produto) throws IOException {
-        // TODO verificar questao do ID
-        // produto.setId((long) produtos.size()+1);
         produtos.add(produto);
         objectMapper.writeValue(new File(PATH), produtos);
     }
@@ -35,22 +33,27 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
     public List<Produto> listagem() throws IOException{
         File file = new File(PATH);
         FileInputStream is = new FileInputStream(file);
-        produtos = Arrays.asList(objectMapper.readValue(is, Produto[].class));
+        Produto[] u = objectMapper.readValue(is, Produto[].class);
+        produtos = Arrays.asList(u);
         return produtos;
     }
 
     public Produto get(Long id) {
-        Optional<Produto> optional = produtos.stream().filter(u -> Long.valueOf(u.getId()).equals(id) ).findAny();
-        // TODO new produto
-        // return optional.orElse(new Produto());
-        return null;
-    }
-
-    //TODO fazer
-    public boolean verificarEstoque(List<ItemCarrinho> listItemCarrinho) {
-        return true;
+        return produtos.stream()
+                .filter(u -> Long.valueOf(u.getId()).equals(id) )
+                .findAny()
+                .orElse(null); // null se nao existe produto
     }
 
     public void baixarEstoque(List<ItemCarrinho> listItemCarrinho) {
+        for (ItemCarrinho pdCarrinho : listItemCarrinho) {
+            // se nao achar idproduto no estoque, NULLPOINTER
+            produtos.stream()
+                    .filter( pdEstq -> pdEstq.getId() == pdCarrinho.getProduto().getId() )
+                    .findFirst()
+                    .orElse(null)
+                    .baixarEstoque( pdCarrinho.getQuantidade() );
+                    // exception se nao tiver estoque
+        }
     }
 }

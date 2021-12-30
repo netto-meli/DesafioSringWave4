@@ -116,12 +116,13 @@ public class CarrinhoService {
         long idCliente = Long.parseLong(clienteId);
         Cliente cliente = clienteRepository.getCliente(idCliente);
         List<ItemCarrinho> listItemCarrinho = cliente.getCarrinho().getListaItensCarrinho();
-        if ( ! estoqueRepository.verificarEstoque(listItemCarrinho) ) {
-            // TODO erro pois esta sem estoque
-            System.out.println("sem estoque");
+        if (listItemCarrinho.size() == 0){
+            // Carinho Vazio não pode se tornar pedido
+            System.out.println("carrinho vazio");
+            return null;
         }
         estoqueRepository.baixarEstoque(listItemCarrinho);
-        Pedido pedido = pedidoRepository.criaPedido(listItemCarrinho);
+        Pedido pedido = pedidoRepository.criaPedido(listItemCarrinho, idCliente);
         cliente.limparCarrinho();
         return pedido;
     }

@@ -9,14 +9,13 @@ import java.util.List;
 
 /*** DTO par serialização de Pedido
  *
- * @author
  * @author Fernando Netto
  */
 @Data
 @AllArgsConstructor
 public class PedidoDTO {
     private Long id;
-    private final long idCliente;
+    private long idCliente;
     private List<ItemCarrinhoDTO> listaItensCarrinho;
     private BigDecimal valorTotal;
 

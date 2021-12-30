@@ -13,6 +13,6 @@ public class ClienteDTO {
     private String nome;
     private String endereco;
     private String estado;
-    private long cpf;
+    private String cpf;
     private List<PedidoDTO> listaPedidoDTOS;
 }

@@ -1,11 +1,12 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.Objects;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class Categoria {
     private long id;

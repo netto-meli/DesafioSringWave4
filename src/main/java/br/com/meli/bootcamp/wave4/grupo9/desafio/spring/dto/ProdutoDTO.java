@@ -12,7 +12,7 @@ public class ProdutoDTO {
     private final long id;
     private String nome;
     private CategoriaDTO categoriaDTO;
-    private MarcaDTO marcaDTO;
+    private String marca;
     private BigDecimal preco;
     private boolean freteGratis;
     private int estrelas;

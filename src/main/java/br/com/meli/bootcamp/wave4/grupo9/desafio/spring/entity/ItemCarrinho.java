@@ -12,6 +12,6 @@ public class ItemCarrinho {
     private long quantidade;
 
     public BigDecimal calculaValorTotal(){
-        return produto.getPreco().multiply(BigDecimal.valueOf(quantidade));
+        return produto.getPreco().multiply(new BigDecimal(quantidade));
     }
 }

@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.List;
+import java.net.URI;import java.util.List;
 
 /***
  * Controller dos métodos do carrinho:<br>
@@ -79,8 +78,9 @@ public class ProdutoController {
     @RequestMapping(value = "/listarProdutosOrdenado/", method = RequestMethod.GET)
     public ResponseEntity<ProdutoDTO> obterListaOrdenada(
             @RequestParam(value = "ordenacao", required = true) String ordenacao,
-            UriComponentsBuilder uriBuilder) {
-        Produto listaOrdenada = (Produto) produtoService.listaProdutoCategoria(ordenacao);
+            @RequestParam(value = "nameOrPreco", required = false) String nameOrPreco,
+            UriComponentsBuilder uriBuilder) throws IOException{
+        Produto listaOrdenada = (Produto) produtoService.listaProdutoOrdenado(ordenacao, nameOrPreco);
         URI uri = uriBuilder
                 .path("/listarProdutosOrdenado/")
                 .buildAndExpand(listaOrdenada)

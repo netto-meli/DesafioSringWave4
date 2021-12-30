@@ -31,10 +31,10 @@ public class PedidoService {
         List<Pedido> lista = new ArrayList<>();
 
         if (number == 0) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p1.getCliente().getNome().compareTo(p2.getCliente().getNome())).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p1.getIdCliente().compareTo(p2.getIdCliente())).collect(Collectors.toList());
         }
         else if(number == 1) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p2, p1) -> p2.getCliente().getNome().compareTo(p1.getCliente().getNome())).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p2, p1) -> p2.getIdCliente().compareTo(p1.getIdCliente())).collect(Collectors.toList());
         }
 
         else if(number == 2) {

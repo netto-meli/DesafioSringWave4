@@ -25,7 +25,7 @@ public class CategoriaService {
     }
 
     public Categoria inserir(Categoria obj) {
-        obj.setId(repository.listarCategoria().size());
+        obj.setId((long) repository.listarCategoria().size());
         return repository.salvarCategoria(obj);
     }
 

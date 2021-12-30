@@ -10,7 +10,7 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 public class Produto {
-    private final long id;
+    private Long id;
     private String nome;
     private Categoria categoria;
     private String marca;

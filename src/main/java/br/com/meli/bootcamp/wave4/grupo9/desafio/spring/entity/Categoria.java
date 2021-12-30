@@ -9,7 +9,7 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 public class Categoria {
-    private long id;
+    private Long id;
     private String nome;
 
     @Override

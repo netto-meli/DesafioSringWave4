@@ -1,9 +1,8 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,4 +20,7 @@ public class PedidoRepository {
         return listaPedido;
     }
 
+    public Pedido criaPedido(List<ItemCarrinho> listItemCarrinho) {
+        return null;
+    }
 }

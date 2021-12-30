@@ -7,11 +7,19 @@ import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
-public class ItemCarrinho {
+public class ItemCarrinho{
+    private Long quantidade;
     private Produto produto;
-    private long quantidade;
 
-    public BigDecimal calculaValorTotal(){
+    public BigDecimal calculaValorTotalProduto(){
+        return produto.getPreco().multiply(BigDecimal.valueOf(quantidade));
+    }
+
+    public BigDecimal calculaValorTotal() {
         return produto.getPreco().multiply(new BigDecimal(quantidade));
+    }
+
+    public void retiraQuantidadeProduto(long qtdProduto) {
+        quantidade -= qtdProduto;
     }
 }

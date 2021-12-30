@@ -5,10 +5,7 @@ import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Marca;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,6 +23,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 
 public class ProdutoDTO {
+    @Generated
     private Long id;
     private String nome;
     private String categoriaDTO;
@@ -40,7 +38,7 @@ public class ProdutoDTO {
         this.nome = produto.getNome();
         this.categoriaDTO = produto.getCategoria();
         this.marca = produto.getMarca();
-        this.valor = produto.getValor();
+        this.valor = produto.getPreco();
         this.freteGratis = produto.isFreteGratis();
         this.estrelas = produto.getEstrelas();
         this.quantidadeEstoque = produto.getQuantidadeEstoque();
@@ -77,8 +75,8 @@ public class ProdutoDTO {
                 produtodto.getQuantidadeEstoque() );
     }
 
-    public static List<ProdutoDTO> converte(List<Produto> produtos) {
-        return produtos.stream().map(u -> converte(u)).collect(Collectors.toList());
+    public static List<ProdutoDTO> convertelist(List<Produto> produtos) {
+        return produtos.stream().map(ProdutoDTO::converte).collect(Collectors.toList());
     }
 
     @Override

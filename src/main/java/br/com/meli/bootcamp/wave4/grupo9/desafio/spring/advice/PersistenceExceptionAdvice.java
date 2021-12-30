@@ -8,13 +8,6 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class PersistenceExceptionAdvice {
 
-   // @ExceptionHandler(value = RepositoryException.class)
-    /*protected ResponseEntity<Object> handlePersistencia(RepositoryException ex, WebRequest request) {
-        String bodyOfResponse = ex.getMessage();
-        return ResponseEntity.badRequest().body(bodyOfResponse);
-    }*/
-
-
     @ExceptionHandler(value = NullPointerException.class)
     protected ResponseEntity<Object> handleNullPointer(NullPointerException ex, WebRequest request) {
         return ResponseEntity.badRequest().body("usuario... o pessoal do desenvolvimento vai passar no rh.");

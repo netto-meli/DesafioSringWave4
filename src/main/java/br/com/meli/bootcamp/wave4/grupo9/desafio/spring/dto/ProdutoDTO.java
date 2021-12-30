@@ -1,14 +1,10 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto;
 
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Marca;
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;

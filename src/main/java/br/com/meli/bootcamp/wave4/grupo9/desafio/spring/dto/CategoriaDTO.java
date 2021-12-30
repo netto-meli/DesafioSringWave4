@@ -3,36 +3,43 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
 import lombok.*;
 import org.springframework.stereotype.Service;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Objects;
 
 @Data
 @Builder
 @NoArgsConstructor
+/*** DTO par serialização de Categoria
+ *
+ * @author Felipe
+ * @author Fernando Netto
+ */
+@Getter
+@AllArgsConstructor
 public class CategoriaDTO {
-    private Long id;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
+    /***
+     * ID da Categoria do tipo long
+     */
+    private long id;
+    /***
+     * Nome da Categoria do tipo String
+     */
     private String nome;
 
-    public CategoriaDTO(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
+    /*** Conversor da classe Categoria: de Entidade para DTO
+     *
+     * @param categoria Objeto Categoria a ser convertido
+     * @return Objeto CategoriaDTO convertido
+     */
+    public static CategoriaDTO converte(Categoria categoria) {
+        return new CategoriaDTO(categoria.getId(), categoria.getNome());
+    }
+
+    public static Categoria converte(CategoriaDTO categoriaDTO) {
+        return null;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto;
 
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,4 +42,8 @@ public class ClienteDTO {
      */
     @JsonIgnore
     private List<PedidoDTO> listaPedidoDTOS;
+
+    public static List<ClienteDTO> convert(List<Cliente> cliente) {
+    }
 }
+

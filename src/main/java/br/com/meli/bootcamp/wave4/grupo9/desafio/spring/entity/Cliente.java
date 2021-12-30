@@ -57,4 +57,7 @@ public class Cliente {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public void setId(Long clienteId) {
+    }
 }

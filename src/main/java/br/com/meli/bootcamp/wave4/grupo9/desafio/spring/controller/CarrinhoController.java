@@ -52,8 +52,8 @@ public class CarrinhoController {
 		return ResponseEntity.created(uri).body(PedidoDTO.converte(pedidoAberto));
 	}
 
-	/*** Método para retirar uma quantidadde "<i>qtdRetirar</i>" de um produto no carrinho de compras do cliente.<br>
-	 * POST - /loja/retiraDoCarrinho/{idCliente}{@literal ?}idProduto={idProduto}{@literal &}qtdRetirar={qtdRetirar}
+	/*** Método para retirar uma quantidade "<i>qtdRetirar</i>" de um produto no carrinho de compras do cliente.<br>
+	 * POST — /loja/retiraDoCarrinho/{idCliente}{@literal ?}idProduto={idProduto}{@literal &}qtdRetirar={qtdRetirar}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @param idProduto ID do Produto que o cliente deseja acrescentar no carrinho de compras
@@ -88,7 +88,7 @@ public class CarrinhoController {
 	}
 
 	/*** Método para exibir os produtos do carrinho de compras do cliente.<br>
-	 * POST - /loja/carrinhoAberto/{idCliente}
+	 * POST — /loja/carrinhoAberto/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>OK</b>
@@ -100,7 +100,7 @@ public class CarrinhoController {
 	}
 
 	/*** Método para o cliente fechar o pedido com os produtos no carrinho.<br>
-	 * POST - /loja/fechaCarrinho/{idCliente}
+	 * POST — /loja/fechaCarrinho/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
@@ -109,7 +109,7 @@ public class CarrinhoController {
 	 * @see br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.PedidoDTO GetNOMEE
 	 */
 	@GetMapping("/fechaCarrinho/{idCliente}")
-	//TODO Atualizar metodo no javadoc
+	//TODO Atualizar método no javadoc
 	public ResponseEntity<PedidoDTO> fecharPedido(@PathVariable String idCliente,
 												   UriComponentsBuilder uriBuilder){
 		Pedido pedido = carrinhoService.fecharCarrinho(idCliente);

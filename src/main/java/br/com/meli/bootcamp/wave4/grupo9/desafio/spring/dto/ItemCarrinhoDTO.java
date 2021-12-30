@@ -1,29 +1,46 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SuperBuilder
-public class ItemCarrinhoDTO extends ProdutoDTO{
-    @Getter
-    @Setter
+/*** DTO par serialização de ItemCarinho
+ *
+ * @author
+ * @author Fernando Netto
+ */
+@Data
+@AllArgsConstructor
+public class ItemCarrinhoDTO {
+    /***
+     * Quantidade de um mesmo Produto presente no Carrinho/Pedido
+     */
     private long quantidade;
+    /***
+     * Objeto ProdutoDTO contendo os dados do produto inserido no Carrinho/Pedido
+     */
+    private ProdutoDTO produtoDTO;
 
+    /*** Conversor de lista de ItemCarrinho: de Entidade para DTO
+     *
+     * @param listaItensCarrinho Lista de Itens no Carrinho/Pedido a ser convertida
+     * @return Lista de ItensCarrinhoDTO convertido
+     */
     public static List<ItemCarrinhoDTO> converte(List<ItemCarrinho> listaItensCarrinho) {
-        List<ItemCarrinhoDTO> j = new ArrayList<>();
-        listaItensCarrinho.forEach( prod -> {
-            ItemCarrinhoDTO y = ItemCarrinhoDTO.converte(prod);
-            j.add(y);
-        });
-        return j;
+        List<ItemCarrinhoDTO> listaItemCarrinhoDTO = new ArrayList<>();
+        listaItensCarrinho.forEach( prod -> listaItemCarrinhoDTO.add( ItemCarrinhoDTO.converte(prod) ) );
+        return listaItemCarrinhoDTO;
     }
 
-    private static ItemCarrinhoDTO converte (ItemCarrinho i){
-        return null;//new ItemCarrinhoDTO( Produto.converte( i.getProduto() ),i.getQuantidade());
+    /*** Conversor de ItemCarrinho: de Entidade para DTO
+     *
+     * @param produto Produto no Carrinho/Pedido a ser convertida
+     * @return Lista de ItensCarrinhoDTO convertido
+     */
+    private static ItemCarrinhoDTO converte (ItemCarrinho produto){
+        return new ItemCarrinhoDTO( produto.getQuantidade(), ProdutoDTO.converte( produto.getProduto() ) );
     }
 }

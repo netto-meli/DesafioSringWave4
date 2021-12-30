@@ -7,6 +7,11 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.List;
 
+/*** DTO par serialização de Pedido
+ *
+ * @author
+ * @author Fernando Netto
+ */
 @Data
 @AllArgsConstructor
 public class PedidoDTO {
@@ -15,8 +20,16 @@ public class PedidoDTO {
     private List<ItemCarrinhoDTO> listaItensCarrinho;
     private BigDecimal valorTotal;
 
+    /*** Conversor da classe Pedido: de Entidade para DTO
+     *
+     * @param pedido Objeto Pedido a ser convertido
+     * @return Objeto PedidoDTO convertido
+     */
     public static PedidoDTO converte(Pedido pedido) {
-        List<ItemCarrinhoDTO> listaItensCarrinhoDTO = ItemCarrinhoDTO.converte(pedido.getListaItensCarrinho());
-        return new PedidoDTO( pedido.getId(), pedido.getIdCliente(), listaItensCarrinhoDTO, pedido.getValorTotal() );
+        return new PedidoDTO(
+                pedido.getId(),
+                pedido.getIdCliente(),
+                ItemCarrinhoDTO.converte(pedido.getListaItensCarrinho()),
+                pedido.getValorTotal() );
     }
 }

@@ -9,6 +9,7 @@ import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.PedidoReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 /*** Service dos métodos do carrinho:<br>
@@ -31,6 +32,10 @@ public class CarrinhoService {
      */
     @Autowired
     private EstoqueRepository estoqueRepository;
+    /*** Instancia de repositório: <b>PedidoRepository</b> com notação <i>{@literal @}Autowired</i> do lombok
+     */
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     /*** Método para adicionar novo produto, ou mais itens de um mesmo produto, ao carrinho de compras do cliente.<br>
      * Criando persistência do carrinho no repositório.
@@ -39,7 +44,7 @@ public class CarrinhoService {
      * @param produtoId ID do Produto que o cliente deseja acrescentar no carrinho de compras
      * @param quantidade Quantos itens do produto selecionado, o Cliente deseja adicionar no carrinho
      * @return Retorna um carrinho de compras (internamente é um <b>Pedido</b> com <i>ID nula</i>,
-     * pois se trata um pedido ainda não finalizado (carrinho aberto) ).
+     * pois se trata um pedido ainda não finalizado).
      */
     public Pedido adicionarProdutosNoCarrinho(String clienteId, String produtoId, String quantidade) {
         long idCliente = Long.parseLong(clienteId);
@@ -49,8 +54,7 @@ public class CarrinhoService {
         ItemCarrinho itemCarrinho;
         if ( Objects.equals( cliente.getCarrinho(), null)
                 || cliente.getCarrinho().getItemCarrinho(idProduto) == null) {
-            itemCarrinho = (ItemCarrinho) estoqueRepository.getProduto(idProduto);
-            itemCarrinho.setQuantidade(qtdProdutos);
+            itemCarrinho = new ItemCarrinho( qtdProdutos, estoqueRepository.getProduto(idProduto) );
         } else {
             itemCarrinho = cliente.getCarrinho().getItemCarrinho(idProduto);
             itemCarrinho.setQuantidade( itemCarrinho.getQuantidade() + qtdProdutos );
@@ -83,7 +87,7 @@ public class CarrinhoService {
         return cliente.getCarrinho();
     }
 
-    /*** Método para limpar o carrinho de compras do um cliente
+    /*** Método para limpar o carrinho de compras de um cliente
      *
      * @param clienteId ID do Cliente que deseja zerar o carrinho de compras
      */
@@ -103,7 +107,19 @@ public class CarrinhoService {
         return cliente.getCarrinho();
     }
 
-    public Pedido fecharCarrinho(String idCliente) {
-        return null;
+    /*** Método para fechar o carrinho de compras de um cliente e criar um pedido
+     *
+     * @param clienteId ID do Cliente que deseja ver o estado atual do carrinho de compras
+     * @return Retorna um <b>Pedido</b>, com <i>ID nula</i>, pois é um pedido ainda não finalizado (carrinho aberto).
+     */
+    public Pedido fecharCarrinho(String clienteId) {
+        long idCliente = Long.parseLong(clienteId);
+        Cliente cliente = clienteRepository.getCliente(idCliente);
+        List<ItemCarrinho> listItemCarrinho = cliente.getCarrinho().getListaItensCarrinho();
+        estoqueRepository.verificarEstoque(listItemCarrinho);
+        estoqueRepository.baixarEstoque(listItemCarrinho);
+        Pedido pedido = pedidoRepository.criaPedido(listItemCarrinho);
+        cliente.limparCarrinho();
+        return pedido;
     }
 }

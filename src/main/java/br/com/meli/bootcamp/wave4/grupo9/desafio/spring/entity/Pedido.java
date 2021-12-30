@@ -14,10 +14,10 @@ public class Pedido {
     private List<ItemCarrinho> listaItensCarrinho;
     private BigDecimal valorTotal;
 
-    public void calculaValorTotal(){
+    public void calculaValorTotalPedido(){
         BigDecimal valorPedido = BigDecimal.ZERO;
         for (ItemCarrinho item : listaItensCarrinho) {
-            BigDecimal valorTotalUmProduto = item.getPreco().multiply( new BigDecimal(item.getQuantidade()) );
+            BigDecimal valorTotalUmProduto = item.calculaValorTotalProduto();
             valorPedido = valorTotalUmProduto.add(valorPedido);
         }
         this.valorTotal = valorPedido;
@@ -25,7 +25,7 @@ public class Pedido {
 
     public ItemCarrinho getItemCarrinho(Long idProduto) {
         return listaItensCarrinho.stream()
-                .filter( ic -> ic.getId() == idProduto )
+                .filter( ic -> ic.getProduto().getId() == idProduto )
                 .findAny()
                 .orElse(null);
     }
@@ -33,6 +33,6 @@ public class Pedido {
     public void atualizaCarrinho(ItemCarrinho itemCarrinho) {
         listaItensCarrinho.removeIf(itemCarrinho::equals);
         if (itemCarrinho.getQuantidade() > 0 ) listaItensCarrinho.add(itemCarrinho);
-        this.calculaValorTotal();
+        this.calculaValorTotalPedido();
     }
 }

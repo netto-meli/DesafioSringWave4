@@ -12,8 +12,8 @@ public class Produto {
     private final long id;
     private String nome;
     private Categoria categoria;
-    private Marca marca;
-    private BigDecimal preco;
+    private String marca;
+    private BigDecimal valor;
     private boolean freteGratis;
     private int estrelas;
     private long quantidadeEstoque;

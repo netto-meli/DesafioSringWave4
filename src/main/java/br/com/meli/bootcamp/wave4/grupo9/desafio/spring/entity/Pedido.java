@@ -9,14 +9,30 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class Pedido {
-    private final long id;
+    private Long id;
     private final long idCliente;
     private List<ItemCarrinho> listaItensCarrinho;
     private BigDecimal valorTotal;
 
-    public void calculaValorTotal(){
-        //
+    public void calculaValorTotalPedido(){
+        BigDecimal valorPedido = BigDecimal.ZERO;
+        for (ItemCarrinho item : listaItensCarrinho) {
+            BigDecimal valorTotalUmProduto = item.calculaValorTotalProduto();
+            valorPedido = valorTotalUmProduto.add(valorPedido);
+        }
+        this.valorTotal = valorPedido;
     }
 
+    public ItemCarrinho getItemCarrinho(Long idProduto) {
+        return listaItensCarrinho.stream()
+                .filter( ic -> ic.getProduto().getId() == idProduto )
+                .findAny()
+                .orElse(null);
+    }
 
+    public void atualizaCarrinho(ItemCarrinho itemCarrinho) {
+        listaItensCarrinho.removeIf(itemCarrinho::equals);
+        if (itemCarrinho.getQuantidade() > 0 ) listaItensCarrinho.add(itemCarrinho);
+        this.calculaValorTotalPedido();
+    }
 }

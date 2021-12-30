@@ -71,9 +71,9 @@ public class ProdutoService {
         } else if (ORDENCAO_AFABETICA_DEC.equals(ordenacao)) {
             estoqueRepository.listagem().stream().sorted(Comparator.comparing(Produto::getNome).reversed()).collect(Collectors.toList());
         } else if (ORDENCAO_MAIOR_PRECO.equals(ordenacao)) {
-            estoqueRepository.listagem().stream().sorted(Comparator.comparing(Produto::getValor)).collect(Collectors.toList());
+            estoqueRepository.listagem().stream().sorted(Comparator.comparing(Produto::getPreco)).collect(Collectors.toList());
         } else if (ORDENCAO_MENOR_PRECO.equals(ordenacao)) {
-            estoqueRepository.listagem().stream().sorted(Comparator.comparing(Produto::getValor).reversed()).collect(Collectors.toList());
+            estoqueRepository.listagem().stream().sorted(Comparator.comparing(Produto::getPreco).reversed()).collect(Collectors.toList());
         }
         return null;
     }

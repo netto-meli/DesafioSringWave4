@@ -15,31 +15,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ClienteDTO {
-    /***
-     * ID do Cliente do tipo long, com modificador de acesso <i>final</i>
-     * para que a ID depois de atribuída, não possa ser alterada.
-     */
-    private final long id;
-    /***
-     * Nome do Cliente do tipo String
-     */
+    private Long id;
     private String nome;
-    /***
-     * Endereço do Cliente do tipo String
-     */
     private String endereco;
-    /***
-     * Estado do Cliente do tipo String
-     */
     private String estado;
-    /***
-     * CPF do Cliente do tipo String
-     */
     private String cpf;
-    /***
-     * Lista de PedidosDTO, com a notação <i>{@literal @}JsonIgnore</i>,
-     * para que o JSON não utilize esse atributo em seu conteúdo.
-     */
+
     @JsonIgnore
     private List<PedidoDTO> listaPedidoDTOS;
 

@@ -16,7 +16,6 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
-    private ClienteRepository clienteRepository;
 
     public List<Pedido> encontrarTodos(){
         return pedidoRepository.listarPedido();
@@ -31,24 +30,18 @@ public class PedidoService {
         List<Pedido> lista = new ArrayList<>();
 
         if (number == 0) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> sortCliente(p1,p2) ).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p1.getId().compareTo(p2.getId()) ).collect(Collectors.toList());
         }
         else if(number == 1) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p2, p1) -> sortCliente(p2,p1)).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p2.getId().compareTo(p1.getId())).collect(Collectors.toList());
         }
         else if(number == 2) {
             lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p1.getValorTotal().compareTo(p2.getValorTotal())).collect(Collectors.toList());
         }
         else if(number == 3) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p2, p1) -> p2.getValorTotal().compareTo(p1.getValorTotal())).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p2.getValorTotal().compareTo(p1.getValorTotal())).collect(Collectors.toList());
         }
 
         return lista;
-    }
-
-    private int sortCliente(Pedido p1, Pedido p2){
-        Cliente cli1 = clienteRepository.getCliente(p1.getIdCliente());
-        Cliente cli2 = clienteRepository.getCliente(p2.getIdCliente());
-        return cli1.getNome().compareTo(cli2.getNome());
     }
 }

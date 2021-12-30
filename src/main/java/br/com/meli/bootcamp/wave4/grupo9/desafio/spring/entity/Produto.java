@@ -1,5 +1,6 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,11 +10,11 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 public class Produto {
-    private final long id;
+    private Long id;
     private String nome;
     private Categoria categoria;
     private String marca;
-    private BigDecimal valor;
+    private BigDecimal preco;
     private boolean freteGratis;
     private int estrelas;
     private long quantidadeEstoque;

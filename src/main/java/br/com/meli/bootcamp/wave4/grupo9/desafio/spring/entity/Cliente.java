@@ -1,5 +1,6 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 public class Cliente {
-    private final long id;
+    private Long id;
     private String nome;
     private String endereco;
     private String estado;
@@ -22,7 +23,7 @@ public class Cliente {
         listaPedidos.stream()
                 .filter(pd -> Objects.equals(pd.getId(), null))
                 .findAny()
-                .orElse( new Pedido(null, this.id, new ArrayList<>(), BigDecimal.ZERO))
+                .orElse( new Pedido(this.id, null, new ArrayList<>(), BigDecimal.ZERO))
                 .atualizaCarrinho(carrinho);
     }
 
@@ -30,7 +31,7 @@ public class Cliente {
         listaPedidos.stream()
                 .filter(pd -> Objects.equals(pd.getId(), null))
                 .findAny()
-                .orElse( new Pedido(null, this.id, new ArrayList<>(), BigDecimal.ZERO))
+                .orElse( new Pedido(this.id, null, new ArrayList<>(), BigDecimal.ZERO))
                 .setListaItensCarrinho( new ArrayList<>() );
     }
 

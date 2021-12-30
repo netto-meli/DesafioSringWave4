@@ -14,20 +14,9 @@ import java.util.Objects;
 @Getter
 @AllArgsConstructor
 public class CategoriaDTO {
-    /***
-     * ID da Categoria do tipo long
-     */
-    private long id;
-    /***
-     * Nome da Categoria do tipo String
-     */
+    private Long id;
     private String nome;
 
-    /*** Conversor da classe Categoria: de Entidade para DTO
-     *
-     * @param categoria Objeto Categoria a ser convertido
-     * @return Objeto CategoriaDTO convertido
-     */
     public static CategoriaDTO converte(Categoria categoria) {
         return new CategoriaDTO(categoria.getId(), categoria.getNome());
     }

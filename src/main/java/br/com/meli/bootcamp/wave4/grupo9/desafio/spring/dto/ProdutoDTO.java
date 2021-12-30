@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 public class ProdutoDTO {
-    private final long id;
+    private Long id;
     private String nome;
     private CategoriaDTO categoriaDTO;
     private String marca;
-    private BigDecimal valor;
+    private BigDecimal preco;
     private boolean freteGratis;
     private int estrelas;
     private long quantidadeEstoque;
@@ -38,7 +38,7 @@ public class ProdutoDTO {
                 produto.getNome(),
                 CategoriaDTO.converte(produto.getCategoria()),
                 produto.getMarca(),
-                produto.getValor(),
+                produto.getPreco(),
                 produto.isFreteGratis(),
                 produto.getEstrelas(),
                 produto.getQuantidadeEstoque());
@@ -50,7 +50,7 @@ public class ProdutoDTO {
                 produtodto.getNome(),
                 CategoriaDTO.converte(produtodto.getCategoriaDTO()),
                 produtodto.getMarca(),
-                produtodto.getValor(),
+                produtodto.getPreco(),
                 produtodto.isFreteGratis(),
                 produtodto.getEstrelas(),
                 produtodto.getQuantidadeEstoque() );

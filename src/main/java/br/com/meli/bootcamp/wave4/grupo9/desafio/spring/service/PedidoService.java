@@ -1,7 +1,7 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service;
 
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.*;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.*;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.ClienteRepository;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,7 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
 
     public List<Pedido> encontrarTodos(){
-        List<Pedido> pedidos = pedidoRepository.listarPedido();
-        return pedidos;
+        return pedidoRepository.listarPedido();
     }
 
     public Pedido encontrarPorId(long id){
@@ -31,17 +30,16 @@ public class PedidoService {
         List<Pedido> lista = new ArrayList<>();
 
         if (number == 0) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p1.getIdCliente().compareTo(p2.getIdCliente())).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p1.getId().compareTo(p2.getId()) ).collect(Collectors.toList());
         }
         else if(number == 1) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p2, p1) -> p2.getIdCliente().compareTo(p1.getIdCliente())).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p2.getId().compareTo(p1.getId())).collect(Collectors.toList());
         }
-
         else if(number == 2) {
             lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p1.getValorTotal().compareTo(p2.getValorTotal())).collect(Collectors.toList());
         }
         else if(number == 3) {
-            lista = pedidoRepository.listarPedido().stream().sorted((p2, p1) -> p2.getValorTotal().compareTo(p1.getValorTotal())).collect(Collectors.toList());
+            lista = pedidoRepository.listarPedido().stream().sorted((p1, p2) -> p2.getValorTotal().compareTo(p1.getValorTotal())).collect(Collectors.toList());
         }
 
         return lista;

@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/***
+ * @author Marcos
+ */
 @Repository
 public class CategoriaRepository {
 

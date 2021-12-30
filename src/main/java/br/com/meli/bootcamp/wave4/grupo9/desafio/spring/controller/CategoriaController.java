@@ -11,6 +11,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+/***
+ * @author Marcos
+ */
 @RestController
 @RequestMapping(value = "/loja")
 public class CategoriaController {

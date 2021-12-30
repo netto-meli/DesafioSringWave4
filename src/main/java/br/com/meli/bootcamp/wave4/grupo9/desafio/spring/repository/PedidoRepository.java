@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+/***
+ * @author Fernando Netto
+ */
 @Repository
 public class PedidoRepository {
-
     List<Pedido> listaPedido = new ArrayList<>();
 
     public void salvarPedido(Pedido pedido) {
@@ -23,4 +25,5 @@ public class PedidoRepository {
     public Pedido criaPedido(List<ItemCarrinho> listItemCarrinho) {
         return null;
     }
+
 }

@@ -36,15 +36,15 @@ public class ProdutoController {
      * @return endpoint para listar todos os produtos
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/listarProdutos", method = RequestMethod.GET)
-    public ResponseEntity<ProdutoDTO> obterlista(
+    @GetMapping(value = "/listarProdutos")
+    public ResponseEntity<List<ProdutoDTO>> obterlista(
             UriComponentsBuilder uriBuilder) {
-        Produto lista = (Produto) produtoService.listaProduto();
+        List<Produto> lista =  produtoService.listaProduto();
         URI uri = uriBuilder
                 .path("/listarProdutos")
                 .buildAndExpand(lista)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converte(lista));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(lista));
     }
 
     /***
@@ -53,16 +53,16 @@ public class ProdutoController {
      * @return Lista de produtos filtrados pela categoria
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/listarProdutosCategoria", method = RequestMethod.GET)
-    public ResponseEntity<ProdutoDTO> obterCategoria(
+    @GetMapping(value = "/listarProdutosCategoria")
+    public ResponseEntity<List<ProdutoDTO>> obterCategoria(
             @RequestParam(value = "categoria", required = true) String categoria,
             UriComponentsBuilder uriBuilder) {
-        Produto listaCategoria = (Produto) produtoService.listaProdutoCategoria(categoria);
+        List<Produto> listaCategoria = produtoService.listaProdutoCategoria(categoria);
         URI uri = uriBuilder
                 .path("/listarProdutosCategoria")
                 .buildAndExpand(listaCategoria)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaCategoria));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaCategoria));
     }
 
     /***
@@ -80,19 +80,22 @@ public class ProdutoController {
      * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/listarProdutosOrdenado", method = RequestMethod.GET)
-    public ResponseEntity<ProdutoDTO> obterListaOrdenada(
-            @RequestParam(value = "ordenacao", required = true) String ordenacao,
-            @RequestParam(value = "nameOrPreco", required = false) String nameOrPreco,
-            @RequestParam(value = "marca", required = false) String marca,
-            @RequestParam(value = "categoria", required = false) String categoria,
+    @GetMapping(value = "/listarProdutosOrdenado")
+    public ResponseEntity<List<ProdutoDTO>> obterListaOrdenada(
+            @RequestParam(value = "ordenacao") String ordenacao,
+            @RequestParam(value = "nameOrPreco") String nameOrPreco,
+            @RequestParam(value = "marca") String marca,
+            @RequestParam(value = "categoria") String categoria,
             UriComponentsBuilder uriBuilder) throws IOException{
-        Produto listaOrdenada = (Produto) produtoService.listaProdutoOrdenado(ordenacao, nameOrPreco, marca, categoria);
+        if(nameOrPreco.isEmpty()){
+            nameOrPreco = null;
+        }
+        List<Produto> listaOrdenada = produtoService.listaProdutoOrdenado(ordenacao, nameOrPreco);
         URI uri = uriBuilder
                 .path("/listarProdutosOrdenado")
                 .buildAndExpand(listaOrdenada)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenada));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenada));
     }
 
     /***
@@ -103,17 +106,17 @@ public class ProdutoController {
      * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/listarProdutosNomeCategoria", method = RequestMethod.GET)
-    public ResponseEntity<ProdutoDTO> obterProdutoDoisParametros(
+    @GetMapping(value = "/listarProdutosNomeCategoria")
+    public ResponseEntity<List<ProdutoDTO>>  obterProdutoDoisParametros(
             @RequestParam(value = "nome", required = true) String nome,
             @RequestParam(value = "categoria", required = true) String categoia,
             UriComponentsBuilder uriBuilder) throws IOException{
-        Produto listaOrdenadaPersonaliza = (Produto) produtoService.listaProdutoFiltorPersonalizado(nome,categoia);
+        List <Produto> listaOrdenadaPersonaliza = produtoService.listaProdutoFiltorPersonalizado(nome,categoia);
         URI uri = uriBuilder
                 .path("/listarProdutosNomeCategoria")
                 .buildAndExpand(listaOrdenadaPersonaliza)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza));
     }
 
     /***
@@ -125,17 +128,17 @@ public class ProdutoController {
      * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/listarProdutosNomeFrete", method = RequestMethod.GET)
-    public ResponseEntity<ProdutoDTO> obterProdutoDoisParametros2(
+    @GetMapping(value = "/listarProdutosNomeFrete")
+    public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros2(
             @RequestParam(value = "nome", required = true) String nome,
             @RequestParam(value = "frete", required = true) boolean frete,
             UriComponentsBuilder uriBuilder) throws IOException{
-        Produto listaOrdenadaPersonaliza2 = (Produto) produtoService.listaProdutoFiltorPersonalizado2(nome,frete);
+        List <Produto> listaOrdenadaPersonaliza2 = produtoService.listaProdutoFiltorPersonalizado2(nome,frete);
         URI uri = uriBuilder
                 .path("/listarProdutosNomeFrete")
                 .buildAndExpand(listaOrdenadaPersonaliza2)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza2));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza2));
     }
 
     /***
@@ -147,17 +150,17 @@ public class ProdutoController {
      * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/listarProdutosNomeMarca", method = RequestMethod.GET)
-    public ResponseEntity<ProdutoDTO> obterProdutoDoisParametros3(
+    @GetMapping(value = "/listarProdutosNomeMarca")
+    public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros3(
             @RequestParam(value = "nome", required = true) String nome,
             @RequestParam(value = "marca", required = true) String marca,
             UriComponentsBuilder uriBuilder) throws IOException{
-        Produto listaOrdenadaPersonaliza3 = (Produto) produtoService.listaProdutoFiltorPersonalizado3(nome,marca);
+        List <Produto> listaOrdenadaPersonaliza3 = produtoService.listaProdutoFiltorPersonalizado3(nome,marca);
         URI uri = uriBuilder
                 .path("/listarProdutosNomeMarca")
                 .buildAndExpand(listaOrdenadaPersonaliza3)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza3));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza3));
     }
 
     /***
@@ -169,17 +172,17 @@ public class ProdutoController {
      * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/listarProdutosFreteCategoria", method = RequestMethod.GET)
-    public ResponseEntity<ProdutoDTO> obterProdutoDoisParametros4(
+    @GetMapping(value = "/listarProdutosFreteCategoria")
+    public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros4(
             @RequestParam(value = "frete", required = true) boolean frete,
             @RequestParam(value = "categoria", required = true) String categoria,
             UriComponentsBuilder uriBuilder) throws IOException{
-        Produto listaOrdenadaPersonaliza4 = (Produto) produtoService.listaProdutoFiltorPersonalizado4(frete,categoria);
+        List <Produto> listaOrdenadaPersonaliza4 = produtoService.listaProdutoFiltorPersonalizado4(frete,categoria);
         URI uri = uriBuilder
                 .path("/listarProdutosFreteCategoria")
                 .buildAndExpand(listaOrdenadaPersonaliza4)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza4));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza4));
     }
 
     /***
@@ -191,17 +194,17 @@ public class ProdutoController {
      * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/listarProdutosMarcaEstrela", method = RequestMethod.GET)
-    public ResponseEntity<ProdutoDTO> obterProdutoDoisParametros5(
+    @GetMapping(value = "/listarProdutosMarcaEstrela")
+    public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros5(
             @RequestParam(value = "marca", required = true) String marca,
             @RequestParam(value = "estrela", required = true) int estrela,
             UriComponentsBuilder uriBuilder) throws IOException{
-        Produto listaOrdenadaPersonaliza5= (Produto) produtoService.listaProdutoFiltorPersonalizado5(marca,estrela);
+        List <Produto> listaOrdenadaPersonaliza5= produtoService.listaProdutoFiltorPersonalizado5(marca,estrela);
         URI uri = uriBuilder
                 .path("/listarProdutosMarcaEstrela")
                 .buildAndExpand(listaOrdenadaPersonaliza5)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza5));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza5));
     }
 
 }

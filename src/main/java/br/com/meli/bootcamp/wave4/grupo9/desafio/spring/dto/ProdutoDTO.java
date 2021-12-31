@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/*** DTO par serialização de Produto
+/*** DTO para serialização de Produto
  *
  * @author Felipe
  * @author Fernando Netto
@@ -18,13 +18,37 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 public class ProdutoDTO {
+    /***
+     * ID do ProdutoDTO no tipo long
+     */
     private long id;
+    /***
+     * Nome do ProdutoDTO no formato String
+     */
     private String nome;
+    /***
+     * Objeto CategoriaDTO com informações da categoria do projeto
+     */
     private CategoriaDTO categoriaDTO;
+    /***
+     * Marca do produto no formato String
+     */
     private String marca;
+    /***
+     * Valor do Produto no formato BigDecimal
+     */
     private BigDecimal valor;
+    /***
+     * Informação se o Frete é grátis ou não
+     */
     private boolean freteGratis;
+    /***
+     * Reputação — Número de estrelas do produto
+     */
     private int estrelas;
+    /***
+     * Quantidade atual deste produto em estoque
+     */
     private long quantidadeEstoque;
 
     /*** Conversor da classe Produto: de Entidade para DTO
@@ -44,22 +68,53 @@ public class ProdutoDTO {
                 produto.getQuantidadeEstoque());
     }
 
-    public static Produto converte(ProdutoDTO produtodto) {
+    /*** Conversor da classe Produto: de DTO para Entidade
+     *
+     * @param produtoDTO Objeto Produto a ser convertido
+     * @return Objeto Produto convertido
+     */
+    public static Produto converte(ProdutoDTO produtoDTO) {
         return new Produto(
-                produtodto.getId(),
-                produtodto.getNome(),
-                CategoriaDTO.converte(produtodto.getCategoriaDTO()),
-                produtodto.getMarca(),
-                produtodto.getValor(),
-                produtodto.isFreteGratis(),
-                produtodto.getEstrelas(),
-                produtodto.getQuantidadeEstoque() );
+                produtoDTO.getId(),
+                produtoDTO.getNome(),
+                CategoriaDTO.converte(produtoDTO.getCategoriaDTO()),
+                produtoDTO.getMarca(),
+                produtoDTO.getValor(),
+                produtoDTO.isFreteGratis(),
+                produtoDTO.getEstrelas(),
+                produtoDTO.getQuantidadeEstoque() );
     }
 
+    /*** Conversor de lista de Produto: de Entidade para DTO
+     *
+     * @param produtos Lista de Produto a serem convertidos
+     * @return Lista de ProdutosDTO convertidos
+     */
     public static List<ProdutoDTO> converte(List<Produto> produtos) {
-        return produtos.stream().map(u -> converte(u)).collect(Collectors.toList());
+        return produtos.stream().map(ProdutoDTO::converte).collect(Collectors.toList());
     }
 
+    /*** Conversor de lista de Produto: de DTO para Entidade
+     *
+     * @param produtosDTO Lista de Produto a serem convertidos
+     * @return Lista de Produtos convertidos
+     */
+    public static List<Produto> converter(List<ProdutoDTO> produtosDTO) {
+        List<Produto> produto = new ArrayList<>();
+        produtosDTO.forEach(prod -> {
+            Produto p = ProdutoDTO.converte(prod);
+            produto.add(p);
+        });
+        return produto;
+    }
+
+    /***
+     * {@literal @}Override do método equals
+     *
+     * @param o Object a ser comparado com a instância desta Classe,
+     *          comparando também a ID do Produto para informar que o Produto é a mesmo.
+     * @return Boolean indicando se o Objeto é o mesmo ou não.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,20 +123,14 @@ public class ProdutoDTO {
         return id == produtoDTO.id;
     }
 
+    /***
+     * {@literal @}Override do método hash
+     *
+     * @return Inteiro referente ao retorno do metodo Objects.{@link java.util.Objects hash}(id, nome);
+     * @see java.util.Objects hash
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
-    /*
-    public static List<Produto> converterListaProdDTOParaListaProduto(List<ProdutoDTO> produtosDTO) {
-        List<Produto> produto = new ArrayList<>();
-        produtosDTO.forEach(prod -> {
-            Produto p = ProdutoDTO.converteProdutoDtoParaProduto(prod);
-            produto.add(p);
-        });
-        return produto;
-    }
-    */
 }

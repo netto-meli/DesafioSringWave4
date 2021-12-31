@@ -33,11 +33,12 @@ public class PedidoRepository {
         return id;
     }
 
-    public Pedido criaPedido(List<ItemCarrinho> listItemCarrinho, long idCliente) {
+    public Pedido criaPedido(List<ItemCarrinho> listItemCarrinho, long idCliente, String enderecoEntrega) {
         Long idPedido = getMaxId()+1L;
         BigDecimal valorPedido = BigDecimal.ZERO;
-        Pedido p = new Pedido( idPedido, idCliente, listItemCarrinho, valorPedido);
-        p.calculaValorTotalPedido();;
+        BigDecimal valorFrete = BigDecimal.ZERO;
+        Pedido p = new Pedido( idPedido, idCliente, listItemCarrinho, valorFrete, valorPedido);
+        p.calculaValorTotalPedido(enderecoEntrega);
         salvarPedido(p);
         return p;
     }

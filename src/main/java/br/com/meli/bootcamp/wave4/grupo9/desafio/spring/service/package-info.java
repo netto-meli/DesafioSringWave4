@@ -1,5 +1,7 @@
 /**
  * Package com as classes de Service: 
+ * <b>CarrinhoService</b> -
+ * <b>CategoriaService</b> -
  * <b>ClienteService</b> -
  * <b>PedidoService</b> -
  * <b>ProdutoService</b>

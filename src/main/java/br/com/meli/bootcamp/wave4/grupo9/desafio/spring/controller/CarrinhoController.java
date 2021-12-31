@@ -77,15 +77,21 @@ public class CarrinhoController {
 	}
 
 	/*** Método para limpar o carrinho de compras do cliente.<br>
-	 * GET - /loja/limpaCarrinho/{idCliente}
+	 * POST - /loja/limpaCarrinho/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
-	 * @return Retorna a mensagem "Seu carrinho está vazio"
+	 * @return Retorna mensagem informando que o carrinho está vazio em um ResponseEntity com status <b>CREATED</b> e
+	 * 	 * <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
 	 */
-	@GetMapping("/limpaCarrinho/{idCliente}")
-	public String limpaCarrinho(@PathVariable String idCliente){
+	@PostMapping("/limpaCarrinho/{idCliente}")
+	public ResponseEntity<String> limpaCarrinho(@PathVariable String idCliente,
+								UriComponentsBuilder uriBuilder){
 		carrinhoService.limparCarrinho(idCliente);
-		return "Seu carrinho está vazio";
+		URI uri = uriBuilder
+				.path("/carrinhoAberto/{idCliente}")
+				.buildAndExpand(idCliente)
+				.toUri();
+		return ResponseEntity.created(uri).body("Seu carrinho está vazio");
 	}
 
 	/*** Método para exibir os produtos do carrinho de compras do cliente.<br>
@@ -101,7 +107,7 @@ public class CarrinhoController {
 	}
 
 	/*** Método para o cliente fechar o pedido com os produtos no carrinho.<br>
-	 * GET — /loja/fechaCarrinho/{idCliente}
+	 * POST — /loja/fechaCarrinho/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
@@ -110,7 +116,7 @@ public class CarrinhoController {
 	 * {@link br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada}
 	 * @see br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada
 	 */
-	@GetMapping("/fechaCarrinho/{idCliente}")
+	@PostMapping("/fechaCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO> fecharPedido(@PathVariable String idCliente,
 												   UriComponentsBuilder uriBuilder){
 		Pedido pedido = carrinhoService.fecharCarrinho(idCliente);

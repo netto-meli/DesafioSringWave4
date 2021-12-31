@@ -26,6 +26,13 @@ public class Produto {
         quantidadeEstoque -= qtd;
     }
 
+    /***
+     * {@literal @}Override do método equals
+     *
+     * @param o Object a ser comparado com a instância desta Classe,
+     *          comparando também a ID do Produto para informar que o Produto é a mesmo.
+     * @return Boolean indicando se o Objeto é o mesmo ou não.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -34,6 +41,12 @@ public class Produto {
         return id == produto.id;
     }
 
+    /***
+     * {@literal @}Override do método hash
+     *
+     * @return Inteiro referente ao retorno do metodo Objects.{@link java.util.Objects hash}(id, nome);
+     * @see java.util.Objects hash
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id);

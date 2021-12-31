@@ -2,6 +2,7 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Repository;
@@ -24,7 +25,7 @@ import java.util.Optional;
 public class EstoqueRepository implements OurRepository<Produto, Long>{
 
     private List<Produto> produtos = new ArrayList<>();
-    private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+    private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "estoque.json";
 
     public void salva(Produto produto) throws IOException {
@@ -49,13 +50,15 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
 
     public void baixarEstoque(List<ItemCarrinho> listItemCarrinho) {
         for (ItemCarrinho pdCarrinho : listItemCarrinho) {
-            // se nao achar idproduto no estoque, NULLPOINTER
-            produtos.stream()
+            try{
+                produtos.stream()
                     .filter( pdEstq -> pdEstq.getId() == pdCarrinho.getProduto().getId() )
                     .findFirst()
                     .orElse(null)
                     .baixarEstoque( pdCarrinho.getQuantidade() );
-                    // exception se nao tiver estoque
+            } catch (NullPointerException e) {
+                throw new RepositoryException("Não existe produto no estoque para dar baixa.");
+            }
         }
     }
 }

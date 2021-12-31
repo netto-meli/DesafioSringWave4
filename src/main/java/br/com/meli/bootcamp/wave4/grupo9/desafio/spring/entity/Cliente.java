@@ -22,22 +22,17 @@ public class Cliente {
         Pedido ped = listaPedidos.stream()
                 .filter(pd -> Objects.equals(pd.getId(), null))
                 .findAny()
-                .orElse( new Pedido(null, this.id, new ArrayList<>(), BigDecimal.ZERO));
-        ped.atualizaCarrinho(carrinho);
+                .orElse( criaCarrinhoNovo() );
+        ped.atualizaCarrinho(carrinho, this.endereco);
+        // TODO deve ter um jeito melhor que isso
         listaPedidos.remove(ped);
         listaPedidos.add(ped);
     }
 
-    public void limparCarrinho(){
-        listaPedidos.stream()
-                .filter(pd -> Objects.equals(pd.getId(), null))
-                .findAny()
-                .orElse( new Pedido(null, this.id, new ArrayList<>(), BigDecimal.ZERO))
-                .setListaItensCarrinho( new ArrayList<>() );
-    }
-
     public Pedido getCarrinho() {
-        return this.getPedido(null);
+        Pedido carrinho = this.getPedido(null);
+        if (carrinho == null) carrinho = criaCarrinhoNovo();
+        return carrinho;
     }
 
     public Pedido getPedido(Long idPedido) {
@@ -47,6 +42,25 @@ public class Cliente {
                 .orElse(null);
     }
 
+    public void limparCarrinho(){
+        listaPedidos.stream()
+                .filter(pd -> Objects.equals(pd.getId(), null))
+                .findAny()
+                .orElse( criaCarrinhoNovo() )
+                .setListaItensCarrinho( new ArrayList<>() );
+    }
+
+    private Pedido criaCarrinhoNovo(){
+        return new Pedido(null, this.id, new ArrayList<>(), BigDecimal.ZERO, BigDecimal.ZERO);
+    }
+
+    /***
+     * {@literal @}Override do método equals
+     *
+     * @param o Object a ser comparado com a instância desta Classe,
+     *          comparando também a ID do Cliente para informar que o Cliente é a mesmo.
+     * @return Boolean indicando se o Objeto é o mesmo ou não.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,6 +69,12 @@ public class Cliente {
         return id == cliente.id;
     }
 
+    /***
+     * {@literal @}Override do método hash
+     *
+     * @return Inteiro referente ao retorno do metodo Objects.{@link java.util.Objects hash}(id, nome);
+     * @see java.util.Objects hash
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id);

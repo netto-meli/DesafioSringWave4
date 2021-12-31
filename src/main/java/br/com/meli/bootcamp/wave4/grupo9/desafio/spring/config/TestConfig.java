@@ -49,16 +49,16 @@ public class TestConfig implements CommandLineRunner {
         Categoria cat1 = new Categoria(  1, "Ferramentas");
         categoriaRepository.salvarCategoria(cat1);
 
-        Pedido p1 = new Pedido(1L, 0, null, null);
+        Pedido p1 = new Pedido(1L, 0, null, null, null);
         pedidoRepository.salvarPedido(p1);
 
-        Pedido p2 = new Pedido(2L, 0, null, null);
+        Pedido p2 = new Pedido(2L, 0, null, null, null);
         pedidoRepository.salvarPedido(p2);
 
-        Pedido p3 = new Pedido(3L, 0, null, null);
+        Pedido p3 = new Pedido(3L, 0, null, null, null);
         pedidoRepository.salvarPedido(p3);
 
-        Pedido p4 = new Pedido(4L, 0, null, null);
+        Pedido p4 = new Pedido(4L, 0, null, null, null);
         pedidoRepository.salvarPedido(p4);
 
 

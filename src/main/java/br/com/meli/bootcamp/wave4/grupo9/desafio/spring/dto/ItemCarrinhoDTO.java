@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-/*** DTO par serialização de ItemCarinho
+/*** DTO para serialização de ItemCarinho
  *
  * @author Fernando Netto
  */

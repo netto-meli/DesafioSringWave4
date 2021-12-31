@@ -1,7 +1,6 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

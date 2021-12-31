@@ -1,6 +1,5 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller;
 
-
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.ClienteDTO;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.ClienteRepository;
@@ -11,19 +10,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/clente")
+@RequestMapping("/loja")
 public class ClienteController {
 
     @Autowired
     private ClienteRepository clienteRepository;
 
-
     @GetMapping("/cliente")
     public List<ClienteDTO> listaCliente(){
         List<Cliente> cliente = clienteRepository.findAll();
-        return ClienteDTO.converte(cliente); //Covertendo listaCliente para listaClienteDTO
+        return ClienteDTO.converte(cliente);
     }
 
     @PostMapping
@@ -38,14 +35,13 @@ public class ClienteController {
         if(!clienteRepository.existsById(clienteId)){
             return ResponseEntity.notFound().build();
         }
-//client DTO
+        //client DTO
         //cliente.setId(clienteId);
         cliente = clienteRepository.save(cliente);
         return ResponseEntity.ok(cliente);
     }
 
     @DeleteMapping
-
     public ResponseEntity<Void> delete(@PathVariable Long clienteId){
 
         if(!clienteRepository.existsById(clienteId)){

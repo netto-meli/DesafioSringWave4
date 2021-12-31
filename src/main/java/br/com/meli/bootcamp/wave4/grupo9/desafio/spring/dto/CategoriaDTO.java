@@ -6,7 +6,7 @@ import lombok.Getter;
 
 import java.util.Objects;
 
-/*** DTO par serialização de Categoria
+/*** DTO para serialização de Categoria
  *
  * @author Felipe
  * @author Fernando Netto
@@ -32,10 +32,22 @@ public class CategoriaDTO {
         return new CategoriaDTO(categoria.getId(), categoria.getNome());
     }
 
+    /*** Conversor da classe Categoria: de DTO para Entidade
+     *
+     * @param categoriaDTO Objeto Categoria a ser convertido
+     * @return Objeto Categoria convertido
+     */
     public static Categoria converte(CategoriaDTO categoriaDTO) {
-        return null;
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
 
+    /***
+     * {@literal @}Override do método equals
+     *
+     * @param o Object a ser comparado com a instância desta Classe,
+     *          comparando também a ID da Categoria para informar que a Categoria é a mesma.
+     * @return Boolean indicando se o Objeto é o mesmo ou não.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -44,6 +56,12 @@ public class CategoriaDTO {
         return id == that.id && Objects.equals(nome, that.nome);
     }
 
+    /***
+     * {@literal @}Override do método hash
+     *
+     * @return Inteiro referente ao retorno do metodo Objects.{@link java.util.Objects hash}(id, nome);
+     * @see java.util.Objects hash
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id, nome);

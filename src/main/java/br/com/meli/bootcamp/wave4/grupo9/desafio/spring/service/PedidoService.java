@@ -16,6 +16,7 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+    @Autowired
     private ClienteRepository clienteRepository;
 
     public List<Pedido> encontrarTodos(){

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /***
  * @author Felipe

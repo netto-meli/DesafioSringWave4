@@ -3,7 +3,6 @@
  * <b>CategoriaDTO</b> -
  * <b>ClienteDTO</b> -
  * <b>ItemCarrinhoDTO</b> -
- * <b>MarcaDTO</b> -
  * <b>PedidoDTO</b> -
  * <b>ProdutoDTO</b>
  */

@@ -37,7 +37,7 @@ public class ProdutoRepositorioController {
 		List<Produto> listaProduto = produtoRepositorioService.lista();
 		return ResponseEntity.ok(
 				ProdutoDTO.
-				converte(listaProduto));
+				converteList(listaProduto));
 	}
 
 	@PostMapping("/produto/cadastrar")
@@ -64,7 +64,7 @@ public class ProdutoRepositorioController {
 		estoqueRepository.salvaLista(listaproduto);
 
 		URI uri = uriBuilder.path("/produto/").buildAndExpand("").toUri();
-		return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaproduto));
+		return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaproduto));
 	}
 
 }

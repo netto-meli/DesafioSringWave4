@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -91,12 +92,13 @@ public class ProdutoController {
         if(nameOrPreco.isEmpty()){
             nameOrPreco = null;
         }
-        List<Produto> listaOrdenada = produtoService.listaProdutoOrdenado(ordenacao, nameOrPreco);
+      /*  List<Produto> listaOrdenada = produtoService.listaProdutoOrdenado(ordenacao, nameOrPreco);
         URI uri = uriBuilder
                 .path("/listarProdutosOrdenado")
                 .buildAndExpand(listaOrdenada)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenada));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenada));*/
+        return null;
     }
 
     /***

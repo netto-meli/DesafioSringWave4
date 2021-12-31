@@ -16,8 +16,6 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 public class ProdutoDTO {
-    @Generated
-    private Long id;
     /***
      * ID do ProdutoDTO no tipo Long
      */
@@ -26,7 +24,6 @@ public class ProdutoDTO {
      * Nome do ProdutoDTO no formato String
      */
     private String nome;
-    private String categoriaDTO;
     /***
      * Objeto CategoriaDTO com informações da categoria do projeto
      */
@@ -91,7 +88,7 @@ public class ProdutoDTO {
      * @param produtos Lista de Produto a serem convertidos
      * @return Lista de ProdutosDTO convertidos
      */
-    public static List<ProdutoDTO> converte(List<Produto> produtos) {
+    public static List<ProdutoDTO> converteList(List<Produto> produtos) {
         return produtos.stream().map(ProdutoDTO::converte).collect(Collectors.toList());
     }
 

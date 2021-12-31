@@ -30,7 +30,6 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
-    */
 
     @Autowired
     private EstoqueRepository estoqueRepository;

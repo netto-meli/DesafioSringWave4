@@ -13,7 +13,7 @@ public class ItemCarrinho{
     private Produto produto;
 
     public BigDecimal calculaValorTotalProduto(){
-        return produto.getPreco().multiply(BigDecimal.valueOf(quantidade));
+        return produto.getValor().multiply(BigDecimal.valueOf(quantidade));
     }
 
     public void retiraQuantidadeProduto(long qtdProduto) {

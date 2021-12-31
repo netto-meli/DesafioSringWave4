@@ -76,23 +76,6 @@ public class ProdutoService {
     }
 
     private List<Produto> ordenaCategoria(String categoria, String ordenacao) throws IOException {
-    public List<Produto> listaProdutoOrdenado(String ordenacao, String nome, String marca, String categoria) throws IOException {
-        if (!nome.isEmpty() || !ordenacao.isEmpty()) {
-            ordenaNome(nome, ordenacao);
-        }
-        if (!ordenacao.isEmpty()) {
-            ordenaPreco(ordenacao);
-        }
-        if (!categoria.isEmpty() || !ordenacao.isEmpty()) {
-            ordenaMarca(ordenacao, marca);
-        }
-        if (!marca.isEmpty() || !ordenacao.isEmpty()) {
-            ordenaCategoria(categoria, ordenacao);
-        }
-        return null;
-    }
-
-    private List<Produto> ordenaCategoria(String categoria, String ordenacao) throws IOException {
         if (ORDENCAO_AFABETICA_CRES.equals(ordenacao)) {
             return estoqueRepository.listagem().stream()
                     .filter(u -> categoria.equals(u.getCategoria().getNome())).sorted(Comparator.comparing(a -> a.getCategoria().getNome())).collect(Collectors.toList());
@@ -115,9 +98,9 @@ public class ProdutoService {
 
     private List<Produto> ordenaPreco(String ordenacao) throws IOException {
         if (ORDENCAO_MAIOR_PRECO.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream().sorted(Comparator.comparing(Produto::getPreco)).collect(Collectors.toList());
+            return estoqueRepository.listagem().stream().sorted(Comparator.comparing(Produto::getValor)).collect(Collectors.toList());
         } else if (ORDENCAO_MENOR_PRECO.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream().sorted(Comparator.comparing(Produto::getPreco).reversed()).collect(Collectors.toList());
+            return estoqueRepository.listagem().stream().sorted(Comparator.comparing(Produto::getValor).reversed()).collect(Collectors.toList());
         }
         return null;
     }
@@ -162,3 +145,4 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 }
+

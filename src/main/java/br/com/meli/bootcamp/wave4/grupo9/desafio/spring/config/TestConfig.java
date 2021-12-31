@@ -46,7 +46,7 @@ public class TestConfig implements CommandLineRunner {
     }
 
     private void runPedido() {
-        Categoria cat1 = new Categoria(  1, "Ferramentas");
+        Categoria cat1 = new Categoria(  1L, "Ferramentas");
         categoriaRepository.salvarCategoria(cat1);
 
         Pedido p1 = new Pedido(1L, 0, null, null, null);
@@ -69,7 +69,7 @@ public class TestConfig implements CommandLineRunner {
 
     private void runEstoque() throws IOException {
 
-        Categoria c = new Categoria(1,"");
+        Categoria c = new Categoria(1L,"");
 
         Produto p1 = new Produto(1L, "", c, "", BigDecimal.ZERO,true,1,3);
         estoqueRepository.salva(p1);
@@ -90,7 +90,7 @@ public class TestConfig implements CommandLineRunner {
     }
 
     private void runCliente() {
-        Cliente p1 = new Cliente(1,"","","","", new ArrayList<>());
+        Cliente p1 = new Cliente(1L,"","","","", new ArrayList<>());
         clienteRepository.salvarCiente(p1);
         System.out.println(p1);
     }

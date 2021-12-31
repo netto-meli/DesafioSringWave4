@@ -11,7 +11,7 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 public class Cliente {
-    private final long id;
+    private Long id;
     private String nome;
     private String endereco;
     private String estado;
@@ -66,7 +66,7 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return id == cliente.id;
+        return id.equals(cliente.id);
     }
 
     /***

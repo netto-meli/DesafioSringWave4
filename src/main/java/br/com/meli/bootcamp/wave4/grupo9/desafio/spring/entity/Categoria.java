@@ -8,7 +8,7 @@ import java.util.Objects;
 @Getter
 @AllArgsConstructor
 public class Categoria {
-    private long id;
+    private Long id;
     private String nome;
 
     /***
@@ -23,7 +23,7 @@ public class Categoria {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Categoria categoria = (Categoria) o;
-        return id == categoria.id;
+        return id.equals(categoria.id);
     }
 
     /***

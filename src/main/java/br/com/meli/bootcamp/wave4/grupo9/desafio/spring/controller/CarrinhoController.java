@@ -13,8 +13,8 @@ import java.net.URI;
 /*** Controller dos métodos do carrinho:<br>
  * <b>Adiciona Produtos no Carrinho</b><br>
  * <b>Retira Produtos do Carrinho</b><br>
- * <b>Exibir Carrinho Aberto</b><br>
  * <b>Limpa Carrinho Aberto</b><br>
+ * <b>Exibir Carrinho Aberto</b><br>
  * <b>Fechar Carrinho / Gerar Pedido</b>
  *
  * @author Fernando Netto

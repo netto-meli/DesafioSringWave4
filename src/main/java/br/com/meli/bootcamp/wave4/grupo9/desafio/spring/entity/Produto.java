@@ -9,7 +9,7 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 public class Produto {
-    private final long id;
+    private Long id;
     private String nome;
     private Categoria categoria;
     private String marca;
@@ -38,7 +38,7 @@ public class Produto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Produto produto = (Produto) o;
-        return id == produto.id;
+        return id.equals(produto.id);
     }
 
     /***

@@ -94,11 +94,11 @@ public class ProdutoDTO {
         return produtos.stream().map(ProdutoDTO::converte).collect(Collectors.toList());
     }
 
-    /*** Conversor de lista de Produto: de DTO para Entidade
+    /* Conversor de lista de Produto: de DTO para Entidade
      *
      * @param produtosDTO Lista de Produto a serem convertidos
      * @return Lista de Produtos convertidos
-     */
+     *
     public static List<Produto> converter(List<ProdutoDTO> produtosDTO) {
         List<Produto> produto = new ArrayList<>();
         produtosDTO.forEach(prod -> {
@@ -106,7 +106,7 @@ public class ProdutoDTO {
             produto.add(p);
         });
         return produto;
-    }
+    }*/
 
     /***
      * {@literal @}Override do método equals

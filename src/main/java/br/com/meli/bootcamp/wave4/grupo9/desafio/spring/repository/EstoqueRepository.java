@@ -1,6 +1,7 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,16 +30,55 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
     private final String PATH = "estoque.json";
 
     public void salva(Produto produto) throws IOException {
-        produtos.add(produto);
-        objectMapper.writeValue(new File(PATH), produtos);
+        // TODO verificar questao do ID
+        try {
+            /*Mesclar duas ArrayList<>
+            * List<String> newList = new ArrayList<String>(listOne);
+                newList.addAll(listTwo);
+            * */
+            produtos = listagem();
+            produto.setId((long) produtos.size()+1); // if ( produto.getId() == null ) produto.setId(getMaxId()+1L);
+
+            List<Produto> novaLista2 =new ArrayList<Produto>();
+            novaLista2.add(produto);
+            List<Produto> novaLista = new ArrayList<Produto>(produtos);
+            novaLista.addAll(novaLista2);
+
+            objectMapper.writeValue(new File(PATH), novaLista);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Produto> listagem() throws IOException{
-        File file = new File(PATH);
-        FileInputStream is = new FileInputStream(file);
-        Produto[] u = objectMapper.readValue(is, Produto[].class);
-        produtos = Arrays.asList(u);
+        try {
+            File file = new File(PATH);
+            FileInputStream is = new FileInputStream(file);
+            produtos = Arrays.asList(objectMapper.readValue(is, Produto[].class));
+
+            return produtos;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Produto> salvaLista(List<Produto> listaprod) throws IOException {
+        for (Produto p : listaprod) {
+            salva(p);
+        }
         return produtos;
+    }
+
+    private Long getMaxId(){
+        Long id = 0L;
+        for ( Produto p : produtos ) {
+            if (p.getId() != null && p.getId().compareTo(id) > 0 ){
+                id = p.getId();
+            }
+        }
+        return id;
     }
 
     public Produto get(Long id) {

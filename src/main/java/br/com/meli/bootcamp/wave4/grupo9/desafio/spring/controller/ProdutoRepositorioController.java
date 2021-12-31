@@ -11,6 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 /***
@@ -53,5 +54,17 @@ public class ProdutoRepositorioController {
 		return ResponseEntity.created(uri).body(ProdutoDTO.converte(produto));
 	}
 
+	@PostMapping("/produto/cadastrarlista")
+	public ResponseEntity<List<ProdutoDTO>> cadastrar(@RequestBody List<ProdutoDTO> form,
+		UriComponentsBuilder uriBuilder) throws IOException, IOException {
+		List<Produto> listaproduto = new ArrayList<Produto>();;
+		for (ProdutoDTO p: form) {
+			listaproduto.add(ProdutoDTO.converte(p));
+		}
+		estoqueRepository.salvaLista(listaproduto);
+
+		URI uri = uriBuilder.path("/produto/").buildAndExpand("").toUri();
+		return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaproduto));
+	}
 
 }

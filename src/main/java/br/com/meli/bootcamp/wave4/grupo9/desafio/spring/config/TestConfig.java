@@ -37,32 +37,37 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        runPedido();
-        runCliente();/*
-        runEstoque();
-*/
+
+        pedidoRepository.listagem();
+        clienteRepository.listagem();
+        categoriaRepository.listagem();
+        estoqueRepository.listagem();
+        //runPedido();
+        //runCliente();/*
+        //runEstoque();
+
         //System.out.println(p1.getValorTotal());
 
     }
 
     private void runPedido() {
         Categoria cat1 = new Categoria(  1L, "Ferramentas");
-        categoriaRepository.salvarCategoria(cat1);
+        categoriaRepository.salva(cat1);
 
         Pedido p1 = new Pedido(1L, 1L, null, null, null);
-        pedidoRepository.salvarPedido(p1);
+        pedidoRepository.salva(p1);
 
         Pedido p2 = new Pedido(2L, 1L, null, null, null);
-        pedidoRepository.salvarPedido(p2);
+        pedidoRepository.salva(p2);
 
         Pedido p3 = new Pedido(3L, 0L, null, null, null);
-        pedidoRepository.salvarPedido(p3);
+        pedidoRepository.salva(p3);
 
         Pedido p4 = new Pedido(4L, 0L, null, null, null);
-        pedidoRepository.salvarPedido(p4);
+        pedidoRepository.salva(p4);
 
 
-        for(Pedido p : pedidoRepository.listarPedido()) {
+        for(Pedido p : pedidoRepository.listagem()) {
             System.out.println(p);
         }
     }
@@ -90,8 +95,8 @@ public class TestConfig implements CommandLineRunner {
     }
 
     private void runCliente() {
-        Cliente p1 = new Cliente(1L,"","","","", new ArrayList<>());
-        clienteRepository.salvarCiente(p1);
+        Cliente p1 = new Cliente(1L,"","","","");
+        clienteRepository.salva(p1);
         System.out.println(p1);
     }
 }

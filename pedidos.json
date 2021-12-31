@@ -1,0 +1,22 @@
+[ {
+  "id" : 1,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "",
+      "categoria" : {
+        "id" : 1,
+        "nome" : ""
+      },
+      "marca" : "",
+      "valor" : 10.0,
+      "freteGratis" : false,
+      "estrelas" : 0,
+      "quantidadeEstoque" : 10
+    }
+  } ],
+  "valorFrete" : 0.0,
+  "valorTotal" : 0.0
+} ]

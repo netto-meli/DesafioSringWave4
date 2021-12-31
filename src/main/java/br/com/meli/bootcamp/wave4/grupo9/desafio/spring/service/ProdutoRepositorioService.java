@@ -24,26 +24,11 @@ public class ProdutoRepositorioService {
     }
 
     public void salvar(Produto produto) {
-        if(true) {
-            try {
-                estoqueRepository.salva(produto);
-                logger.debug("produto salvo");
-            }catch(IOException e) {
-                logger.error(e.getMessage());
-            }
-        }else {
-            throw new RuntimeException("======");
-        }
+        estoqueRepository.salva(produto);
     }
 
     public List<Produto> lista(){
-        //List<Produto> produtos = null;
-        try {
-            return estoqueRepository.listagem().stream().collect(Collectors.toList());
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
-        return null;
+        return estoqueRepository.listagem().stream().collect(Collectors.toList());
     }
 
 

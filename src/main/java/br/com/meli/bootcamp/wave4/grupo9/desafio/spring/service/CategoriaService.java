@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoriaService {
@@ -16,33 +15,24 @@ public class CategoriaService {
     CategoriaRepository repository;
 
     public List<Categoria> encontrarTodos() {
-        return repository.listarCategoria();
+        return repository.listagem();
     }
 
     public Categoria encontrarPorId(long id) {
-        return repository.listarCategoria().stream()
+        return repository.listagem().stream()
                 .filter(x -> x.getId() == id)
                 .findFirst()
                 .orElse(null);
     }
 
-    public Categoria inserir(Categoria obj) {
+    public void inserir(Categoria obj) {
         // TODO ver isso
         //obj.seId(repository.listarCategoria().size());
-        return repository.salvarCategoria(obj);
+        repository.salva(obj);
     }
 
     public Categoria fromDTO(CategoriaDTO objDto) {
         return new Categoria(objDto.getId(), objDto.getNome());
     }
 
-    private Long getMaxId(){
-        long id = 0;
-        for ( Categoria p : repository.listarCategoria() ) {
-            if ( p.getId() > id ){
-                id = p.getId();
-            }
-        }
-        return id;
-    }
 }

@@ -3,10 +3,12 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.CartManagementException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class ItemCarrinho{
     private long quantidade;

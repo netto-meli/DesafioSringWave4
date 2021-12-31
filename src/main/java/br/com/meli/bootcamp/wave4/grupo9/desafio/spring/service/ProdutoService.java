@@ -40,24 +40,13 @@ public class ProdutoService {
     private EstoqueRepository estoqueRepository;
 
     public List<Produto> listaProduto() {
-        List<Produto> produtos;
-        try {
-            produtos = estoqueRepository.listagem();
-        } catch (IOException e) {
-            throw new RepositoryException("erro ao localizar produtos");
-        }
-        return produtos;
+        return estoqueRepository.listagem();
     }
 
     public List<Produto> listaProdutoCategoria(String categoria) {
-        try {
-            return estoqueRepository.listagem().stream()
-                    .filter(p -> p.getCategoria().getNome().equals(categoria)).
-                            collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return estoqueRepository.listagem().stream()
+                .filter(p -> p.getCategoria().getNome().equals(categoria))
+                .collect(Collectors.toList());
     }
 
     public List<Produto> listaProdutoOrdenado(String ordenacao, String nome, String marca, String categoria) throws IOException {

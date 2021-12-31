@@ -2,57 +2,34 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Cliente {
+    /***
+     * ID do Cliente do tipo Long
+     */
     private Long id;
+    /***
+     * Nome do Cliente do tipo String
+     */
     private String nome;
+    /***
+     * Endereço do Cliente do tipo String
+     */
     private String endereco;
+    /***
+     * Estado do Cliente do tipo String
+     */
     private String estado;
+    /***
+     * CPF do Cliente do tipo String
+     */
     private String cpf;
-    private List<Pedido> listaPedidos;
-
-    public void adicionarProdutoNoCarrinho(ItemCarrinho carrinho){
-        Pedido ped = listaPedidos.stream()
-                .filter(pd -> Objects.equals(pd.getId(), null))
-                .findAny()
-                .orElse( criaCarrinhoNovo() );
-        ped.atualizaCarrinho(carrinho, this.endereco);
-        // TODO deve ter um jeito melhor que isso
-        listaPedidos.remove(ped);
-        listaPedidos.add(ped);
-    }
-
-    public Pedido getCarrinho() {
-        Pedido carrinho = this.getPedido(null);
-        if (carrinho == null) carrinho = criaCarrinhoNovo();
-        return carrinho;
-    }
-
-    public Pedido getPedido(Long idPedido) {
-        return listaPedidos.stream()
-                .filter( p -> Objects.equals(p.getId(), idPedido))
-                .findAny()
-                .orElse(null);
-    }
-
-    public void limparCarrinho(){
-        listaPedidos.stream()
-                .filter(pd -> Objects.equals(pd.getId(), null))
-                .findAny()
-                .orElse( criaCarrinhoNovo() )
-                .setListaItensCarrinho( new ArrayList<>() );
-    }
-
-    private Pedido criaCarrinhoNovo(){
-        return new Pedido(null, this.id, new ArrayList<>(), BigDecimal.ZERO, BigDecimal.ZERO);
-    }
 
     /***
      * {@literal @}Override do método equals

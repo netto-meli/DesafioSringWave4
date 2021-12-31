@@ -38,9 +38,9 @@ public class TestConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         runPedido();
-        runCliente();
+        runCliente();/*
         runEstoque();
-
+*/
         //System.out.println(p1.getValorTotal());
 
     }
@@ -49,16 +49,16 @@ public class TestConfig implements CommandLineRunner {
         Categoria cat1 = new Categoria(  1L, "Ferramentas");
         categoriaRepository.salvarCategoria(cat1);
 
-        Pedido p1 = new Pedido(1L, 0, null, null, null);
+        Pedido p1 = new Pedido(1L, 1L, null, null, null);
         pedidoRepository.salvarPedido(p1);
 
-        Pedido p2 = new Pedido(2L, 0, null, null, null);
+        Pedido p2 = new Pedido(2L, 1L, null, null, null);
         pedidoRepository.salvarPedido(p2);
 
-        Pedido p3 = new Pedido(3L, 0, null, null, null);
+        Pedido p3 = new Pedido(3L, 0L, null, null, null);
         pedidoRepository.salvarPedido(p3);
 
-        Pedido p4 = new Pedido(4L, 0, null, null, null);
+        Pedido p4 = new Pedido(4L, 0L, null, null, null);
         pedidoRepository.salvarPedido(p4);
 
 

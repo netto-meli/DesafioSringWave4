@@ -2,10 +2,12 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Categoria {
     private Long id;

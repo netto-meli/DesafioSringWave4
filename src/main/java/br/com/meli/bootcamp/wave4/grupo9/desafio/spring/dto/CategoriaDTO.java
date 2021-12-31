@@ -15,9 +15,9 @@ import java.util.Objects;
 @AllArgsConstructor
 public class CategoriaDTO {
     /***
-     * ID da Categoria do tipo long
+     * ID da Categoria do tipo Long
      */
-    private long id;
+    private Long id;
     /***
      * Nome da Categoria do tipo String
      */

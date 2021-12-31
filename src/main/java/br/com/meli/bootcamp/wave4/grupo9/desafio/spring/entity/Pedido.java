@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Pedido {
     private Long id;
-    private final long idCliente;
+    private Long idCliente;
     private List<ItemCarrinho> listaItensCarrinho;
     private BigDecimal valorFrete;
     private BigDecimal valorTotal;
@@ -46,7 +46,7 @@ public class Pedido {
 
     public ItemCarrinho getItemCarrinho(Long idProduto) {
         return listaItensCarrinho.stream()
-                .filter( ic -> ic.getProduto().getId() == idProduto )
+                .filter( ic -> ic.getProduto().getId().equals(idProduto))
                 .findAny()
                 .orElse(null);
     }

@@ -17,17 +17,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-/***
- * @author Felipe
- * @author Fernando
- * @author Leonardo
- */
-@Repository
+import org.springframework.stereotype.Component;
+
+@Component
 public class EstoqueRepository implements OurRepository<Produto, Long>{
 
     private List<Produto> produtos = new ArrayList<>();
-    private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+
+    private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "estoque.json";
+
+    public EstoqueRepository() throws IOException {
+    }
 
     public void salva(Produto produto) throws IOException {
         // TODO verificar questao do ID
@@ -37,7 +38,8 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
                 newList.addAll(listTwo);
             * */
             produtos = listagem();
-            produto.setId((long) produtos.size()+1); // if ( produto.getId() == null ) produto.setId(getMaxId()+1L);
+            //produto.setId((long) produtos.size()+1);
+            if ( produto.getId() == null ) produto.setId(getMaxId()+1L);
 
             List<Produto> novaLista2 =new ArrayList<Produto>();
             novaLista2.add(produto);

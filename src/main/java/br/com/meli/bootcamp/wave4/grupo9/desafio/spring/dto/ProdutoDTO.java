@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ProdutoDTO {
     /***
-     * ID do ProdutoDTO no tipo long
+     * ID do ProdutoDTO no tipo Long
      */
-    private long id;
+    private Long id;
     /***
      * Nome do ProdutoDTO no formato String
      */

@@ -17,10 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 public class ClienteDTO {
     /***
-     * ID do Cliente do tipo long, com modificador de acesso <i>final</i>
-     * para que a ID depois de atribuída, não possa ser alterada.
+     * ID do Cliente do tipo Long
      */
-    private long id;
+    private Long id;
     /***
      * Nome do Cliente do tipo String
      */

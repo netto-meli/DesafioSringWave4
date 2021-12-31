@@ -48,9 +48,8 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
     }
 
     public List<Produto> listagem() throws IOException{
-        File file = null;
         try {
-            file = new File(PATH);
+            File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
             produtos = Arrays.asList(objectMapper.readValue(is, Produto[].class));
 
@@ -59,6 +58,13 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<Produto> salvaLista(List<Produto> listaprod) throws IOException {
+        for (Produto p : listaprod) {
+            salva(p);
+        }
+        return produtos;
     }
 
     public Produto get(Long id) {

@@ -5,18 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
-/*** DTO par serialização de Pedido
+/*** DTO para serialização de Pedido
  *
- * @author
  * @author Fernando Netto
  */
 @Data
 @AllArgsConstructor
 public class PedidoDTO {
     private Long id;
-    private final long idCliente;
+    private Long idCliente;
     private List<ItemCarrinhoDTO> listaItensCarrinho;
     private BigDecimal valorTotal;
 
@@ -31,5 +31,19 @@ public class PedidoDTO {
                 pedido.getIdCliente(),
                 ItemCarrinhoDTO.converte(pedido.getListaItensCarrinho()),
                 pedido.getValorTotal() );
+    }
+
+    /*** Conversor de lista de Pedido: de Entidade para DTO
+     *
+     * @param listaPedidos Objeto Pedido a ser convertido
+     * @return Lista de PeddidoDTO convertido
+     */
+    public static List<PedidoDTO> converte(List<Pedido> listaPedidos) {
+        List<PedidoDTO> listaPdDTO = new ArrayList<>();
+        for (Pedido pd : listaPedidos) {
+            PedidoDTO pdDTO = PedidoDTO.converte(pd);
+            listaPdDTO.add(pdDTO);
+        }
+        return listaPdDTO;
     }
 }

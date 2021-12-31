@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
-import java.net.URI;import java.util.List;
+import java.util.List;
+import java.util.Map;
 
 /***
  * Controller dos métodos do carrinho:<br>
@@ -185,26 +186,5 @@ public class ProdutoController {
         return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza4));
     }
 
-    /***
-     *
-     * @param marca
-     * @param estrela
-     * @param uriBuilder
-     * @return lista filtrada por marca e estrela
-     * @throws IOException
-     */
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/listarProdutosMarcaEstrela")
-    public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros5(
-            @RequestParam(value = "marca", required = true) String marca,
-            @RequestParam(value = "estrela", required = true) int estrela,
-            UriComponentsBuilder uriBuilder) throws IOException{
-        List <Produto> listaOrdenadaPersonaliza5= produtoService.listaProdutoFiltorPersonalizado5(marca,estrela);
-        URI uri = uriBuilder
-                .path("/listarProdutosMarcaEstrela")
-                .buildAndExpand(listaOrdenadaPersonaliza5)
-                .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza5));
-    }
 
 }

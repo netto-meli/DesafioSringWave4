@@ -20,8 +20,10 @@ public class CategoriaService {
     }
 
     public Categoria encontrarPorId(long id) {
-        Optional<Categoria> obj = repository.listarCategoria().stream().filter(x -> x.getId() == id).findFirst();
-        return obj.orElse(null);
+        return repository.listarCategoria().stream()
+                .filter(x -> x.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     public Categoria inserir(Categoria obj) {
@@ -32,5 +34,15 @@ public class CategoriaService {
 
     public Categoria fromDTO(CategoriaDTO objDto) {
         return new Categoria(objDto.getId(), objDto.getNome());
+    }
+
+    private Long getMaxId(){
+        long id = 0;
+        for ( Categoria p : repository.listarCategoria() ) {
+            if ( p.getId() > id ){
+                id = p.getId();
+            }
+        }
+        return id;
     }
 }

@@ -8,8 +8,8 @@ import java.util.List;
 /***
  * @author Felipe
  *
- * @param <T>
- * @param <U>
+ * @param <T> t
+ * @param <U> u
  */
 @Repository
 public interface OurRepository<T,U>{

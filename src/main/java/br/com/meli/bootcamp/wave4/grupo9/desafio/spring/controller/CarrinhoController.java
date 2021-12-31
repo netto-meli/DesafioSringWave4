@@ -13,8 +13,8 @@ import java.net.URI;
 /*** Controller dos métodos do carrinho:<br>
  * <b>Adiciona Produtos no Carrinho</b><br>
  * <b>Retira Produtos do Carrinho</b><br>
- * <b>Exibir Carrinho Aberto</b><br>
  * <b>Limpa Carrinho Aberto</b><br>
+ * <b>Exibir Carrinho Aberto</b><br>
  * <b>Fechar Carrinho / Gerar Pedido</b>
  *
  * @author Fernando Netto
@@ -53,13 +53,14 @@ public class CarrinhoController {
 	}
 
 	/*** Método para retirar uma quantidade "<i>qtdRetirar</i>" de um produto no carrinho de compras do cliente.<br>
-	 * POST — /loja/retiraDoCarrinho/{idCliente}{@literal ?}idProduto={idProduto}{@literal &}qtdRetirar={qtdRetirar}
+	 * GET — /loja/retiraDoCarrinho/{idCliente}{@literal ?}idProduto={idProduto}{@literal &}qtdRetirar={qtdRetirar}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @param idProduto ID do Produto que o cliente deseja acrescentar no carrinho de compras
 	 * @param qtdRetirar Quantos itens do produto selecionado, o Cliente deseja retirar do carrinho
 	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
-	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>CREATED</b> e <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
+	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>CREATED</b> e
+	 * <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
 	 */
 	@PostMapping("/retiraDoCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO>  retiraProdutosDoCarrinho(
@@ -79,16 +80,22 @@ public class CarrinhoController {
 	 * POST - /loja/limpaCarrinho/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
-	 * @return Retorna a mensagem "Seu carrinho está vazio"
+	 * @return Retorna mensagem informando que o carrinho está vazio em um ResponseEntity com status <b>CREATED</b> e
+	 * 	 * <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
 	 */
-	@GetMapping("/limpaCarrinho/{idCliente}")
-	public String limpaCarrinho(@PathVariable String idCliente){
+	@PostMapping("/limpaCarrinho/{idCliente}")
+	public ResponseEntity<String> limpaCarrinho(@PathVariable String idCliente,
+								UriComponentsBuilder uriBuilder){
 		carrinhoService.limparCarrinho(idCliente);
-		return "Seu carrinho está vazio";
+		URI uri = uriBuilder
+				.path("/carrinhoAberto/{idCliente}")
+				.buildAndExpand(idCliente)
+				.toUri();
+		return ResponseEntity.created(uri).body("Seu carrinho está vazio");
 	}
 
 	/*** Método para exibir os produtos do carrinho de compras do cliente.<br>
-	 * POST — /loja/carrinhoAberto/{idCliente}
+	 * GET — /loja/carrinhoAberto/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>OK</b>
@@ -105,16 +112,16 @@ public class CarrinhoController {
 	 * @param idCliente ID do Cliente que está fazendo o pedido
 	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
 	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>CREATED</b> e
-	 * <i>GET</i>: "/loja/exibePedido/{idPedido}" implementado no Controller: {@link br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.PedidoDTO GETNOmme}
-	 * @see br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.PedidoDTO GetNOMEE
+	 * <i>GET</i>: "/loja/pedidos/{id}" implementado no Controller:
+	 * {@link br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada}
+	 * @see br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada
 	 */
-	@GetMapping("/fechaCarrinho/{idCliente}")
-	//TODO Atualizar método no javadoc
+	@PostMapping("/fechaCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO> fecharPedido(@PathVariable String idCliente,
 												   UriComponentsBuilder uriBuilder){
 		Pedido pedido = carrinhoService.fecharCarrinho(idCliente);
 		URI uri = uriBuilder
-				.path("/exibePedido/{idPedido}")
+				.path("/pedidos/{id}")
 				.buildAndExpand(pedido.getId())
 				.toUri();
 		return ResponseEntity.created(uri).body(PedidoDTO.converte(pedido));

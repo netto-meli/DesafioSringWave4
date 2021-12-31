@@ -1,45 +1,42 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Builder
 public class Categoria {
+    private Long id;
+    private String nome;
 
-    private long id;
-    private String nome = "vazio";
-
-
+    /***
+     * {@literal @}Override do método equals
+     *
+     * @param o Object a ser comparado com a instância desta Classe,
+     *          comparando também a ID da Categoria para informar que a Categoria é a mesma.
+     * @return Boolean indicando se o Objeto é o mesmo ou não.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Categoria categoria = (Categoria) o;
-        return id == categoria.id;
+        return id.equals(categoria.id);
     }
 
+    /***
+     * {@literal @}Override do método hash
+     *
+     * @return Inteiro referente ao retorno do metodo Objects.{@link java.util.Objects hash}(id, nome);
+     * @see java.util.Objects hash
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
 }

@@ -1,119 +1,136 @@
-[
-  {
-    "id": 1,
-    "nome": "Serra de Bancada",
-    "categoria": "Ferramentas",
-    "marca": "FORDGPRO",
-    "valor": 1.800,
-    "quantidadeEstoque": 5,
-    "freteGratis": true,
-    "estrelas": 4
-  },
-  {
-    "id": 2,
-    "nome": "Furadeira",
-    "categoria": "Ferramentas",
-    "marca": "Black & Decker",
-    "valor": 500,
-    "quantidadeEstoque": 7,
-    "freteGratis": true,
-    "estrelas": 4
-  },
-  {
-    "id": 3,
-    "nome": "Soldadora",
-    "categoria": "Ferramentas",
-    "marca": "Black & Decker",
-    "valor": 350,
-    "quantidadeEstoque": 10,
-    "freteGratis": true,
-    "estrelas": 3
-  },
-  {
-    "id": 4,
-    "nome": "Chuteira",
-    "categoria": "Esportes",
-    "marca": "Adidas",
-    "valor": 235,
-    "quantidadeEstoque": 6,
-    "freteGratis": true,
-    "estrelas": 5
-  },
-  {
-    "id": 5,
-    "nome": "Mini Cama elastica",
-    "categoria": "Esportes",
-    "marca": "Starboard",
-    "valor": 183,
-    "quantidadeEstoque": 4,
-    "freteGratis": true,
-    "estrelas": 5
-  },
-  {
-    "id": 6,
-    "nome": "Camiseta",
-    "categoria": "Esportes",
-    "marca": "Topper",
-    "valor": 80,
-    "quantidadeEstoque": 2,
-    "freteGratis": true,
-    "estrelas": 3
-  },
-  {
-    "id": 7,
-    "nome": "Redmi Note 9",
-    "categoria": "Celulares",
-    "marca": "Xiaomi",
-    "valor": 2.800,
-    "quantidadeEstoque": 15,
-    "freteGratis": true,
-    "estrelas": 4
-  },
-  {
-    "id": 8,
-    "nome": "Smartwatch",
-    "categoria": "Celulares",
-    "marca": "Noga",
-    "valor": 1.200,
-    "quantidadeEstoque": 20,
-    "freteGratis": false,
-    "estrelas": 2
-  },
-  {
-    "id": 9,
-    "nome": "Camisa",
-    "categoria": "Roupa",
-    "marca": "Fila",
-    "valor": 79,
-    "quantidadeEstoque": 2,
-    "freteGratis": false,
-    "estrelas": 3
-  },
-  {
-    "id": 10,
-    "nome": "Calças",
-    "categoria": "Celulares",
-    "marca": "Oakley",
-    "valor": 73,
-    "quantidadeEstoque": 6,
-    "freteGratis": false,
-    "estrelas": 3
-  },
-  {
-    "id": 11,
-    "nome": "Meias",
-    "valor": 10,
-    "quantidadeEstoque": 8,
-    "freteGratis": false,
-    "estrelas": 1
-  },
-  {
-    "id": 12,
-    "nome": "Shorts",
-    "categoria": "Roupas",
-    "marca": "Lacoste",
-    "valor": 275,
-    "quantidadeEstoque": 9,
-    "freteGratis": true,
-    "estrelas": 3
-  }]
+[ {
+  "id" : 1,
+  "nome" : "Serra de Bancada",
+  "categoria" : "Ferramentas",
+  "marca" : "FORDGPRO",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 2,
+  "nome" : "Furadeira",
+  "categoria" : "Ferramentas",
+  "marca" : "Black & Decker",
+  "valor" : 500,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 7
+}, {
+  "id" : 3,
+  "nome" : "Soldadora",
+  "categoria" : "Ferramentas",
+  "marca" : "Black & Decker",
+  "valor" : 350,
+  "freteGratis" : true,
+  "estrelas" : 3,
+  "quantidadeEstoque" : 10
+}, {
+  "id" : 4,
+  "nome" : "Chuteira",
+  "categoria" : "Esportes",
+  "marca" : "Adidas",
+  "valor" : 235,
+  "freteGratis" : true,
+  "estrelas" : 5,
+  "quantidadeEstoque" : 6
+}, {
+  "id" : 5,
+  "nome" : "Mini Cama elastica",
+  "categoria" : "Esportes",
+  "marca" : "Starboard",
+  "valor" : 183,
+  "freteGratis" : true,
+  "estrelas" : 5,
+  "quantidadeEstoque" : 4
+}, {
+  "id" : 6,
+  "nome" : "Camiseta",
+  "categoria" : "Esportes",
+  "marca" : "Topper",
+  "valor" : 80,
+  "freteGratis" : true,
+  "estrelas" : 3,
+  "quantidadeEstoque" : 2
+}, {
+  "id" : 7,
+  "nome" : "Redmi Note 9",
+  "categoria" : "Celulares",
+  "marca" : "Xiaomi",
+  "valor" : 2.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 15
+}, {
+  "id" : 8,
+  "nome" : "Smartwatch",
+  "categoria" : "Celulares",
+  "marca" : "Noga",
+  "valor" : 1.200,
+  "freteGratis" : false,
+  "estrelas" : 2,
+  "quantidadeEstoque" : 20
+}, {
+  "id" : 9,
+  "nome" : "Camisa",
+  "categoria" : "Roupa",
+  "marca" : "Fila",
+  "valor" : 79,
+  "freteGratis" : false,
+  "estrelas" : 3,
+  "quantidadeEstoque" : 2
+}, {
+  "id" : 10,
+  "nome" : "Calças",
+  "categoria" : "Celulares",
+  "marca" : "Oakley",
+  "valor" : 73,
+  "freteGratis" : false,
+  "estrelas" : 3,
+  "quantidadeEstoque" : 6
+}, {
+  "id" : 11,
+  "nome" : "Meias",
+  "categoria" : null,
+  "marca" : null,
+  "valor" : 10,
+  "freteGratis" : false,
+  "estrelas" : 1,
+  "quantidadeEstoque" : 8
+}, {
+  "id" : 12,
+  "nome" : "Shorts",
+  "categoria" : "Roupas",
+  "marca" : "Lacoste",
+  "valor" : 275,
+  "freteGratis" : true,
+  "estrelas" : 3,
+  "quantidadeEstoque" : 9
+}, {
+  "id" : 13,
+  "nome" : "Nintendo Switch",
+  "categoria" : "Celulares",
+  "marca" : "Nintendo",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 14,
+  "nome" : "Nintendo Switch",
+  "categoria" : "Celulares",
+  "marca" : "Nintendo",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 15,
+  "nome" : "Nintendo Switch",
+  "categoria" : "Celulares",
+  "marca" : "Nintendo",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+} ]

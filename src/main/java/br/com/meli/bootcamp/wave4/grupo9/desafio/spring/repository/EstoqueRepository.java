@@ -2,14 +2,11 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.springframework.stereotype.Repository;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class EstoqueRepository implements OurRepository<Produto, Long>{
 
     private List<Produto> produtos = new ArrayList<Produto>();
-    List<Produto> estoqueatual = listagem();
+
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "estoque.json";
 
@@ -31,13 +28,20 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
     public void salva(Produto produto) throws IOException {
         // TODO verificar questao do ID
         try {
+            /*Mesclar duas ArrayList<>
+            * List<String> newList = new ArrayList<String>(listOne);
+                newList.addAll(listTwo);
+            * */
+            produtos = listagem();
             produto.setId((long) produtos.size()+1);
-            for (Produto p : estoqueatual) {
-                produtos.add(p);
-            }
-            produtos.add(produto);
 
-            objectMapper.writeValue(new FileWriter(PATH), produtos);
+            List<Produto> novaLista2 =new ArrayList<Produto>();
+            novaLista2.add(produto);
+            List<Produto> novaLista = new ArrayList<Produto>(produtos);
+            novaLista.addAll(novaLista2);
+
+            objectMapper.writeValue(new File(PATH), novaLista);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,6 +53,7 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
             file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
             produtos = Arrays.asList(objectMapper.readValue(is, Produto[].class));
+
             return produtos;
         } catch (Exception e) {
             e.printStackTrace();

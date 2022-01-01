@@ -71,8 +71,9 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
     public void grava() throws ErrorProcesamentoException{
         try {
             objectMapper.writeValue(new File(PATH), produtos);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        } catch (IOException e) {
+            throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
     }
 

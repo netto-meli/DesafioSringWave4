@@ -13,28 +13,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /***
- * Service implementacao dos métodos do carrinho:<br>
+ * Service implementação dos métodos do carrinho:<br>
  *  * <b>Lista todos os produtos</b><br>
  *  * <b>Lista por categoria</b><br>
  *  * <b>lista por nome</b><br>
  *  * <b>Lista ordenando</b><br>
- *  * <b>lista ppersonalizada / com dois parametros</b>
+ *  * <b>lista personalizada / com dois parâmetros</b>
  *  *
- *  * @author Leonardo Assuncao
+ *  * @author Leonardo Assunção
  */
 @Service
 public class ProdutoService {
 
     /***
-     * Variaveis final static para ser utilizadar no metodo de ordenacao
+     * Variáveis final static para ser utilizador no metodo de ordenação
      */
     private static final int ORDENCAO_AFABETICA_DEC = 0;
     private static final int ORDENCAO_AFABETICA_CRES = 1;
     private static final int ORDENCAO_MAIOR_PRECO = 2;
     private static final int ORDENCAO_MENOR_PRECO = 3;
-    private static final String PRODUTO_AINDA_NAO_DISPONIVEL = "OPS! Nao temos este produto ainda disponivel, logo atualizaremos o catalogo da loja, desculpe pelo incoveniente";
-    private static final String PRODUTO_ERRO_ORDENACAO = "Tivemos um erro na ordenacao tente novamente mais tarde =]";
-    private static final String ERROR_LOCALIZAR_PELO_FILTRO = "Tivemos um erro ao tentar filtar pelos parametros enviados tenta novamento";
+    private static final String PRODUTO_AINDA_NAO_DISPONIVEL = "OPS! Nao temos este produto ainda disponível, logo atualizaremos o catalogo da loja, desculpe pelo incoveniente";
+    private static final String PRODUTO_ERRO_ORDENACAO = "Tivemos um erro na ordenação tente novamente mais tarde =]";
+    private static final String ERROR_LOCALIZAR_PELO_FILTRO = "Tivemos um erro ao tentar filtrar pelos parâmetros enviados, tente novamente";
     /*** Instancia de estoque: <b>EstoqueRepository</b> com notação <i>{@literal @}Autowired</i> do lombok
      */
     @Autowired
@@ -182,7 +182,7 @@ public class ProdutoService {
         return null;
     }
 
-    // TODO este é um agregador de todas ordenaçoes? nao precisa mais?
+    // TODO este é um agregador de todas ordenações? nao precisa mais?
     /*
     public List<Produto> listaProdutoOrdenado(String ordenacao, String nome, String marca, String categoria) {
         if (!nome.isEmpty() || !ordenacao.isEmpty()) {

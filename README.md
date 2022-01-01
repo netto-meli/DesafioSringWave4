@@ -60,7 +60,7 @@ POST/GET base -> http://localhost:8080/store
 
 ## Repositórios  e Responsabilidades da Equipe 9
 <b>Felipe Pereira Bontempo</b>
-<br>{Manipulação do Estoque epersistência JSON}
+<br>{Cadastro do Estoque e persistência JSON}
 <br>[Repositório Git](https://github.com/fpbontempo)
 
 <b>Fernando José Dias Netto</b>
@@ -68,11 +68,11 @@ POST/GET base -> http://localhost:8080/store
 <br>[Repositório Git](https://github.com/netto-meli/DesafioSringWave4)
 
 <b>Leonardo Teixeira Assunção</b>
-<br>{Listagen e filtros de Produtos}
+<br>{Listagem e filtros de Produtos}
 <br>[Repositório Git](https://github.com/LeoDevMeli)
 
 <b>Marcos Vinicius Rodrigues De Sá</b>
-<br>{Listagen e filtros de Pedidos
+<br>{Listagen e filtros de Pedidos}
 <br>[Repositório Git](https://github.com/marcossa01)
 
 <b>Rafael Menezes Da Silva</b>

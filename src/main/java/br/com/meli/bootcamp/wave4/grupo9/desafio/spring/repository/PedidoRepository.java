@@ -69,8 +69,8 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
     public void grava() throws ErrorProcesamentoException{
         try {
             objectMapper.writeValue(new File(PATH), pedidos);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
     }
 

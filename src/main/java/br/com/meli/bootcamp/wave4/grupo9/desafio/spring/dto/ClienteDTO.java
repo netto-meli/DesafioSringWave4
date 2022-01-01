@@ -35,6 +35,11 @@ public class ClienteDTO {
      */
     private String cpf;
 
+    /*** Conversor de Lista Cliente: de Entidade para DTO
+     *
+     * @param listaCliente Lista de Cliente a ser convertida
+     * @return Lista de ClienteDTO convertido
+     */
     public static List<ClienteDTO> converte(List<Cliente> listaCliente) {
         List<ClienteDTO> listaCliDTO = new ArrayList<>();
         for (Cliente cli : listaCliente) {
@@ -44,6 +49,11 @@ public class ClienteDTO {
         return listaCliDTO;
     }
 
+    /*** Conversor da classe Cliente: de Entidade para DTO
+     *
+     * @param cli Objeto Cliente a ser convertido
+     * @return Objeto ClienteDTO convertido
+     */
     private static ClienteDTO converte(Cliente cli) {
         return new ClienteDTO(
                 cli.getId(),

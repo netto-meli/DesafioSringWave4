@@ -6,7 +6,12 @@ import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesame
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service.CarrinhoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -81,6 +86,7 @@ public class CarrinhoController {
 	 * POST - /loja/limpaCarrinho/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
+	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
 	 * @return Retorna mensagem informando que o carrinho está vazio em um ResponseEntity com status <b>CREATED</b> e
 	 * 	 * <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
 	 */
@@ -116,10 +122,12 @@ public class CarrinhoController {
 	 * <i>GET</i>: "/loja/pedidos/{id}" implementado no Controller:
 	 * {@link br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada}
 	 * @see br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada
+	 * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
 	 */
 	@PostMapping("/fechaCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO> fecharPedido(@PathVariable String idCliente,
-												   UriComponentsBuilder uriBuilder) throws ErrorProcesamentoException {
+												   UriComponentsBuilder uriBuilder)
+			throws ErrorProcesamentoException {
 		Pedido pedido = carrinhoService.fecharCarrinho(idCliente);
 		URI uri = uriBuilder
 				.path("/pedidos/{id}")

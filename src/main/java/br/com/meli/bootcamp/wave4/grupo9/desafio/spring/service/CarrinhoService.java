@@ -114,6 +114,7 @@ public class CarrinhoService {
      * @param clienteId ID do Cliente que deseja ver o estado atual do carrinho de compras
      * @return Retorna um <b>Pedido</b>, com <i>ID nula</i>, pois é um pedido ainda não finalizado (carrinho aberto).
      * @throws CartManagementException Lança exceção CartManagementException no caso de fechar carrinho vazio.
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
      */
     public Pedido fecharCarrinho(String clienteId) throws CartManagementException, ErrorProcesamentoException {
         Long idCliente = Long.parseLong(clienteId);

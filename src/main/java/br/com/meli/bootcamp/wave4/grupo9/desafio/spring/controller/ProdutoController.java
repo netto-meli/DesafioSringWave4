@@ -8,7 +8,14 @@ import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -16,15 +23,15 @@ import java.util.List;
 
 /***
  * Controller dos métodos do carrinho:<br>
- *  * <b>Lista todos os produtos</b><br>
- *  * <b>Lista por categoria</b><br>
- *  * <b>lista por nome</b><br>
- *  * <b>Lista ordenando</b><br>
- *  * <b>lista ppersonalizada / com dois parametros</b>
- *  *
- *  * @author Leonardo Assuncao
+ *  <b>Lista todos os produtos</b><br>
+ *  <b>Lista por categoria</b><br>
+ *  <b>lista por nome</b><br>
+ *  <b>Lista ordenando</b><br>
+ *  <b>lista personalizada / com dois parâmetros</b>
+ *
+ * @author Leonardo Assuncao
+ * @author Felipe
  */
-
 @RestController
 @RequestMapping("/loja")
 public class ProdutoController {
@@ -52,7 +59,9 @@ public class ProdutoController {
     /***
      *
      * @param categoria
+     * @param uriBuilder
      * @return Lista de produtos filtrados pela categoria
+     * @throws NotFoundExceptionProduct
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosCategoria")
@@ -74,9 +83,10 @@ public class ProdutoController {
      * @param uriBuilder
      * 0 - Alfabetica crescente
      * 1 - Alfabetica decrescente
-     * 2 - Maior -> menor preco
-     * 3 - Menor -> maior preco
+     * 2 - Maior - menor preco
+     * 3 - Menor - maior preco
      * @return Lista de produtos filtrados pela categoria, nome e marca ordenados
+     * @throws NotFoundExceptionProduct
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosOrdenado")
@@ -96,10 +106,11 @@ public class ProdutoController {
      * @param categoria
      * @param uriBuilder
      * @return lista filtrada pelo nome e categoria
+     * @throws NotFoundExceptionProduct
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosNomeCategoria")
-    public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros(
+    public ResponseEntity<List<ProdutoDTO>> obterProdutoNomeCategoria(
             @RequestParam(value = "nome") String nome,
             @RequestParam(value = "categoria") String categoria,
             UriComponentsBuilder uriBuilder) throws NotFoundExceptionProduct {
@@ -117,6 +128,7 @@ public class ProdutoController {
      * @param frete
      * @param uriBuilder
      * @return filtra por nome e frete
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosNomeFrete")
@@ -138,6 +150,7 @@ public class ProdutoController {
      * @param marca
      * @param uriBuilder
      * @return filtra por nome e marca
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosNomeMarca")
@@ -159,6 +172,7 @@ public class ProdutoController {
      * @param categoria
      * @param uriBuilder
      * @return retorna lista filtrada por frete e categoria
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosFreteCategoria")
@@ -231,10 +245,6 @@ public class ProdutoController {
 
     }
 
-
-
-
-
     @PostMapping("/produto/cadastrarlista")
     public ResponseEntity<List<ProdutoDTO>> cadastrar(@RequestBody List<ProdutoDTO> form,
                                                       UriComponentsBuilder uriBuilder)
@@ -250,7 +260,6 @@ public class ProdutoController {
     public ResponseEntity<ProdutoDTO> obter(@PathVariable Long id) {
         return ResponseEntity.ok(ProdutoDTO.converte(produtoService.obter(id)));
     }
-
 
     @PostMapping("/produto/cadastrar")
     public ResponseEntity<ProdutoDTO> cadastrar(

@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
  *  *
  *  * @author Leonardo Assuncao
  */
-
 @Service
 public class ProdutoService {
 
@@ -61,6 +60,7 @@ public class ProdutoService {
 
     public List<Produto> listaProdutoOrdenado(int ordenacao) throws NotFoundExceptionProduct{
         try {
+            // TODO poderia ser switch?
             if (ORDENCAO_AFABETICA_CRES == ordenacao) {
                 return estoqueRepository.listagem().stream()
                         .sorted(Comparator.comparing(Produto::getNome))
@@ -124,6 +124,21 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
+    // TODO ainda nao utilizado
+    public List<Produto> ordenaFrete(int ordenacao, boolean frete) throws ErrorProcesamentoException {
+        if (ORDENCAO_AFABETICA_CRES == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .filter(u -> (frete == u.isFreteGratis()))
+                    .sorted(Comparator.comparing(Produto::isFreteGratis))
+                    .collect(Collectors.toList());
+        } else if (ORDENCAO_AFABETICA_DEC == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .sorted(Comparator.comparing(Produto::isFreteGratis).reversed())
+                    .collect(Collectors.toList());
+        }
+        return null;
+    }
+
     public List<Produto> ordenaCategoria(int ordenacao, String categoria) throws ErrorProcesamentoException {
         if (ORDENCAO_AFABETICA_CRES == ordenacao) {
             return estoqueRepository.listagem().stream()
@@ -153,21 +168,6 @@ public class ProdutoService {
         return null;
     }
 
-    // TODO ainda nao utilizado
-    public List<Produto> ordenaFrete(int ordenacao, boolean frete) throws ErrorProcesamentoException {
-        if (ORDENCAO_AFABETICA_CRES == ordenacao) {
-            return estoqueRepository.listagem().stream()
-                    .filter(u -> (frete == u.isFreteGratis()))
-                    .sorted(Comparator.comparing(Produto::isFreteGratis))
-                    .collect(Collectors.toList());
-        } else if (ORDENCAO_AFABETICA_DEC == ordenacao) {
-            return estoqueRepository.listagem().stream()
-                    .sorted(Comparator.comparing(Produto::isFreteGratis).reversed())
-                    .collect(Collectors.toList());
-        }
-        return null;
-    }
-
     public List<Produto> ordenaEstrelas(int ordenacao, int qtdestrelas) throws ErrorProcesamentoException {
         if (ORDENCAO_AFABETICA_CRES == ordenacao) {
             return estoqueRepository.listagem().stream()
@@ -182,9 +182,8 @@ public class ProdutoService {
         return null;
     }
 
-
-
-/*
+    // TODO este é um agregador de todas ordenaçoes? nao precisa mais?
+    /*
     public List<Produto> listaProdutoOrdenado(String ordenacao, String nome, String marca, String categoria) {
         if (!nome.isEmpty() || !ordenacao.isEmpty()) {
             ordenaNome(nome, ordenacao);
@@ -201,38 +200,7 @@ public class ProdutoService {
         return null;
     }
     */
-/*
-    private List<Produto> ordenaPreco(String ordenacao) {
-        if (ORDENCAO_MAIOR_PRECO.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream()
-                    .sorted(Comparator.comparing(Produto::getValor))
-                    .collect(Collectors.toList());
-        } else if (ORDENCAO_MENOR_PRECO.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream()
-                    .sorted(Comparator.comparing(Produto::getValor).reversed())
-                    .collect(Collectors.toList());
-        }
-        return null;
-    }
 
-    private List<Produto> ordenaNome(String nome, String ordenacao)  {
-        if (ORDENCAO_AFABETICA_CRES.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream()
-                    .filter(u -> nome.equals(u.getMarca()))
-                    .sorted(Comparator.comparing(Produto::getNome))
-                    .collect(Collectors.toList());
-        } else if (ORDENCAO_AFABETICA_DEC.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream()
-                    .sorted(Comparator.comparing(Produto::getNome).reversed())
-                    .collect(Collectors.toList());
-        }
-        return null;
-    }
-*/
-
-
-
-//TODO ver se ta ok
     public List<Produto> salvaLista(List<Produto> listaProduto) throws ErrorProcesamentoException{
         estoqueRepository.salvaLista(listaProduto);
         return listaProduto;

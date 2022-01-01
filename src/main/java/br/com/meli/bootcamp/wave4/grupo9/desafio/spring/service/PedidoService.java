@@ -32,6 +32,7 @@ public class PedidoService {
     public List<Pedido> ordernarLista(Integer number) throws ErrorProcesamentoException{
         List<Pedido> lista = new ArrayList<>();
 
+        // TODO poderia ser switch?
         if (number == 0) {
             lista = pedidoRepository.listagem().stream().sorted((p1, p2) -> sortCliente(p1,p2) ).collect(Collectors.toList());
         }

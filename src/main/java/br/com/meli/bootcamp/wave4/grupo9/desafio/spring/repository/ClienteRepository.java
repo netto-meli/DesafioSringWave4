@@ -13,12 +13,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/*** Classe Repositório de Clientes
+ *
+ * @author Felipe
+ * @author Fernando Netto
+ */
 @Repository
 public class ClienteRepository implements OurRepository<Cliente, Long>{
+
+    /***
+     * Lista com todas Categorias
+     */
     List<Cliente> clientes = new ArrayList<>();
+    /***
+     * objectMapper para utilização na manipulação do JSON
+     */
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+    /***
+     * PATH contendo o caminho/nome do arquivo JSON
+     */
     private final String PATH = "clientes.json";
 
+    /*** Método que irá salvar Cliente na lista
+     *
+     * @param cliente Objeto Cliente a ser persistida
+     * @return Cliente persistido
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
+     */
     public Cliente salva(Cliente cliente) throws ErrorProcesamentoException{
         try {
             /*Mesclar duas ArrayList<>
@@ -38,7 +59,11 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
         }
     }
 
-    public void grava() {
+    /*** Método que irá persistir as alterações realizadas
+     *
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
+     */
+    public void grava() throws ErrorProcesamentoException{
         try {
             objectMapper.writeValue(new File(PATH), clientes);
         } catch (Exception e) {
@@ -46,6 +71,11 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
         }
     }
 
+    /*** Método que trará a lista de Cliente
+     *
+     * @return Lista contendo Clientes
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
+     */
     public List<Cliente> listagem() throws ErrorProcesamentoException{
         try {
             File file = new File(PATH);
@@ -57,11 +87,30 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
         }
     }
 
-    public Cliente get(Long idCliente) {
+    /*** Método que busca 1 Cliente na lista do repositório
+     *
+     * @param id ID do Cliente
+     * @return Cliente com o ID informado
+     */
+    public Cliente get(Long id) {
         return clientes.stream()
-                .filter( c -> c.getId().equals(idCliente))
+                .filter( c -> c.getId().equals(id))
                 .findAny()
                 .orElse(null);
+    }
+
+    /*** Método que verifica a lista de Categorias e retora o maior ID atual
+     *
+     * @return ID no formato Long
+     */
+    private Long getMaxId(){
+        Long id = 0L;
+        for ( Cliente c : clientes ) {
+            if (c.getId() != null && c.getId().compareTo(id) > 0 ){
+                id = c.getId();
+            }
+        }
+        return id;
     }
 
     //TODO fazer
@@ -71,15 +120,5 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
 
     //TODO fazer
     public void deleteById(Long clienteId) {
-    }
-
-    private Long getMaxId(){
-        Long id = 0L;
-        for ( Cliente c : clientes ) {
-            if (c.getId() != null && c.getId().compareTo(id) > 0 ){
-                id = c.getId();
-            }
-        }
-        return id;
     }
 }

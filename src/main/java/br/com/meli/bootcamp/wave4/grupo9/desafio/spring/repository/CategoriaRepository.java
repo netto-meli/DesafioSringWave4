@@ -13,16 +13,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/***
- * @author Marcos
+/*** Classe Repositório de Categorias
+ *
+ * @author Felipe
+ * @author Fernando Netto
  */
 @Repository
 public class CategoriaRepository implements OurRepository<Categoria, Long>{
 
+    /***
+     * Lista com todas Categorias
+     */
     List<Categoria> categorias = new ArrayList<>();
+    /***
+     * objectMapper para utilização na manipulação do JSON
+     */
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+    /***
+     * PATH contendo o caminho/nome do arquivo JSON
+     */
     private final String PATH = "categorias.json";
 
+    /*** Método que irá salvar Categoria na lista
+     *
+     * @param categoria Objeto Categoria a ser persistida
+     * @return Categoria persistida
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
+     */
     public Categoria salva(Categoria categoria) throws ErrorProcesamentoException{
         try {
             /*Mesclar duas ArrayList<>
@@ -42,7 +59,11 @@ public class CategoriaRepository implements OurRepository<Categoria, Long>{
         }
     }
 
-    public void grava() {
+    /*** Método que irá persistir as alterações realizadas
+     *
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
+     */
+    public void grava() throws ErrorProcesamentoException{
         try {
             objectMapper.writeValue(new File(PATH), categorias);
         } catch (Exception e) {
@@ -50,6 +71,11 @@ public class CategoriaRepository implements OurRepository<Categoria, Long>{
         }
     }
 
+    /*** Método que trará a lista de Categoria
+     *
+     * @return Lista contendo Categorias
+     * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
+     */
     public List<Categoria> listagem() throws ErrorProcesamentoException {
         try {
             File file = new File(PATH);
@@ -61,6 +87,11 @@ public class CategoriaRepository implements OurRepository<Categoria, Long>{
         }
     }
 
+    /*** Método que busca 1 Categoria na lista do repositório
+     *
+     * @param id ID da Categoria
+     * @return Categoria com o ID informado
+     */
     public Categoria get(Long id) {
         return categorias.stream()
                 .filter(u -> u.getId().equals(id) )
@@ -68,7 +99,11 @@ public class CategoriaRepository implements OurRepository<Categoria, Long>{
                 .orElse(null); // null se nao existe produto
     }
 
-    private Long getMaxId(){
+    /*** Método que verifica a lista de Categorias e retora o maior ID atual
+     *
+     * @return ID no formato Long
+     */
+    public Long getMaxId(){
         Long id = 0L;
         for ( Categoria p : categorias ) {
             if (p.getId() != null && p.getId().compareTo(id) > 0 ){

@@ -45,7 +45,7 @@ public class CategoriaRepository implements OurRepository<Categoria, Long>{
         try {
             File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
-            categorias = Arrays.asList(objectMapper.readValue(is, Categoria[].class));
+            categorias = new ArrayList<>(Arrays.asList(objectMapper.readValue(is, Categoria[].class)));
             return categorias;
         } catch (Exception e) {
             e.printStackTrace();

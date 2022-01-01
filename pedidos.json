@@ -19,4 +19,25 @@
   } ],
   "valorFrete" : 0.0,
   "valorTotal" : 0.0
+}, {
+  "id" : 2,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 2,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 3
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 3.600
 } ]

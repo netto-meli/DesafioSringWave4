@@ -47,7 +47,7 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
         try {
             File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
-            pedidos = Arrays.asList(objectMapper.readValue(is, Pedido[].class));
+            pedidos = new ArrayList<>(Arrays.asList(objectMapper.readValue(is, Pedido[].class)));
             return pedidos;
         } catch (Exception e) {
             e.printStackTrace();

@@ -57,7 +57,7 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
         try {
             File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
-            produtos = Arrays.asList(objectMapper.readValue(is, Produto[].class));
+            produtos = new ArrayList<>(Arrays.asList(objectMapper.readValue(is, Produto[].class)));
             return produtos;
         } catch (Exception e) {
             e.printStackTrace();

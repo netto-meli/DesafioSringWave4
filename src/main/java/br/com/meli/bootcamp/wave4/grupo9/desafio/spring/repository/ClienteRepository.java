@@ -40,7 +40,7 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
         try {
             File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
-            clientes = Arrays.asList(objectMapper.readValue(is, Cliente[].class));
+            clientes = new ArrayList<>(Arrays.asList(objectMapper.readValue(is, Cliente[].class)));
             return clientes;
         } catch (Exception e) {
             e.printStackTrace();

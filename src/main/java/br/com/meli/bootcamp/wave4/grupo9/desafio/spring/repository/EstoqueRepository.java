@@ -3,6 +3,7 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -53,7 +54,7 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
         }
     }
 
-    public List<Produto> listagem() throws IOException{
+    public List<Produto> listagem() throws ErrorProcesamentoException {
         try {
             File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
@@ -61,9 +62,8 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
 
             return produtos;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ErrorProcesamentoException("Erro ao localizar produto");
         }
-        return null;
     }
 
     public List<Produto> salvaLista(List<Produto> listaprod) throws IOException {

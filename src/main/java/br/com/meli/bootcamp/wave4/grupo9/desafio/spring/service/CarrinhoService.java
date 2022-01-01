@@ -64,8 +64,7 @@ public class CarrinhoService {
             itemCarrinho.setQuantidade( itemCarrinho.getQuantidade() + qtdProdutos );
         }
         String endereco = clienteRepository.get(idCliente).getEndereco();
-        pedidoRepository.adicionarProdutoNoCarrinho(idCliente, endereco, itemCarrinho);
-        return carrinho;
+        return pedidoRepository.adicionarProdutoNoCarrinho(idCliente, endereco, itemCarrinho);
     }
 
     /*** Método para retirar uma quantidade de um produto do carrinho de compras do cliente.<br>

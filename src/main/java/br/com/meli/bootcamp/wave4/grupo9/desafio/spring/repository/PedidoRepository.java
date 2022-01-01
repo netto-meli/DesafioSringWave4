@@ -24,7 +24,7 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "pedidos.json";
 
-    public Cliente salva(Pedido pedido) {
+    public Pedido salva(Pedido pedido) {
         try {
             /*Mesclar duas ArrayList<>
             * List<String> newList = new ArrayList<String>(listOne);
@@ -40,7 +40,7 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return pedido;
     }
 
     public List<Pedido> listagem(){
@@ -82,7 +82,7 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
         return id;
     }
 
-    public void adicionarProdutoNoCarrinho(Long idClt, String endereco, ItemCarrinho carrinho){
+    public Pedido adicionarProdutoNoCarrinho(Long idClt, String endereco, ItemCarrinho carrinho){
         Pedido ped = pedidos.stream()
                 .filter(pdcl -> pdcl.getIdCliente().equals(idClt))
                 .filter(pd -> Objects.equals(pd.getId(), null))
@@ -92,6 +92,7 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
         // TODO deve ter um jeito melhor que isso
         pedidos.remove(ped);
         pedidos.add(ped);
+        return ped;
     }
 
     public Pedido getCarrinho(Long idClt) {
@@ -100,6 +101,14 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
                 .filter(pd -> Objects.equals(pd.getId(), null))
                 .findAny()
                 .orElse( criaCarrinhoNovo(idClt) );
+    }
+
+    public void grava() {
+        try {
+            objectMapper.writeValue(new File(PATH), pedidos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void limparCarrinho(Long idClt){

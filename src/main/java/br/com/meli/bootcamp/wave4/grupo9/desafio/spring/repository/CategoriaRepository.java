@@ -22,7 +22,7 @@ public class CategoriaRepository implements OurRepository<Categoria, Long>{
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "categorias.json";
 
-    public Cliente salva(Categoria categoria) {
+    public Categoria salva(Categoria categoria) {
         try {
             /*Mesclar duas ArrayList<>
             * List<String> newList = new ArrayList<String>(listOne);
@@ -38,7 +38,15 @@ public class CategoriaRepository implements OurRepository<Categoria, Long>{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return categoria;
+    }
+
+    public void grava() {
+        try {
+            objectMapper.writeValue(new File(PATH), categorias);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Categoria> listagem() {

@@ -1,6 +1,5 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
@@ -28,7 +27,7 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "estoque.json";
 
-    public Cliente salva(Produto produto) {
+    public Produto salva(Produto produto) {
         try {
             /*Mesclar duas ArrayList<>
             * List<String> newList = new ArrayList<String>(listOne);
@@ -44,7 +43,15 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return produto;
+    }
+
+    public void grava() {
+        try {
+            objectMapper.writeValue(new File(PATH), produtos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void salvaLista(List<Produto> listaprod) {
@@ -80,7 +87,7 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
                     .findFirst()
                     .orElse(null)
                     .baixarEstoque( pdCarrinho.getQuantidade() );
-                salvaLista(produtos);
+                grava();
             } catch (NullPointerException e) {
                 throw new RepositoryException("Não existe produto no estoque para dar baixa.");
             }

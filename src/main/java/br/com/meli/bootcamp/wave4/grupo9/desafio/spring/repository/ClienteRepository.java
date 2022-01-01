@@ -36,6 +36,14 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
         return cliente;
     }
 
+    public void grava() {
+        try {
+            objectMapper.writeValue(new File(PATH), clientes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Cliente> listagem() {
         try {
             File file = new File(PATH);

@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.net.URI;import java.util.List;
 
 /***
  * Controller dos métodos do carrinho:<br>
@@ -62,10 +63,10 @@ public class ProdutoController {
             UriComponentsBuilder uriBuilder) throws NotFoundExceptionProduct {
         List<Produto> listaCategoria = produtoService.listaProdutoCategoria(categoria);
         URI uri = uriBuilder
-                .path("/listarProdutosCategoria")
+                .path("/listarProdutosCategoria/")
                 .buildAndExpand(listaCategoria)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaCategoria));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaCategoria));
     }
 
     /***
@@ -96,7 +97,6 @@ public class ProdutoController {
      * @param categoia
      * @param uriBuilder
      * @return lista filtrada pelo nome e categoria
-     * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosNomeCategoria")
@@ -118,7 +118,6 @@ public class ProdutoController {
      * @param frete
      * @param uriBuilder
      * @return filtra por nome e frete
-     * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosNomeFrete")
@@ -140,7 +139,6 @@ public class ProdutoController {
      * @param marca
      * @param uriBuilder
      * @return filtra por nome e marca
-     * @throws IOException
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosNomeMarca")

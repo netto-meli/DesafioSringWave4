@@ -79,12 +79,13 @@ public class ProdutoService {
         return null;
     }
 
-/*    private List<Produto> ordenaCategoria(String categoria, int ordenacao) throws IOException {
-
-    }*/
-
-    private List<Produto> ordenaMarca(int ordenacao, String marca) throws IOException {
-        if (ORDENCAO_AFABETICA_CRES == ordenacao) {
+    private List<Produto> ordenaCategoria(String categoria, String ordenacao) throws IOException {
+        if (ORDENCAO_AFABETICA_CRES.equals(ordenacao)) {
+            return estoqueRepository.listagem().stream()
+                    .filter(u -> categoria.equals(u.getCategoria().getNome()))
+                    .sorted(Comparator.comparing(a -> a.getCategoria().getNome()))
+                    .collect(Collectors.toList());
+        } else if (ORDENCAO_AFABETICA_DEC.equals(ordenacao)) {
             return estoqueRepository.listagem().stream()
                     .filter(u -> marca.equals(u.getMarca())).sorted(Comparator.comparing(Produto::getMarca)).collect(Collectors.toList());
         } else if (ORDENCAO_AFABETICA_DEC == ordenacao) {
@@ -153,3 +154,17 @@ public class ProdutoService {
     }
 }
 
+//TODO ver se ta ok
+    public List<Produto> salvaLista(List<Produto> listaProduto) {
+        estoqueRepository.salvaLista(listaProduto);
+        return listaProduto;
+    }
+
+    public Produto obter(long id) {
+        return estoqueRepository.get(id);
+    }
+
+    public void salvar(Produto produto) {
+        estoqueRepository.salva(produto);
+    }
+}

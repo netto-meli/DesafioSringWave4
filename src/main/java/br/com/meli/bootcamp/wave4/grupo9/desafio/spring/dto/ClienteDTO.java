@@ -36,12 +36,6 @@ public class ClienteDTO {
      * CPF do Cliente do tipo String
      */
     private String cpf;
-    /***
-     * Lista de PedidosDTO, com a notação <i>{@literal @}JsonIgnore</i>,
-     * para que o JSON não utilize esse atributo em seu conteúdo.
-     */
-    @JsonIgnore
-    private List<PedidoDTO> listaPedidoDTOS;
 
     public static List<ClienteDTO> converte(List<Cliente> listaCliente) {
         List<ClienteDTO> listaCliDTO = new ArrayList<>();
@@ -58,7 +52,6 @@ public class ClienteDTO {
                 cli.getNome(),
                 cli.getEndereco(),
                 cli.getEstado(),
-                cli.getCpf(),
-                PedidoDTO.converte( cli.getListaPedidos()) );
+                cli.getCpf() );
     }
 }

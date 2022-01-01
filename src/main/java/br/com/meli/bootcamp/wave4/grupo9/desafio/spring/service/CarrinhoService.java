@@ -49,23 +49,22 @@ public class CarrinhoService {
      * @throws CartManagementException Lança exceção CartManagementException no caso de adicionar zero produtos num carrinho.
      */
     public Pedido adicionarProdutosNoCarrinho(String clienteId, String produtoId, String quantidade) throws CartManagementException {
-        long idCliente = Long.parseLong(clienteId);
-        long idProduto = Long.parseLong(produtoId);
+        Long idCliente = Long.parseLong(clienteId);
+        Long idProduto = Long.parseLong(produtoId);
         long qtdProdutos = Long.parseLong(quantidade);
-        Cliente cliente = clienteRepository.getCliente(idCliente);
+        Pedido carrinho = pedidoRepository.getCarrinho(idCliente);
         ItemCarrinho itemCarrinho;
-        if ( Objects.equals( cliente.getCarrinho(), null)
-                || cliente.getCarrinho().getItemCarrinho(idProduto) == null) {
+        if ( Objects.equals( carrinho, null)
+                || carrinho.getItemCarrinho(idProduto) == null) {
             if (qtdProdutos <= 0)
                 throw new CartManagementException("Impossível iniciar um carrinho com ZERO produtos");
             itemCarrinho = new ItemCarrinho( qtdProdutos, estoqueRepository.get(idProduto) );
         } else {
-            itemCarrinho = cliente.getCarrinho().getItemCarrinho(idProduto);
+            itemCarrinho = carrinho.getItemCarrinho(idProduto);
             itemCarrinho.setQuantidade( itemCarrinho.getQuantidade() + qtdProdutos );
         }
-        cliente.adicionarProdutoNoCarrinho(itemCarrinho);
-        clienteRepository.atualizaPedidoCliente(cliente);
-        return cliente.getCarrinho();
+        String endereco = clienteRepository.get(idCliente).getEndereco();
+        return pedidoRepository.adicionarProdutoNoCarrinho(idCliente, endereco, itemCarrinho);
     }
 
     /*** Método para retirar uma quantidade de um produto do carrinho de compras do cliente.<br>
@@ -80,15 +79,15 @@ public class CarrinhoService {
         long idCliente = Long.parseLong(clienteId);
         long idProduto = Long.parseLong(produtoId);
         long qtdProdutos = Long.parseLong(quantidadeRetirar);
-        Cliente cliente = clienteRepository.getCliente(idCliente);
-        if (!Objects.equals(cliente.getCarrinho(), null)
-                && cliente.getCarrinho().getItemCarrinho(idProduto) != null) {
-            ItemCarrinho item = cliente.getCarrinho().getItemCarrinho(idProduto);
+        Pedido carrinho = pedidoRepository.getCarrinho(idCliente);
+        String endereco = clienteRepository.get(idCliente).getEndereco();
+        if (!Objects.equals(carrinho, null)
+                && carrinho.getItemCarrinho(idProduto) != null) {
+            ItemCarrinho item = carrinho.getItemCarrinho(idProduto);
             item.retiraQuantidadeProduto(qtdProdutos);
-            cliente.getCarrinho().atualizaCarrinho(item, cliente.getEndereco());
-            clienteRepository.atualizaPedidoCliente(cliente);
+            carrinho.atualizaCarrinho(item, endereco);
         }
-        return cliente.getCarrinho();
+        return carrinho;
     }
 
     /*** Método para limpar o carrinho de compras de um cliente
@@ -97,7 +96,7 @@ public class CarrinhoService {
      */
     public void limparCarrinho(String clienteId){
         long idCliente = Long.parseLong(clienteId);
-        clienteRepository.getCliente(idCliente).limparCarrinho();
+        pedidoRepository.limparCarrinho(idCliente);
     }
 
     /*** Método para exibir o carrinho de compras atual de um cliente
@@ -107,8 +106,7 @@ public class CarrinhoService {
      */
     public Pedido exibirCarrinhoAberto(String clienteId) {
         long idCliente = Long.parseLong(clienteId);
-        Cliente cliente = clienteRepository.getCliente(idCliente);
-        return cliente.getCarrinho();
+        return pedidoRepository.getCarrinho(idCliente);
     }
 
     /*** Método para fechar o carrinho de compras de um cliente e criar um pedido
@@ -118,14 +116,15 @@ public class CarrinhoService {
      * @throws CartManagementException Lança exceção CartManagementException no caso de fechar carrinho vazio.
      */
     public Pedido fecharCarrinho(String clienteId) throws CartManagementException {
-        long idCliente = Long.parseLong(clienteId);
-        Cliente cliente = clienteRepository.getCliente(idCliente);
-        List<ItemCarrinho> listItemCarrinho = cliente.getCarrinho().getListaItensCarrinho();
+        Long idCliente = Long.parseLong(clienteId);
+        Pedido carrinho = pedidoRepository.getCarrinho(idCliente);
+        List<ItemCarrinho> listItemCarrinho = carrinho.getListaItensCarrinho();
         if (listItemCarrinho.size() == 0)
             throw new CartManagementException("Impossível gerar pedido, utilizando um carrinho vazio.");
         estoqueRepository.baixarEstoque(listItemCarrinho);
-        Pedido pedido = pedidoRepository.criaPedido(listItemCarrinho, cliente.getId(), cliente.getEndereco());
-        cliente.limparCarrinho();
+        String endereco = clienteRepository.get(idCliente).getEndereco();
+        Pedido pedido = pedidoRepository.criaPedido(listItemCarrinho, idCliente, endereco);
+        pedidoRepository.limparCarrinho(idCliente);
         return pedido;
     }
 }

@@ -96,15 +96,10 @@ public class ProdutoDTO {
      *
      * @param produtosDTO Lista de Produto a serem convertidos
      * @return Lista de Produtos convertidos
-     *
-    public static List<Produto> converter(List<ProdutoDTO> produtosDTO) {
-        List<Produto> produto = new ArrayList<>();
-        produtosDTO.forEach(prod -> {
-            Produto p = ProdutoDTO.converte(prod);
-            produto.add(p);
-        });
-        return produto;
-    }*/
+     */
+    public static List<Produto> converteDTO(List<ProdutoDTO> produtosDTO) {
+        return produtosDTO.stream().map(ProdutoDTO::converte).collect(Collectors.toList());
+    }
 
     /***
      * {@literal @}Override do método equals

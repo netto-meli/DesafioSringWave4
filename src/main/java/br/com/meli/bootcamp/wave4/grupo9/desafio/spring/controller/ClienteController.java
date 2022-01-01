@@ -19,14 +19,14 @@ public class ClienteController {
 
     @GetMapping("/cliente")
     public List<ClienteDTO> listaCliente(){
-        List<Cliente> cliente = clienteRepository.findAll();
+        List<Cliente> cliente = clienteRepository.listagem();
         return ClienteDTO.converte(cliente);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente add(@RequestBody Cliente cliente){
-        return clienteRepository.save(cliente);
+        return clienteRepository.salva(cliente);
     }
 
     @PutMapping("/{clienteId}")
@@ -37,7 +37,7 @@ public class ClienteController {
         }
         //client DTO
         //cliente.setId(clienteId);
-        cliente = clienteRepository.save(cliente);
+        cliente = clienteRepository.salva(cliente);
         return ResponseEntity.ok(cliente);
     }
 

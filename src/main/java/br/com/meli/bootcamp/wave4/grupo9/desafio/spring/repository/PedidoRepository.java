@@ -1,14 +1,15 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +25,7 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "pedidos.json";
 
-    public Pedido salva(Pedido pedido) {
+    public Pedido salva(Pedido pedido) throws ErrorProcesamentoException{
         try {
             /*Mesclar duas ArrayList<>
             * List<String> newList = new ArrayList<String>(listOne);
@@ -37,22 +38,21 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
             List<Pedido> novaLista = new ArrayList<>(pedidos);
             novaLista.addAll(novaLista2);
             objectMapper.writeValue(new File(PATH), novaLista);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return pedido;
+        } catch (IOException e) {
+            throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
-        return pedido;
     }
 
-    public List<Pedido> listagem(){
+    public List<Pedido> listagem() throws ErrorProcesamentoException {
         try {
             File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
             pedidos = new ArrayList<>(Arrays.asList(objectMapper.readValue(is, Pedido[].class)));
             return pedidos;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
-        return null;
     }
 
     public Pedido get(Long id) {
@@ -62,7 +62,8 @@ public class PedidoRepository implements OurRepository<Pedido, Long>{
                 .orElse(null); // null se nao existe produto
     }
 
-    public Pedido criaPedido(List<ItemCarrinho> listItemCarrinho, long idCliente, String enderecoEntrega) {
+    public Pedido criaPedido(List<ItemCarrinho> listItemCarrinho, long idCliente, String enderecoEntrega)
+            throws ErrorProcesamentoException{
         Long idPedido = getMaxId()+1L;
         BigDecimal valorPedido = BigDecimal.ZERO;
         BigDecimal valorFrete = BigDecimal.ZERO;

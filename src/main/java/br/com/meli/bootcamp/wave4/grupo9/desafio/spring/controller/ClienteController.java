@@ -2,6 +2,7 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.ClienteDTO;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,19 +19,19 @@ public class ClienteController {
     private ClienteRepository clienteRepository;
 
     @GetMapping("/cliente")
-    public List<ClienteDTO> listaCliente(){
+    public List<ClienteDTO> listaCliente() throws ErrorProcesamentoException {
         List<Cliente> cliente = clienteRepository.listagem();
         return ClienteDTO.converte(cliente);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente add(@RequestBody Cliente cliente){
+    public Cliente add(@RequestBody Cliente cliente) throws ErrorProcesamentoException{
         return clienteRepository.salva(cliente);
     }
 
     @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> update(@PathVariable Long clienteId, @RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> update(@PathVariable Long clienteId, @RequestBody Cliente cliente) throws ErrorProcesamentoException{
 
         if(!clienteRepository.existsById(clienteId)){
             return ResponseEntity.notFound().build();

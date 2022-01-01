@@ -53,7 +53,7 @@ public class CategoriaDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CategoriaDTO that = (CategoriaDTO) o;
-        return id == that.id && Objects.equals(nome, that.nome);
+        return id.equals(that.id) && Objects.equals(nome, that.nome);
     }
 
     /***

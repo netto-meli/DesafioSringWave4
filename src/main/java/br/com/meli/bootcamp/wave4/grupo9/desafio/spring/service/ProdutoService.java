@@ -1,16 +1,16 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.EstoqueRepository;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.NotFoundExceptionProduct;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /***
  * Service implementacao dos métodos do carrinho:<br>
@@ -29,26 +29,162 @@ public class ProdutoService {
     /***
      * Variaveis final static para ser utilizadar no metodo de ordenacao
      */
-    private static final String ORDENCAO_AFABETICA_DEC = "0";
-    private static final String ORDENCAO_AFABETICA_CRES = "1";
-    private static final String ORDENCAO_MAIOR_PRECO = "2";
-    private static final String ORDENCAO_MENOR_PRECO = "3";
-
+    private static final int ORDENCAO_AFABETICA_DEC = 0;
+    private static final int ORDENCAO_AFABETICA_CRES = 1;
+    private static final int ORDENCAO_MAIOR_PRECO = 2;
+    private static final int ORDENCAO_MENOR_PRECO = 3;
+    private static final String PRODUTO_AINDA_NAO_DISPONIVEL = "OPS! Nao temos este produto ainda disponivel, logo atualizaremos o catalogo da loja, desculpe pelo incoveniente";
+    private static final String PRODUTO_ERRO_ORDENACAO = "Tivemos um erro na ordenacao tente novamente mais tarde =]";
+    private static final String ERROR_LOCALIZAR_PELO_FILTRO = "Tivemos um erro ao tentar filtar pelos parametros enviados tenta novamento";
     /*** Instancia de estoque: <b>EstoqueRepository</b> com notação <i>{@literal @}Autowired</i> do lombok
      */
     @Autowired
     private EstoqueRepository estoqueRepository;
 
     public List<Produto> listaProduto() {
-        return estoqueRepository.listagem();
+        try {
+            return estoqueRepository.listagem();
+        } catch (Exception e) {
+            throw new RepositoryException("erro ao localizar produtos");
+        }
     }
 
-    public List<Produto> listaProdutoCategoria(String categoria) {
-        return estoqueRepository.listagem().stream()
-                .filter(p -> p.getCategoria().getNome().equals(categoria))
+    public List<Produto> listaProdutoCategoria(Long idCategoria) throws NotFoundExceptionProduct {
+        try {
+            return estoqueRepository.listagem().stream()
+                    .filter(p -> p.getCategoria().getId().equals(idCategoria)).
+                    collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new NotFoundExceptionProduct(PRODUTO_AINDA_NAO_DISPONIVEL);
+        }
+    }
+
+    public List<Produto> listaProdutoOrdenado(int ordenacao) throws NotFoundExceptionProduct{
+        try {
+            if (ORDENCAO_AFABETICA_CRES == ordenacao) {
+                return estoqueRepository.listagem().stream()
+                        .sorted(Comparator.comparing(Produto::getNome))
+                        .collect(Collectors.toList());
+            } else if (ORDENCAO_AFABETICA_DEC == ordenacao) {
+                return estoqueRepository.listagem().stream()
+                        .sorted(Comparator.comparing(Produto::getNome).reversed())
+                        .collect(Collectors.toList());
+            } else if (ORDENCAO_MAIOR_PRECO == ordenacao) {
+                return estoqueRepository.listagem().stream()
+                        .sorted(Comparator.comparing(Produto::getValor))
+                        .collect(Collectors.toList());
+            } else if (ORDENCAO_MENOR_PRECO == ordenacao) {
+                return estoqueRepository.listagem().stream()
+                        .sorted(Comparator.comparing(Produto::getValor).reversed())
+                        .collect(Collectors.toList());
+            }
+        } catch (Exception e) {
+            throw new NotFoundExceptionProduct(PRODUTO_ERRO_ORDENACAO);
+        }
+        return null;
+    }
+
+    public List<Produto> listaProdutoFiltroNomeCategoria(String nome, String categoria) throws NotFoundExceptionProduct{
+        try {
+            return estoqueRepository.listagem().stream()
+                    .filter(u -> nome.equals(u.getNome()))
+                    .filter(u -> categoria.equals(u.getCategoria().getNome()))
+                    .collect(Collectors.toList());
+        } catch (ErrorProcesamentoException e) {
+            throw new NotFoundExceptionProduct(ERROR_LOCALIZAR_PELO_FILTRO);
+        }
+    }
+
+    public List<Produto> listaProdutoFiltroNomeFrete(String nome, boolean frete) throws ErrorProcesamentoException{
+        return  estoqueRepository.listagem().stream()
+                .filter(u -> nome.equals(u.getNome()))
+                .filter(u -> frete == (u.isFreteGratis()))
                 .collect(Collectors.toList());
     }
 
+    public List<Produto> listaProdutoFiltroNomeMarca(String nome, String marca) throws ErrorProcesamentoException{
+        return estoqueRepository.listagem().stream()
+                .filter(u -> nome.equals(u.getNome()))
+                .filter(u -> marca.equals(u.getMarca()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Produto> listaProdutoFiltroFreteCategoria(boolean frete, String categoria) throws ErrorProcesamentoException {
+        return estoqueRepository.listagem().stream()
+                .filter(u -> frete == (u.isFreteGratis()))
+                .filter(u -> categoria.equals(u.getCategoria().getNome()))
+                .collect(Collectors.toList());
+    }
+
+    //TODO ainda nao utilizado
+    public List<Produto> listaProdutoFiltroMarcaEstrela(String marca, int estrela) throws ErrorProcesamentoException {
+        return estoqueRepository.listagem().stream()
+                .filter(u -> marca.equals(u.getNome()))
+                .filter(u -> estrela == (u.getEstrelas()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Produto> ordenaCategoria(int ordenacao, String categoria) throws ErrorProcesamentoException {
+        if (ORDENCAO_AFABETICA_CRES == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .filter(u -> categoria.equals(u.getCategoria().getNome()))
+                    .sorted(Comparator.comparing(a -> a.getCategoria().getNome()))
+                    .collect(Collectors.toList());
+        } else if (ORDENCAO_AFABETICA_DEC == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .filter(u -> categoria.equals(u.getCategoria().getNome()))
+                    .sorted((a, b) -> b.getCategoria().getNome().compareTo(a.getCategoria().getNome()))
+                    .collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    public List<Produto> ordenaMarca(int ordenacao, String marca) throws ErrorProcesamentoException {
+        if (ORDENCAO_AFABETICA_CRES == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .filter(u -> marca.equals(u.getMarca()))
+                    .sorted(Comparator.comparing(Produto::getMarca))
+                    .collect(Collectors.toList());
+        } else if (ORDENCAO_AFABETICA_DEC == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .sorted(Comparator.comparing(Produto::getMarca).reversed())
+                    .collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    // TODO ainda nao utilizado
+    public List<Produto> ordenaFrete(int ordenacao, boolean frete) throws ErrorProcesamentoException {
+        if (ORDENCAO_AFABETICA_CRES == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .filter(u -> (frete == u.isFreteGratis()))
+                    .sorted(Comparator.comparing(Produto::isFreteGratis))
+                    .collect(Collectors.toList());
+        } else if (ORDENCAO_AFABETICA_DEC == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .sorted(Comparator.comparing(Produto::isFreteGratis).reversed())
+                    .collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    public List<Produto> ordenaEstrelas(int ordenacao, int qtdestrelas) throws ErrorProcesamentoException {
+        if (ORDENCAO_AFABETICA_CRES == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .filter(u -> (qtdestrelas == u.getEstrelas()))
+                    .sorted(Comparator.comparing(Produto::getEstrelas))
+                    .collect(Collectors.toList());
+        } else if (ORDENCAO_AFABETICA_DEC == ordenacao) {
+            return estoqueRepository.listagem().stream()
+                    .sorted(Comparator.comparing(Produto::getEstrelas).reversed())
+                    .collect(Collectors.toList());
+        }
+        return null;
+    }
+
+
+
+/*
     public List<Produto> listaProdutoOrdenado(String ordenacao, String nome, String marca, String categoria) {
         if (!nome.isEmpty() || !ordenacao.isEmpty()) {
             ordenaNome(nome, ordenacao);
@@ -64,36 +200,8 @@ public class ProdutoService {
         }
         return null;
     }
-
-    private List<Produto> ordenaCategoria(String categoria, String ordenacao){
-        if (ORDENCAO_AFABETICA_CRES.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream()
-                    .filter(u -> categoria.equals(u.getCategoria().getNome()))
-                    .sorted(Comparator.comparing(a -> a.getCategoria().getNome()))
-                    .collect(Collectors.toList());
-        } else if (ORDENCAO_AFABETICA_DEC.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream()
-                    .filter(u -> categoria.equals(u.getCategoria().getNome()))
-                    .sorted((a, b) -> b.getCategoria().getNome().compareTo(a.getCategoria().getNome()))
-                    .collect(Collectors.toList());
-        }
-        return null;
-    }
-
-    private List<Produto> ordenaMarca(String ordenacao, String marca) {
-        if (ORDENCAO_AFABETICA_CRES.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream()
-                    .filter(u -> marca.equals(u.getMarca()))
-                    .sorted(Comparator.comparing(Produto::getMarca))
-                    .collect(Collectors.toList());
-        } else if (ORDENCAO_AFABETICA_DEC.equals(ordenacao)) {
-            return estoqueRepository.listagem().stream()
-                    .sorted(Comparator.comparing(Produto::getMarca).reversed())
-                    .collect(Collectors.toList());
-        }
-        return null;
-    }
-
+    */
+/*
     private List<Produto> ordenaPreco(String ordenacao) {
         if (ORDENCAO_MAIOR_PRECO.equals(ordenacao)) {
             return estoqueRepository.listagem().stream()
@@ -120,44 +228,12 @@ public class ProdutoService {
         }
         return null;
     }
+*/
 
-    public List<Produto> listaProdutoFiltorPersonalizado(String nome, String categoria) {
-        return estoqueRepository.listagem().stream()
-                .filter(u -> nome.equals(u.getNome()))
-                .filter(u -> categoria.equals(u.getCategoria().getNome()))
-                .collect(Collectors.toList());
-    }
 
-    public List<Produto> listaProdutoFiltorPersonalizado2(String nome, boolean frete)  {
-        return estoqueRepository.listagem().stream()
-                .filter(u -> nome.equals(u.getNome()))
-                .filter(u -> frete == (u.isFreteGratis()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Produto> listaProdutoFiltorPersonalizado3(String nome, String marca) {
-        return estoqueRepository.listagem().stream()
-                .filter(u -> nome.equals(u.getNome()))
-                .filter(u -> marca.equals(u.getMarca()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Produto> listaProdutoFiltorPersonalizado4(boolean frete, String categoria) {
-        return estoqueRepository.listagem().stream()
-                .filter(u -> frete == (u.isFreteGratis()))
-                .filter(u -> categoria.equals(u.getCategoria().getNome()))
-                .collect(Collectors.toList());
-    }
-
-    public List<Produto> listaProdutoFiltorPersonalizado5(String marca, int estrela) {
-        return estoqueRepository.listagem().stream()
-                .filter(u -> marca.equals(u.getNome()))
-                .filter(u -> estrela == (u.getEstrelas()))
-                .collect(Collectors.toList());
-    }
 
 //TODO ver se ta ok
-    public List<Produto> salvaLista(List<Produto> listaProduto) {
+    public List<Produto> salvaLista(List<Produto> listaProduto) throws ErrorProcesamentoException{
         estoqueRepository.salvaLista(listaProduto);
         return listaProduto;
     }
@@ -166,7 +242,7 @@ public class ProdutoService {
         return estoqueRepository.get(id);
     }
 
-    public void salvar(Produto produto) {
+    public void salvar(Produto produto) throws ErrorProcesamentoException{
         estoqueRepository.salva(produto);
     }
 }

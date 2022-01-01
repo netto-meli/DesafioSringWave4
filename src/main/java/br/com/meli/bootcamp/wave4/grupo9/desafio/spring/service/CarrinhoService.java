@@ -1,9 +1,9 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service;
 
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.CartManagementException;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.ClienteRepository;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.EstoqueRepository;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.PedidoRepository;
@@ -115,7 +115,7 @@ public class CarrinhoService {
      * @return Retorna um <b>Pedido</b>, com <i>ID nula</i>, pois é um pedido ainda não finalizado (carrinho aberto).
      * @throws CartManagementException Lança exceção CartManagementException no caso de fechar carrinho vazio.
      */
-    public Pedido fecharCarrinho(String clienteId) throws CartManagementException {
+    public Pedido fecharCarrinho(String clienteId) throws CartManagementException, ErrorProcesamentoException {
         Long idCliente = Long.parseLong(clienteId);
         Pedido carrinho = pedidoRepository.getCarrinho(idCliente);
         List<ItemCarrinho> listItemCarrinho = carrinho.getListaItensCarrinho();

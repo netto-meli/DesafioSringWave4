@@ -1,12 +1,14 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,7 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "clientes.json";
 
-    public Cliente salva(Cliente cliente) {
+    public Cliente salva(Cliente cliente) throws ErrorProcesamentoException{
         try {
             /*Mesclar duas ArrayList<>
             * List<String> newList = new ArrayList<String>(listOne);
@@ -30,10 +32,10 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
             List<Cliente> novaLista = new ArrayList<>(clientes);
             novaLista.addAll(novaLista2);
             objectMapper.writeValue(new File(PATH), novaLista);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return cliente;
+        } catch (IOException e) {
+            throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
-        return cliente;
     }
 
     public void grava() {
@@ -44,16 +46,15 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
         }
     }
 
-    public List<Cliente> listagem() {
+    public List<Cliente> listagem() throws ErrorProcesamentoException{
         try {
             File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
             clientes = new ArrayList<>(Arrays.asList(objectMapper.readValue(is, Cliente[].class)));
             return clientes;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
-        return null;
     }
 
     public Cliente get(Long idCliente) {

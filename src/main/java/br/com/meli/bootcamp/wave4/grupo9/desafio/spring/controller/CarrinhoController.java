@@ -2,6 +2,7 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.PedidoDTO;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service.CarrinhoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -118,7 +119,7 @@ public class CarrinhoController {
 	 */
 	@PostMapping("/fechaCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO> fecharPedido(@PathVariable String idCliente,
-												   UriComponentsBuilder uriBuilder){
+												   UriComponentsBuilder uriBuilder) throws ErrorProcesamentoException {
 		Pedido pedido = carrinhoService.fecharCarrinho(idCliente);
 		URI uri = uriBuilder
 				.path("/pedidos/{id}")

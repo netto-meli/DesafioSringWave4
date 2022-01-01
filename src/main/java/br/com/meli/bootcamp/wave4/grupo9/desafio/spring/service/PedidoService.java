@@ -1,6 +1,7 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.*;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.ClienteRepository;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,16 @@ public class PedidoService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public List<Pedido> encontrarTodos(){
+    public List<Pedido> encontrarTodos() throws ErrorProcesamentoException {
         return pedidoRepository.listagem();
     }
 
-    public Pedido encontrarPorId(long id){
+    public Pedido encontrarPorId(long id) throws ErrorProcesamentoException{
         Optional<Pedido> pedido = pedidoRepository.listagem().stream().filter(x-> x.getId() == id).findFirst();
         return pedido.orElse(null);
     }
 
-    public List<Pedido> ordernarLista(Integer number) {
+    public List<Pedido> ordernarLista(Integer number) throws ErrorProcesamentoException{
         List<Pedido> lista = new ArrayList<>();
 
         if (number == 0) {

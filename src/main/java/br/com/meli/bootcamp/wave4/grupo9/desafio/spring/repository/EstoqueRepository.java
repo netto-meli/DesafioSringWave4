@@ -2,6 +2,7 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +29,7 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "estoque.json";
 
-    public Produto salva(Produto produto) {
+    public Produto salva(Produto produto) throws ErrorProcesamentoException{
         try {
             /*Mesclar duas ArrayList<>
             * List<String> newList = new ArrayList<String>(listOne);
@@ -40,10 +42,10 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
             List<Produto> novaLista = new ArrayList<>(produtos);
             novaLista.addAll(novaLista2);
             objectMapper.writeValue(new File(PATH), novaLista);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return produto;
+        } catch (IOException e) {
+            throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
-        return produto;
     }
 
     public void grava() {
@@ -54,22 +56,21 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
         }
     }
 
-    public void salvaLista(List<Produto> listaprod) {
+    public void salvaLista(List<Produto> listaprod) throws ErrorProcesamentoException{
         for (Produto p : listaprod) {
             salva(p);
         }
     }
 
-    public List<Produto> listagem() {
+    public List<Produto> listagem() throws ErrorProcesamentoException {
         try {
             File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
             produtos = new ArrayList<>(Arrays.asList(objectMapper.readValue(is, Produto[].class)));
             return produtos;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new ErrorProcesamentoException("Erro ao localizar produto");
         }
-        return null;
     }
 
     public Produto get(Long id) {

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -115,7 +114,7 @@ public class ProdutoDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProdutoDTO produtoDTO = (ProdutoDTO) o;
-        return id == produtoDTO.id;
+        return id.equals(produtoDTO.id);
     }
 
     /***

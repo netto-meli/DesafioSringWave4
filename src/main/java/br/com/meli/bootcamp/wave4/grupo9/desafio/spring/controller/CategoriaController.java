@@ -2,6 +2,7 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.CategoriaDTO;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +23,19 @@ public class CategoriaController {
     CategoriaService service;
 
     @GetMapping(value = "/categorias")
-    public ResponseEntity<List<Categoria>> encontrarTodos() {
+    public ResponseEntity<List<Categoria>> encontrarTodos() throws ErrorProcesamentoException {
         List<Categoria> lista = service.encontrarTodos();
         return ResponseEntity.ok().body(lista);
     }
 
     @GetMapping(value = "/categorias/{id}")
-    public ResponseEntity<Categoria> encontrarPorId(@PathVariable long id) {
+    public ResponseEntity<Categoria> encontrarPorId(@PathVariable long id) throws ErrorProcesamentoException{
         Categoria obj = service.encontrarPorId(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping(value = "/categorias")
-    public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objDto) {
+    public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objDto) throws ErrorProcesamentoException{
         Categoria obj = service.fromDTO(objDto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         service.inserir(obj);

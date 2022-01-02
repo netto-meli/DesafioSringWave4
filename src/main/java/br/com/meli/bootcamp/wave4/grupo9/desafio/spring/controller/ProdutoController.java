@@ -320,7 +320,11 @@ public class ProdutoController {
         }
     }
 
-    //TODO colocar java doc
+    /***
+     * @param form / Uma lista de produtos que deseja cadastrar
+     * @param uriBuilder
+     * @return Lista de produtos recem cadastrados.
+     */
     @PostMapping("/produto/cadastrarlista")
     public ResponseEntity<List<ProdutoDTO>> cadastrar(@RequestBody List<ProdutoDTO> form,
                                                       UriComponentsBuilder uriBuilder) {
@@ -335,7 +339,10 @@ public class ProdutoController {
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
-
+    /***
+     * @param id
+     * @return Produdo um produto requisitado pelo ID.
+     */
     @GetMapping("/produto/{id}")
     public ResponseEntity<ProdutoDTO> obter(@PathVariable Long id) {
         try {

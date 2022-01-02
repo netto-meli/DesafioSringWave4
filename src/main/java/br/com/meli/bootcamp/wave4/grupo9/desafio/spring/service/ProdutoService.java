@@ -212,7 +212,28 @@ public class ProdutoService {
         return prod;
     }
 
-    public void salvar(Produto produto) throws ErrorProcesamentoException{
+    public void salvar(Produto produto) throws ErrorProcesamentoException, RepositoryException {
+        verificarDados(produto);
+        verificaDuplicidade(produto);
         estoqueRepository.salva(produto);
+    }
+
+    private void verificaDuplicidade(Produto produto) throws ErrorProcesamentoException, RepositoryException {
+        for (Produto prod: estoqueRepository.listagem()) {
+            if (prod.equals(produto))
+                throw new RepositoryException("Já existe um Produto com esta ID, favor cadastrar outro.");
+        }
+    }
+
+    private void verificarDados(Produto prod) throws ErrorProcesamentoException {
+        String erros = "";
+        if (prod.getNome() == null || prod.getNome().trim().equals("") )
+            erros = erros + "Nome não pode estar vazio, ";
+        if (prod.getMarca() == null || prod.getMarca().trim().equals("") )
+            erros = erros + "Marca não pode estar vazia, ";
+        if (erros.length() > 0) {
+            erros = "Foram encontrados os seguintes erros: " + erros + "Favor corrigir";
+            throw new ErrorProcesamentoException(erros);
+        }
     }
 }

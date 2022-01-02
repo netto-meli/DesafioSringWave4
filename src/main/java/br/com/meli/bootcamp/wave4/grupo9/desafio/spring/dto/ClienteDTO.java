@@ -54,8 +54,22 @@ public class ClienteDTO {
      * @param cli Objeto Cliente a ser convertido
      * @return Objeto ClienteDTO convertido
      */
-    private static ClienteDTO converte(Cliente cli) {
+    public static ClienteDTO converte(Cliente cli) {
         return new ClienteDTO(
+                cli.getId(),
+                cli.getNome(),
+                cli.getEndereco(),
+                cli.getEstado(),
+                cli.getCpf() );
+    }
+
+    /*** Conversor da classe Cliente: de DTO para Entidade
+     *
+     * @param cli Objeto ClienteDTO a ser convertido
+     * @return Objeto Cliente convertido
+     */
+    public static Cliente converte(ClienteDTO cli) {
+        return new Cliente(
                 cli.getId(),
                 cli.getNome(),
                 cli.getEndereco(),

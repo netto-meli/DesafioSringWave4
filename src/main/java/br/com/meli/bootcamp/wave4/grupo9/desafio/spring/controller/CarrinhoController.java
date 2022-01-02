@@ -60,7 +60,7 @@ public class CarrinhoController {
 					.toUri();
 			return ResponseEntity.created(uri).body(PedidoDTO.converte(pedidoAberto));
 		} catch (CartManagementException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return ResponseEntity.unprocessableEntity().body(null);
 		}
 	}
@@ -89,7 +89,7 @@ public class CarrinhoController {
 					.toUri();
 			return ResponseEntity.created(uri).body(PedidoDTO.converte(pedidoAberto));
 		} catch (CartManagementException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return ResponseEntity.unprocessableEntity().body(null);
 		}
 	}
@@ -146,7 +146,7 @@ public class CarrinhoController {
 					.toUri();
 			return ResponseEntity.created(uri).body(PedidoDTO.converte(pedido));
 		} catch (CartManagementException | ErrorProcesamentoException | RepositoryException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return ResponseEntity.unprocessableEntity().body(null);
 		}
 	}

@@ -29,7 +29,7 @@ public class PedidoController {
             List<Pedido> list = pedidoService.encontrarTodos();
             return ResponseEntity.ok().body(list);
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -40,7 +40,7 @@ public class PedidoController {
             Pedido pedido = pedidoService.encontrarPorId(id);
             return ResponseEntity.ok(pedido);
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -51,7 +51,7 @@ public class PedidoController {
             List<Pedido> lista = pedidoService.ordernarLista(number);
             return ResponseEntity.ok(lista);
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }

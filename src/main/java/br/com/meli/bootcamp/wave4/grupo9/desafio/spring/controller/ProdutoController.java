@@ -57,7 +57,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(lista));
         } catch (RepositoryException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -82,7 +82,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaCategoria));
         } catch (NotFoundExceptionProduct e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -110,7 +110,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenada));
         } catch (NotFoundExceptionProduct e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -135,7 +135,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza));
         } catch (NotFoundExceptionProduct e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -161,7 +161,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaNomeFrete));
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -187,7 +187,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza3));
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -213,7 +213,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza4));
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -232,7 +232,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza5));
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -265,7 +265,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza7));
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -284,7 +284,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza8));
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
 
@@ -300,7 +300,7 @@ public class ProdutoController {
             URI uri = uriBuilder.path("/produto/").buildAndExpand("").toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaProduto));
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -310,7 +310,7 @@ public class ProdutoController {
         try {
             return ResponseEntity.ok(ProdutoDTO.converte(produtoService.obter(id)));
         } catch (NotFoundExceptionProduct e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -327,8 +327,8 @@ public class ProdutoController {
                     .buildAndExpand(produto.getId())
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(produto));
-        } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+        } catch (ErrorProcesamentoException | RepositoryException e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }

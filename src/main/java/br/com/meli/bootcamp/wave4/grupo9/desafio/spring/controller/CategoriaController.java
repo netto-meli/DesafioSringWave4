@@ -3,6 +3,7 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.CategoriaDTO;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class CategoriaController {
             List<Categoria> lista = service.encontrarTodos();
             return ResponseEntity.ok().body(lista);
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -44,7 +45,7 @@ public class CategoriaController {
             Categoria obj = service.encontrarPorId(id);
             return ResponseEntity.ok().body(obj);
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
@@ -52,12 +53,12 @@ public class CategoriaController {
     @PostMapping(value = "/categorias")
     public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objDto) {
         try {
-            Categoria obj = service.fromDTO(objDto);
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+            Categoria obj = CategoriaDTO.converte(objDto);
             service.inserir(obj);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
             return ResponseEntity.created(uri).build();
-        } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+        } catch (ErrorProcesamentoException | RepositoryException e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }

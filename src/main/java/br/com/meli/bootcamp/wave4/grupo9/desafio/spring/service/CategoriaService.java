@@ -9,16 +9,35 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/***
+ * Categoria Service:<br>
+ *  <b>Lista todos as categorias</b><br>
+ *  <b>Lista por id</b><br>
+ *  <b>Insere Categoria</b><br>
+ *
+ * @author Marcos Sá
+ */
 @Service
 public class CategoriaService {
 
+    /*** Instancia de Categoria: <b>CategoriaRepository</b> com notação <i>{@literal @}Autowired</i> do lombok
+     */
     @Autowired
     CategoriaRepository repository;
 
+    /***
+     *
+     * @return listar todos as Categorias
+     */
     public List<Categoria> encontrarTodos() throws ErrorProcesamentoException{
         return repository.listagem();
     }
 
+    /***
+     *
+     * @param id
+     * @return listar todos as Categorias por id
+     */
     public Categoria encontrarPorId(long id) throws ErrorProcesamentoException {
         return repository.listagem().stream()
                 .filter(x -> x.getId() == id)
@@ -26,6 +45,11 @@ public class CategoriaService {
                 .orElse(null);
     }
 
+    /***
+     *
+     * @param obj
+     * @return inserir categorias
+     */
     public void inserir(Categoria obj) throws ErrorProcesamentoException, RepositoryException {
         verificarDados(obj);
         verificaDuplicidade(obj);

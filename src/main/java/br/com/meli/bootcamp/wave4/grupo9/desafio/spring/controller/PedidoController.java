@@ -14,15 +14,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /***
- * @author Marcos
+ * Controller Pedido:<br>
+ *  <b>Lista todos os pedidos</b><br>
+ *  <b>Lista por id</b><br>
+ *  <b>lista ordenada - 0 - Id Cliente crescente / 1 - Id Cliente Descrecente / 2 - Valor Total crescente / 3 - Valor Total descrecente</b><br>
+ *
+ * @author Marcos Sá
  */
 @RestController
 @RequestMapping("/loja")
 public class PedidoController {
 
+    /*** Instancia de pedido: <b>PedidoService</b> com notação <i>{@literal @}Autowired</i> do lombok
+     */
     @Autowired
     private PedidoService pedidoService;
 
+    /***s
+     *
+     * @return endpoint para listar todos os pedidos
+     */
     @GetMapping(value = "/pedidos")
     public ResponseEntity<List<Pedido>> encontrarTodos() {
         try {
@@ -34,6 +45,11 @@ public class PedidoController {
         }
     }
 
+    /***
+     *
+     * @param id
+     * @return Lista de pedidos por id
+     */
     @GetMapping(value = "/pedidos/{id}")
     public ResponseEntity<Pedido> encontrarPorId(@PathVariable long id) {
         try {
@@ -45,6 +61,15 @@ public class PedidoController {
         }
     }
 
+    /***
+     *
+     * @param number
+     * 0 - Id Cliente crescente
+     * 1 - Id Cliente decrescente
+     * 2 - Valor total crescente
+     * 3 - Valor Total descrecente
+     * @return Lista de pedidos
+     */
     @GetMapping(value = "/pedidos/ordena/")
     public ResponseEntity<List<Pedido>> ordenacaoLista(@RequestParam (value = "number") Integer number) {
         try {

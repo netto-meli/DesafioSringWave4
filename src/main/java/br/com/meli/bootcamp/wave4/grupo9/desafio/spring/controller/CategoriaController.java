@@ -19,15 +19,26 @@ import java.net.URI;
 import java.util.List;
 
 /***
- * @author Marcos
+ * Categoria Controller:<br>
+ *  <b>Lista todos as categorias</b><br>
+ *  <b>Lista por id</b><br>
+ *  <b>Insere Categoria</b><br>
+ *
+ * @author Marcos Sá
  */
 @RestController
 @RequestMapping(value = "/loja")
 public class CategoriaController {
 
+    /*** Instancia de Categoria: <b>CategoriaService</b> com notação <i>{@literal @}Autowired</i> do lombok
+     */
     @Autowired
     CategoriaService service;
 
+    /***
+     *
+     * @return endpoint para listar todos as Categorias
+     */
     @GetMapping(value = "/categorias")
     public ResponseEntity<List<Categoria>> encontrarTodos()  {
         try {
@@ -39,6 +50,11 @@ public class CategoriaController {
         }
     }
 
+    /***
+     *
+     * @param id
+     * @return endpoint para listar todos as Categorias por id
+     */
     @GetMapping(value = "/categorias/{id}")
     public ResponseEntity<Categoria> encontrarPorId(@PathVariable long id) {
         try {
@@ -50,6 +66,11 @@ public class CategoriaController {
         }
     }
 
+    /***
+     *
+     * @param objDto
+     * @return endpoint para inserir categorias
+     */
     @PostMapping(value = "/categorias")
     public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objDto) {
         try {

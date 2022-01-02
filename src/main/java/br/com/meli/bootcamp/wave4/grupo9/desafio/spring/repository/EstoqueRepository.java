@@ -134,8 +134,9 @@ public class EstoqueRepository implements OurRepository<Produto, Long>{
      *
      * @param listItemCarrinho Lista de Produtos com as respectivas quantidades para dar baixa no estoque
      * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
+     * @throws RepositoryException Exceção no repositória.
      */
-    public void baixarEstoque(List<ItemCarrinho> listItemCarrinho) throws ErrorProcesamentoException{
+    public void baixarEstoque(List<ItemCarrinho> listItemCarrinho) throws ErrorProcesamentoException, RepositoryException {
         for (ItemCarrinho pdCarrinho : listItemCarrinho) {
             try{
                 produtos.stream()

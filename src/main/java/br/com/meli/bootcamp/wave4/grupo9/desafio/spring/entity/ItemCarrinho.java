@@ -38,8 +38,9 @@ public class ItemCarrinho{
      * Método para retirar itens de um produto, do carrinho atual do cliente
      *
      * @param qtdProduto quantidade de itens de um produto para retirar
+     * @throws CartManagementException Erro ao tentar retirar mais itens do carrinho do que os existentes.
      */
-    public void retiraQuantidadeProduto(long qtdProduto) {
+    public void retiraQuantidadeProduto(long qtdProduto) throws CartManagementException {
         if ( this.quantidade < qtdProduto ) throw new CartManagementException(
                     "Impossível retirar mais itens de um produto do que os que já estão no carrinho");
         quantidade -= qtdProduto;

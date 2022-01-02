@@ -24,23 +24,35 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @GetMapping(value = "/pedidos")
-    public ResponseEntity<List<Pedido>> encontrarTodos()
-            throws ErrorProcesamentoException{
-        List<Pedido> list = pedidoService.encontrarTodos();
-        return ResponseEntity.ok().body(list);
+    public ResponseEntity<List<Pedido>> encontrarTodos() {
+        try {
+            List<Pedido> list = pedidoService.encontrarTodos();
+            return ResponseEntity.ok().body(list);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(null);
+        }
     }
 
     @GetMapping(value = "/pedidos/{id}")
-    public ResponseEntity<Pedido> encontrarPorId(@PathVariable long id)
-            throws ErrorProcesamentoException{
-        Pedido pedido = pedidoService.encontrarPorId(id);
-        return ResponseEntity.ok(pedido);
+    public ResponseEntity<Pedido> encontrarPorId(@PathVariable long id) {
+        try {
+            Pedido pedido = pedidoService.encontrarPorId(id);
+            return ResponseEntity.ok(pedido);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(null);
+        }
     }
 
     @GetMapping(value = "/pedidos/ordena/")
-    public ResponseEntity<List<Pedido>> ordenacaoLista(@RequestParam (value = "number") Integer number)
-            throws ErrorProcesamentoException {
-        List<Pedido> lista = pedidoService.ordernarLista(number);
-        return ResponseEntity.ok(lista);
+    public ResponseEntity<List<Pedido>> ordenacaoLista(@RequestParam (value = "number") Integer number) {
+        try {
+            List<Pedido> lista = pedidoService.ordernarLista(number);
+            return ResponseEntity.ok(lista);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(null);
+        }
     }
 }

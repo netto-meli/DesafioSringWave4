@@ -40,7 +40,7 @@ public class ProdutoService {
     @Autowired
     private EstoqueRepository estoqueRepository;
 
-    public List<Produto> listaProduto() {
+    public List<Produto> listaProduto() throws RepositoryException {
         try {
             return estoqueRepository.listagem();
         } catch (Exception e) {

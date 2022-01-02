@@ -14,7 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
-import java.net.URI;import java.util.List;
 
 /***
  * Controller dos métodos do carrinho:<br>
@@ -66,7 +65,7 @@ public class ProdutoController {
                 .path("/listarProdutosCategoria/")
                 .buildAndExpand(listaCategoria)
                 .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaCategoria));
+        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaCategoria));
     }
 
     /***

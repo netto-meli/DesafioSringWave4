@@ -290,7 +290,7 @@ public class ProdutoController {
                     .toUri();
             return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaQtdEstrela));
         } catch (ErrorProcesamentoException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }

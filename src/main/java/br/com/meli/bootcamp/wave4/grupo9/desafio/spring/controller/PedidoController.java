@@ -2,6 +2,7 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.NotFoundExceptionProduct;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -73,9 +74,9 @@ public class PedidoController {
     @GetMapping(value = "/pedidos/ordena/")
     public ResponseEntity<List<Pedido>> ordenacaoLista(@RequestParam (value = "number") Integer number) {
         try {
-            List<Pedido> lista = pedidoService.ordernarLista(number);
+            List<Pedido> lista = pedidoService.ordenarLista(number);
             return ResponseEntity.ok(lista);
-        } catch (ErrorProcesamentoException e) {
+        } catch (ErrorProcesamentoException | NotFoundExceptionProduct e) {
             System.out.println(e.getMessage());
             return ResponseEntity.unprocessableEntity().body(null);
         }

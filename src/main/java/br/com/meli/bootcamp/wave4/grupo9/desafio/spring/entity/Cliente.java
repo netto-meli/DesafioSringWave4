@@ -6,6 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
+/*** Entidade para persistência de Cliente
+ *
+ * @author Fernando Netto
+ * @author Rafael
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

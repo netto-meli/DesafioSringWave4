@@ -2,10 +2,18 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.PedidoDTO;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.CartManagementException;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service.CarrinhoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -44,12 +52,17 @@ public class CarrinhoController {
 			@RequestParam(value = "idProduto", defaultValue = "0") String idProduto,
 			@RequestParam(value = "qtdProduto", defaultValue = "0") String qtdProduto,
 			UriComponentsBuilder uriBuilder) {
-		Pedido pedidoAberto = carrinhoService.adicionarProdutosNoCarrinho(idCliente,idProduto,qtdProduto);
-		URI uri = uriBuilder
-				.path("/carrinhoAberto/{idCliente}")
-				.buildAndExpand(pedidoAberto.getIdCliente())
-				.toUri();
-		return ResponseEntity.created(uri).body(PedidoDTO.converte(pedidoAberto));
+		try {
+			Pedido pedidoAberto = carrinhoService.adicionarProdutosNoCarrinho(idCliente,idProduto,qtdProduto);
+			URI uri = uriBuilder
+					.path("/carrinhoAberto/{idCliente}")
+					.buildAndExpand(pedidoAberto.getIdCliente())
+					.toUri();
+			return ResponseEntity.created(uri).body(PedidoDTO.converte(pedidoAberto));
+		} catch (CartManagementException e) {
+			e.printStackTrace();
+			return ResponseEntity.unprocessableEntity().body(null);
+		}
 	}
 
 	/*** Método para retirar uma quantidade "<i>qtdRetirar</i>" de um produto no carrinho de compras do cliente.<br>
@@ -67,19 +80,25 @@ public class CarrinhoController {
 			@PathVariable String idCliente,
 			@RequestParam(value = "idProduto", defaultValue = "0") String idProduto,
 			@RequestParam(value = "qtdRetirar", defaultValue = "0") String qtdRetirar,
-			UriComponentsBuilder uriBuilder){
-		Pedido pedidoAberto = carrinhoService.retirarProdutosDoCarrinho(idCliente,idProduto,qtdRetirar);
-		URI uri = uriBuilder
-				.path("/carrinhoAberto/{idCliente}")
-				.buildAndExpand(pedidoAberto.getIdCliente())
-				.toUri();
-		return ResponseEntity.created(uri).body(PedidoDTO.converte(pedidoAberto));
+			UriComponentsBuilder uriBuilder) {
+		try {
+			Pedido pedidoAberto = carrinhoService.retirarProdutosDoCarrinho(idCliente,idProduto,qtdRetirar);
+			URI uri = uriBuilder
+					.path("/carrinhoAberto/{idCliente}")
+					.buildAndExpand(pedidoAberto.getIdCliente())
+					.toUri();
+			return ResponseEntity.created(uri).body(PedidoDTO.converte(pedidoAberto));
+		} catch (CartManagementException e) {
+			e.printStackTrace();
+			return ResponseEntity.unprocessableEntity().body(null);
+		}
 	}
 
 	/*** Método para limpar o carrinho de compras do cliente.<br>
 	 * POST - /loja/limpaCarrinho/{idCliente}
 	 *
 	 * @param idCliente ID do Cliente que está fazendo o pedido
+	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
 	 * @return Retorna mensagem informando que o carrinho está vazio em um ResponseEntity com status <b>CREATED</b> e
 	 * 	 * <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
 	 */
@@ -118,12 +137,17 @@ public class CarrinhoController {
 	 */
 	@PostMapping("/fechaCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO> fecharPedido(@PathVariable String idCliente,
-												   UriComponentsBuilder uriBuilder){
-		Pedido pedido = carrinhoService.fecharCarrinho(idCliente);
-		URI uri = uriBuilder
-				.path("/pedidos/{id}")
-				.buildAndExpand(pedido.getId())
-				.toUri();
-		return ResponseEntity.created(uri).body(PedidoDTO.converte(pedido));
+												   UriComponentsBuilder uriBuilder) {
+		try {
+			Pedido pedido = carrinhoService.fecharCarrinho(idCliente);
+			URI uri = uriBuilder
+					.path("/pedidos/{id}")
+					.buildAndExpand(pedido.getId())
+					.toUri();
+			return ResponseEntity.created(uri).body(PedidoDTO.converte(pedido));
+		} catch (CartManagementException | ErrorProcesamentoException | RepositoryException e) {
+			e.printStackTrace();
+			return ResponseEntity.unprocessableEntity().body(null);
+		}
 	}
 }

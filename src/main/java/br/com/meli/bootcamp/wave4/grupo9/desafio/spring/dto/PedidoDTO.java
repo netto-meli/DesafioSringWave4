@@ -15,9 +15,25 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class PedidoDTO {
+    /***
+     * ID do PedidoDTO no tipo Long
+     */
     private Long id;
+    /***
+     * ID do Cliente no tipo Long
+     */
     private Long idCliente;
+    /***
+     * Lista de ItemCarrinhodTO (produto no pedido) no formato BigDecimal
+     */
     private List<ItemCarrinhoDTO> listaItensCarrinho;
+    /***
+     * Valor do frete do Pedido no formato BigDecimal
+     */
+    private BigDecimal valorFrete;
+    /***
+     * Valor total do Pedido no formato BigDecimal
+     */
     private BigDecimal valorTotal;
 
     /*** Conversor da classe Pedido: de Entidade para DTO
@@ -30,6 +46,7 @@ public class PedidoDTO {
                 pedido.getId(),
                 pedido.getIdCliente(),
                 ItemCarrinhoDTO.converte(pedido.getListaItensCarrinho()),
+                pedido.getValorFrete(),
                 pedido.getValorTotal() );
     }
 

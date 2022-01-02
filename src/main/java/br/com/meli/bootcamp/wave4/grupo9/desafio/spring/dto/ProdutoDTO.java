@@ -113,7 +113,7 @@ public class ProdutoDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProdutoDTO produtoDTO = (ProdutoDTO) o;
-        return id == produtoDTO.id;
+        return id.equals(produtoDTO.id);
     }
 
     /***

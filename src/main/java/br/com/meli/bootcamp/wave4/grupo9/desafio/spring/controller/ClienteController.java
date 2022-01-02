@@ -2,14 +2,26 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.ClienteDTO;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/***
+ * @author Rafael
+ */
 @RestController
 @RequestMapping("/loja")
 public class ClienteController {
@@ -18,27 +30,41 @@ public class ClienteController {
     private ClienteRepository clienteRepository;
 
     @GetMapping("/cliente")
-    public List<ClienteDTO> listaCliente(){
-        List<Cliente> cliente = clienteRepository.listagem();
-        return ClienteDTO.converte(cliente);
+    public List<ClienteDTO> listaCliente()  {
+        try {
+            List<Cliente> cliente = clienteRepository.listagem();
+            return ClienteDTO.converte(cliente);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente add(@RequestBody Cliente cliente){
-        return clienteRepository.salva(cliente);
+    public Cliente add(@RequestBody Cliente cliente) {
+        try {
+            return clienteRepository.salva(cliente);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> update(@PathVariable Long clienteId, @RequestBody Cliente cliente){
-
-        if(!clienteRepository.existsById(clienteId)){
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Cliente> update(@PathVariable Long clienteId, @RequestBody Cliente cliente) {
+        try {
+            if (!clienteRepository.existsById(clienteId)) {
+                return ResponseEntity.notFound().build();
+            }
+            //client DTO
+            //cliente.setId(clienteId);
+            cliente = clienteRepository.salva(cliente);
+            return ResponseEntity.ok(cliente);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(null);
         }
-        //client DTO
-        //cliente.setId(clienteId);
-        cliente = clienteRepository.salva(cliente);
-        return ResponseEntity.ok(cliente);
     }
 
     @DeleteMapping

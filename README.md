@@ -52,6 +52,7 @@ Além disso, a plataforma afirmou que concorda em receber sugestões de melhoria
 
 ***
 ## Utilização
+#### -> [Link para importar Collection](https://www.getpostman.com/collections/56617fd509fdb8e792de) para o Postman (copiar e colar)
 #### —> Tabela de [produtos iniciais](https://docs.google.com/spreadsheets/d/1VbpRtZXw6DiYoA7VETG9ezf39ghlsCq4EN0drRTxuS4/edit?usp=sharing)
 #### —> [Definições](https://drive.google.com/file/d/1XXDABy-lEhF-MGQkw7Ty91WLscVJ6aQ_/view?usp=sharing) a serem seguidas para completar o desafio.
 ```sh
@@ -60,7 +61,7 @@ POST/GET base -> http://localhost:8080/store
 
 ## Repositórios  e Responsabilidades da Equipe 9
 <b>Felipe Pereira Bontempo</b>
-<br>{Manipulação do Estoque epersistência JSON}
+<br>{Cadastro do Estoque e persistência JSON}
 <br>[Repositório Git](https://github.com/fpbontempo)
 
 <b>Fernando José Dias Netto</b>
@@ -68,11 +69,11 @@ POST/GET base -> http://localhost:8080/store
 <br>[Repositório Git](https://github.com/netto-meli/DesafioSringWave4)
 
 <b>Leonardo Teixeira Assunção</b>
-<br>{Listagen e filtros de Produtos}
+<br>{Listagem e filtros de Produtos}
 <br>[Repositório Git](https://github.com/LeoDevMeli)
 
 <b>Marcos Vinicius Rodrigues De Sá</b>
-<br>{Listagen e filtros de Pedidos
+<br>{Listagen e filtros de Pedidos}
 <br>[Repositório Git](https://github.com/marcossa01)
 
 <b>Rafael Menezes Da Silva</b>

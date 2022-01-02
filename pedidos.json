@@ -40,4 +40,235 @@
   } ],
   "valorFrete" : 0,
   "valorTotal" : 3.600
+}, {
+  "id" : 3,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 4
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 3,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 4
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 4,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 4
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 5,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 4
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 5,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 4
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 6,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 4
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 7,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 4
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 7,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 3
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 8,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 7
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 8,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 6
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
+}, {
+  "id" : 9,
+  "idCliente" : 1,
+  "listaItensCarrinho" : [ {
+    "quantidade" : 1,
+    "produto" : {
+      "id" : 1,
+      "nome" : "Serra de Bancada",
+      "categoria" : {
+        "id" : 1,
+        "nome" : "ggg"
+      },
+      "marca" : "FORDGPRO",
+      "valor" : 1.800,
+      "freteGratis" : true,
+      "estrelas" : 4,
+      "quantidadeEstoque" : 5
+    }
+  } ],
+  "valorFrete" : 0,
+  "valorTotal" : 1.800
 } ]

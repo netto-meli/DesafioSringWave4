@@ -28,22 +28,37 @@ public class CategoriaController {
     CategoriaService service;
 
     @GetMapping(value = "/categorias")
-    public ResponseEntity<List<Categoria>> encontrarTodos() throws ErrorProcesamentoException {
-        List<Categoria> lista = service.encontrarTodos();
-        return ResponseEntity.ok().body(lista);
+    public ResponseEntity<List<Categoria>> encontrarTodos()  {
+        try {
+            List<Categoria> lista = service.encontrarTodos();
+            return ResponseEntity.ok().body(lista);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(null);
+        }
     }
 
     @GetMapping(value = "/categorias/{id}")
-    public ResponseEntity<Categoria> encontrarPorId(@PathVariable long id) throws ErrorProcesamentoException{
-        Categoria obj = service.encontrarPorId(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<Categoria> encontrarPorId(@PathVariable long id) {
+        try {
+            Categoria obj = service.encontrarPorId(id);
+            return ResponseEntity.ok().body(obj);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(null);
+        }
     }
 
     @PostMapping(value = "/categorias")
-    public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objDto) throws ErrorProcesamentoException{
-        Categoria obj = service.fromDTO(objDto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        service.inserir(obj);
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objDto) {
+        try {
+            Categoria obj = service.fromDTO(objDto);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+            service.inserir(obj);
+            return ResponseEntity.created(uri).build();
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(null);
+        }
     }
 }

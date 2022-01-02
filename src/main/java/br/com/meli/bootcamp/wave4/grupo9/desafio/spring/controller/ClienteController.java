@@ -30,27 +30,41 @@ public class ClienteController {
     private ClienteRepository clienteRepository;
 
     @GetMapping("/cliente")
-    public List<ClienteDTO> listaCliente() throws ErrorProcesamentoException {
-        List<Cliente> cliente = clienteRepository.listagem();
-        return ClienteDTO.converte(cliente);
+    public List<ClienteDTO> listaCliente()  {
+        try {
+            List<Cliente> cliente = clienteRepository.listagem();
+            return ClienteDTO.converte(cliente);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente add(@RequestBody Cliente cliente) throws ErrorProcesamentoException{
-        return clienteRepository.salva(cliente);
+    public Cliente add(@RequestBody Cliente cliente) {
+        try {
+            return clienteRepository.salva(cliente);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> update(@PathVariable Long clienteId, @RequestBody Cliente cliente) throws ErrorProcesamentoException{
-
-        if(!clienteRepository.existsById(clienteId)){
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Cliente> update(@PathVariable Long clienteId, @RequestBody Cliente cliente) {
+        try {
+            if (!clienteRepository.existsById(clienteId)) {
+                return ResponseEntity.notFound().build();
+            }
+            //client DTO
+            //cliente.setId(clienteId);
+            cliente = clienteRepository.salva(cliente);
+            return ResponseEntity.ok(cliente);
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(null);
         }
-        //client DTO
-        //cliente.setId(clienteId);
-        cliente = clienteRepository.salva(cliente);
-        return ResponseEntity.ok(cliente);
     }
 
     @DeleteMapping

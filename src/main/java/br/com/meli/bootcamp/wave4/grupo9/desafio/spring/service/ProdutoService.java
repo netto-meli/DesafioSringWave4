@@ -40,7 +40,7 @@ public class ProdutoService {
     @Autowired
     private EstoqueRepository estoqueRepository;
 
-    public List<Produto> listaProduto() {
+    public List<Produto> listaProduto() throws RepositoryException {
         try {
             return estoqueRepository.listagem();
         } catch (Exception e) {
@@ -206,8 +206,10 @@ public class ProdutoService {
         return listaProduto;
     }
 
-    public Produto obter(long id) {
-        return estoqueRepository.get(id);
+    public Produto obter(Long id) throws NotFoundExceptionProduct {
+        Produto prod = estoqueRepository.get(id);
+        if (prod == null) throw new NotFoundExceptionProduct("Produto não encontrado");
+        return prod;
     }
 
     public void salvar(Produto produto) throws ErrorProcesamentoException{

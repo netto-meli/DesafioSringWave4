@@ -4,6 +4,7 @@ import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.ItemCarrinho;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.CartManagementException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.ClienteRepository;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.EstoqueRepository;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.PedidoRepository;
@@ -74,8 +75,9 @@ public class CarrinhoService {
      * @param produtoId ID do Produto que o cliente deseja acrescentar no carrinho de compras
      * @param quantidadeRetirar Quantos itens do produto selecionado, o Cliente deseja adicionar no carrinho
      * @return Retorna um <b>Pedido</b>, com <i>ID nula</i>, pois é um pedido ainda não finalizado (carrinho aberto).
+     * @throws CartManagementException Erro ao tentar retirar mais itens do carrinho do que os existentes.
      */
-    public Pedido retirarProdutosDoCarrinho(String clienteId, String produtoId, String quantidadeRetirar) {
+    public Pedido retirarProdutosDoCarrinho(String clienteId, String produtoId, String quantidadeRetirar) throws CartManagementException {
         long idCliente = Long.parseLong(clienteId);
         long idProduto = Long.parseLong(produtoId);
         long qtdProdutos = Long.parseLong(quantidadeRetirar);
@@ -115,8 +117,9 @@ public class CarrinhoService {
      * @return Retorna um <b>Pedido</b>, com <i>ID nula</i>, pois é um pedido ainda não finalizado (carrinho aberto).
      * @throws CartManagementException Lança exceção CartManagementException no caso de fechar carrinho vazio.
      * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
+     * @throws RepositoryException Exceção no repositória.
      */
-    public Pedido fecharCarrinho(String clienteId) throws CartManagementException, ErrorProcesamentoException {
+    public Pedido fecharCarrinho(String clienteId) throws CartManagementException, ErrorProcesamentoException, RepositoryException {
         Long idCliente = Long.parseLong(clienteId);
         Pedido carrinho = pedidoRepository.getCarrinho(idCliente);
         List<ItemCarrinho> listItemCarrinho = carrinho.getListaItensCarrinho();

@@ -1,9 +1,11 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception;
 
+import java.io.IOException;
+
 /***
  * @author Leo
  */
-public class RepositoryException extends RuntimeException {
+public class RepositoryException extends IOException {
     /***
      * serialVersionUID gerado pelo IntelliJ
      */

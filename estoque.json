@@ -1,119 +1,85 @@
-[
-  {
-    "id": 1,
-    "nome": "Serra de Bancada",
-    "categoria": "Ferramentas",
-    "marca": "FORDGPRO",
-    "preco": 1.800,
-    "quantidadeEstoque": 5,
-    "freteGratis": true,
-    "estrelas": 4
+[ {
+  "id" : 1,
+  "nome" : "Serra de Bancada",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "ggg"
   },
-  {
-    "id": 2,
-    "nome": "Furadeira",
-    "categoria": "Ferramentas",
-    "marca": "Black & Decker",
-    "preco": 500,
-    "quantidadeEstoque": 7,
-    "freteGratis": true,
-    "estrelas": 4
+  "marca" : "FORDGPRO",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 3,
+  "nome" : "Serra de Bancada",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "ggg"
   },
-  {
-    "id": 3,
-    "nome": "Soldadora",
-    "categoria": "Ferramentas",
-    "marca": "Black & Decker",
-    "preco": 350,
-    "quantidadeEstoque": 10,
-    "freteGratis": true,
-    "estrelas": 3
+  "marca" : "FORDGPRO",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 5,
+  "nome" : "Serra de Bancada",
+  "categoria" : {
+    "id" : 1,
+    "nome" : "ggg"
   },
-  {
-    "id": 4,
-    "nome": "Chuteira",
-    "categoria": "Esportes",
-    "marca": "Adidas",
-    "preco": 235,
-    "quantidadeEstoque": 6,
-    "freteGratis": true,
-    "estrelas": 5
+  "marca" : "FORDGPRO",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 2,
+  "nome" : "Serra de Bancada",
+  "categoria" : {
+    "id" : 1,
+    "nome" : "ggg"
   },
-  {
-    "id": 5,
-    "nome": "Mini Cama elastica",
-    "categoria": "Esportes",
-    "marca": "Starboard",
-    "preco": 183,
-    "quantidadeEstoque": 4,
-    "freteGratis": true,
-    "estrelas": 5
+  "marca" : "FORDGPRO",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 6,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
   },
-  {
-    "id": 6,
-    "nome": "Camiseta",
-    "categoria": "Esportes",
-    "marca": "Topper",
-    "preco": 80,
-    "quantidadeEstoque": 2,
-    "freteGratis": true,
-    "estrelas": 3
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
+}, {
+  "id" : 7,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
   },
-  {
-    "id": 7,
-    "nome": "Redmi Note 9",
-    "categoria": "Celulares",
-    "marca": "Xiaomi",
-    "preco": 2.800,
-    "quantidadeEstoque": 15,
-    "freteGratis": true,
-    "estrelas": 4
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
+}, {
+  "id" : 8,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
   },
-  {
-    "id": 8,
-    "nome": "Smartwatch",
-    "categoria": "Celulares",
-    "marca": "Noga",
-    "preco": 1.200,
-    "quantidadeEstoque": 20,
-    "freteGratis": false,
-    "estrelas": 2
-  },
-  {
-    "id": 9,
-    "nome": "Camisa",
-    "categoria": "Roupa",
-    "marca": "Fila",
-    "preco": 79,
-    "quantidadeEstoque": 2,
-    "freteGratis": false,
-    "estrelas": 3
-  },
-  {
-    "id": 10,
-    "nome": "Calças",
-    "categoria": "Celulares",
-    "marca": "Oakley",
-    "preco": 73,
-    "quantidadeEstoque": 6,
-    "freteGratis": false,
-    "estrelas": 3
-  },
-  {
-    "id": 11,
-    "nome": "Meias",
-    "preco": 10,
-    "quantidadeEstoque": 8,
-    "freteGratis": false,
-    "estrelas": 1
-  },
-  {
-    "id": 12,
-    "nome": "Shorts",
-    "categoria": "Roupas",
-    "marca": "Lacoste",
-    "preco": 275,
-    "quantidadeEstoque": 9,
-    "freteGratis": true,
-    "estrelas": 3
-  }]
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
+} ]

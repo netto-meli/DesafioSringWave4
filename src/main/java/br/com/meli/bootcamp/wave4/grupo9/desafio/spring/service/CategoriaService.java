@@ -2,44 +2,67 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.CategoriaDTO;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
+/***
+ * Categoria Service:<br>
+ *  <b>Lista todos as categorias</b><br>
+ *  <b>Lista por id</b><br>
+ *  <b>Insere Categoria</b><br>
+ *
+ * @author Marcos Sá
+ */
 @Service
 public class CategoriaService {
 
+    /*** Instancia de Categoria: <b>CategoriaRepository</b> com notação <i>{@literal @}Autowired</i> do lombok
+     */
     @Autowired
     CategoriaRepository repository;
 
-    public List<Categoria> encontrarTodos() {
-        return repository.listarCategoria();
+    /***
+     *
+     * @return listar todos as Categorias
+     */
+    public List<Categoria> encontrarTodos() throws ErrorProcesamentoException{
+        return repository.listagem();
     }
 
-    public Categoria encontrarPorId(long id) {
-        Optional<Categoria> obj = repository.listarCategoria().stream().filter(x -> x.getId() == id).findFirst();
-        return obj.orElse(null);
+    /***
+     *
+     * @param id
+     * @return listar todos as Categorias por id
+     */
+    public Categoria encontrarPorId(long id) throws ErrorProcesamentoException {
+        return repository.listagem().stream()
+                .filter(x -> x.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
-    public Categoria inserir(Categoria obj) {
-        obj.setId(getMaxId()+1);
-        return repository.salvarCategoria(obj);
+    /***
+     *
+     * @param obj
+     * @return inserir categorias
+     */
+    public void inserir(Categoria obj) throws ErrorProcesamentoException{
+        // TODO ver isso
+        //obj.seId(repository.listarCategoria().size());
+        repository.salva(obj);
     }
 
+    /***
+     *
+     * @param objDto
+     * @return Método que faz conversão de CategoriaDTO para Categoria
+     */
     public Categoria fromDTO(CategoriaDTO objDto) {
         return new Categoria(objDto.getId(), objDto.getNome());
     }
 
-    private Long getMaxId(){
-        Long id = 0L;
-        for ( Categoria p : repository.listarCategoria() ) {
-            if (p.getId() != null && p.getId().compareTo(id) > 0 ){
-                id = p.getId();
-            }
-        }
-        return id;
-    }
 }

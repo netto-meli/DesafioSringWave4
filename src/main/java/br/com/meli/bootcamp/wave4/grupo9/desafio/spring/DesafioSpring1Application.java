@@ -1,5 +1,8 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring;
 
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Pedido;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.PedidoRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

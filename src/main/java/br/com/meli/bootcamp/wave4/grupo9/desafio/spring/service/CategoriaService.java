@@ -14,8 +14,11 @@ import java.util.List;
  *  <b>Lista todos as categorias</b><br>
  *  <b>Lista por id</b><br>
  *  <b>Insere Categoria</b><br>
+ *  Verifica Duplicidade<br>
+ *  Verifica Dados<br>
  *
  * @author Marcos Sá
+ * @author Fernando Netto
  */
 @Service
 public class CategoriaService {
@@ -36,7 +39,7 @@ public class CategoriaService {
 
     /***
      *
-     * @param id
+     * @param id id
      * @return listar todos as Categorias por id
      * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
      */
@@ -49,8 +52,7 @@ public class CategoriaService {
 
     /***
      *
-     * @param obj
-     * @return inserir categorias
+     * @param obj obj
      * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
      * @throws RepositoryException Erro ao tentar persistir os dados
      */
@@ -60,6 +62,12 @@ public class CategoriaService {
         repository.salva(obj);
     }
 
+    /** Método que verifica se há outro objeto igual no repositório e retorna o erro se houver
+     *
+     * @param categoria categoria a ser comparada
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     * @throws RepositoryException Erro ao tentar persistir os dados
+     */
     private void verificaDuplicidade(Categoria categoria) throws ErrorProcesamentoException, RepositoryException {
         for (Categoria cat: repository.listagem()) {
             if (cat.equals(categoria))
@@ -67,9 +75,13 @@ public class CategoriaService {
         }
     }
 
+    /** Método que verifica se o objeto é valido para ser inserido no repositório e retorna o erro se houver
+     *
+     * @param cat categoria a ser verificada
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     */
     private void verificarDados(Categoria cat) throws ErrorProcesamentoException {
         if (cat.getNome() == null || cat.getNome().trim().equals("") )
             throw new ErrorProcesamentoException("Nome não pode estar vazio.");
     }
-
 }

@@ -37,12 +37,14 @@ import java.util.List;
 @RequestMapping("/loja")
 public class ProdutoController {
 
+    /*** Instancia de produto: <b>ProdutoService</b> com notação <i>{@literal @}Autowired</i> do lombok
+     */
     @Autowired
     private ProdutoService produtoService;
 
     /***
      *
-     * @param uriBuilder
+     * @param uriBuilder uri
      * @return endpoint para listar todos os produtos
      */
     @ResponseStatus(HttpStatus.OK)
@@ -64,8 +66,8 @@ public class ProdutoController {
 
     /***
      *
-     * @param categoria
-     * @param uriBuilder
+     * @param categoria categoria
+     * @param uriBuilder uri
      * @return Lista de produtos filtrados pela categoria
      */
     @ResponseStatus(HttpStatus.OK)
@@ -89,7 +91,7 @@ public class ProdutoController {
 
     /***
      *
-     * @param ordenacao
+     * @param ordenacao ordenacao
      * @param uriBuilder
      * 0 - Alfabetica crescente
      * 1 - Alfabetica decrescente
@@ -116,9 +118,9 @@ public class ProdutoController {
     }
 
     /***
-     * @param nome
-     * @param categoria
-     * @param uriBuilder
+     * @param nome nome
+     * @param categoria categoria
+     * @param uriBuilder uri
      * @return lista filtrada pelo nome e categoria
      */
     @ResponseStatus(HttpStatus.OK)
@@ -142,9 +144,9 @@ public class ProdutoController {
 
     /***
      *
-     * @param nome
-     * @param frete
-     * @param uriBuilder
+     * @param nome nome
+     * @param frete frete
+     * @param uriBuilder uri
      * @return filtra por nome e frete
      */
     @ResponseStatus(HttpStatus.OK)
@@ -168,9 +170,9 @@ public class ProdutoController {
 
     /***
      *
-     * @param nome
-     * @param marca
-     * @param uriBuilder
+     * @param nome nome
+     * @param marca marca
+     * @param uriBuilder uri
      * @return filtra por nome e marca
      */
     @ResponseStatus(HttpStatus.OK)
@@ -194,9 +196,9 @@ public class ProdutoController {
 
     /***
      *
-     * @param frete
-     * @param categoria
-     * @param uriBuilder
+     * @param frete frete
+     * @param categoria categoria
+     * @param uriBuilder uri
      * @return retorna lista filtrada por frete e categoria
      */
     @ResponseStatus(HttpStatus.OK)
@@ -220,9 +222,9 @@ public class ProdutoController {
 
     /***
      *
-     * @param ordenacao
-     * @param categoria
-     * @param uriBuilder
+     * @param ordenacao ordenacao
+     * @param categoria categoria
+     * @param uriBuilder uri
      * @return Lista de produto ordenado por categoria
      */
     @ResponseStatus(HttpStatus.OK)
@@ -245,9 +247,9 @@ public class ProdutoController {
     }
 
     /***
-     * @param ordenacao
-     * @param marca
-     * @param uriBuilder
+     * @param ordenacao ordenacao
+     * @param marca marca
+     * @param uriBuilder uri
      * @return lista de produtos ordenados por marca
      */
     @GetMapping(value = "/listarProdutosOrdenadosMarca")
@@ -270,12 +272,11 @@ public class ProdutoController {
 
     /***
      *
-     * @param ordenacao
-     * @param qtdestrelas
-     * @param uriBuilder
+     * @param ordenacao ordenacao
+     * @param qtdestrelas quantidade de estrtelas
+     * @param uriBuilder uri
      * @return lista de produtos ordenados por quantidade de estrelas
      */
-
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosOrdenadosQtdEstrelas")
     public ResponseEntity<List<ProdutoDTO>> obterProdutoOrdenadoQtdEstrelas(
@@ -296,9 +297,9 @@ public class ProdutoController {
     }
 
     /***
-     * @param estrelas
-     * @param marca
-     * @param uriBuilder
+     * @param estrelas estrtelas
+     * @param marca marca
+     * @param uriBuilder uri
      * @return Lista de marca ordenada por qtd de estrelas
      */
     @ResponseStatus(HttpStatus.OK)
@@ -320,7 +321,11 @@ public class ProdutoController {
         }
     }
 
-    //TODO colocar java doc
+    /***
+     * @param form  Uma lista de produtos que deseja cadastrar
+     * @param uriBuilder uri
+     * @return Lista de produtos recém-cadastrados.
+     */
     @PostMapping("/produto/cadastrarlista")
     public ResponseEntity<List<ProdutoDTO>> cadastrar(@RequestBody List<ProdutoDTO> form,
                                                       UriComponentsBuilder uriBuilder) {
@@ -336,6 +341,10 @@ public class ProdutoController {
         }
     }
 
+    /***
+     * @param id id
+     * @return Produdo um produto requisitado pelo ID.
+     */
     @GetMapping("/produto/{id}")
     public ResponseEntity<ProdutoDTO> obter(@PathVariable Long id) {
         try {
@@ -346,6 +355,12 @@ public class ProdutoController {
         }
     }
 
+    /***
+     *
+     * @param form Produto aser cadastrado
+     * @param uriBuilder uri
+     * @return Produto cadastrado
+     */
     @PostMapping("/produto/cadastrar")
     public ResponseEntity<ProdutoDTO> cadastrar(
             @RequestBody ProdutoDTO form,

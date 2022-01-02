@@ -48,7 +48,7 @@ public class PedidoController {
 
     /***
      *
-     * @param id
+     * @param id id
      * @return Lista de pedidos por id
      */
     @GetMapping(value = "/pedidos/{id}")

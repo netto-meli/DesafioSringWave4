@@ -52,7 +52,7 @@ public class CategoriaController {
 
     /***
      *
-     * @param id
+     * @param id id
      * @return endpoint para listar todos as Categorias por id
      */
     @GetMapping(value = "/categorias/{id}")
@@ -68,13 +68,13 @@ public class CategoriaController {
 
     /***
      *
-     * @param objDto
+     * @param objeto obj
      * @return endpoint para inserir categorias
      */
     @PostMapping(value = "/categorias")
-    public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objDto) {
+    public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objeto) {
         try {
-            Categoria obj = CategoriaDTO.converte(objDto);
+            Categoria obj = CategoriaDTO.converte(objeto);
             service.inserir(obj);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
             return ResponseEntity.created(uri).build();

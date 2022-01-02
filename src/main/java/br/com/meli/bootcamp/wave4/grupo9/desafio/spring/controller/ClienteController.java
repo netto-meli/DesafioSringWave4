@@ -28,9 +28,15 @@ import java.util.List;
 @RequestMapping("/loja")
 public class ClienteController {
 
+    /*** Instancia de Cliente: <b>ClienteService</b> com notação <i>{@literal @}Autowired</i> do lombok
+     */
     @Autowired
     private ClienteService service;
 
+    /***
+     *
+     * @return endpoint para listar todos as Categorias
+     */
     @GetMapping(value = "/clientes")
     public ResponseEntity<List<Cliente>> encontrarTodos()  {
         try {
@@ -42,6 +48,11 @@ public class ClienteController {
         }
     }
 
+    /***
+     *
+     * @param id id
+     * @return endpoint para listar todos os Clientes por id
+     */
     @GetMapping(value = "/clientes/{id}")
     public ResponseEntity<Cliente> encontrarPorId(@PathVariable long id) {
         try {
@@ -53,10 +64,15 @@ public class ClienteController {
         }
     }
 
+    /***
+     *
+     * @param objeto obj
+     * @return endpoint para inserir cliente
+     */
     @PostMapping(value = "/clientes")
-    public ResponseEntity<Void> inserir(@RequestBody ClienteDTO objDto) {
+    public ResponseEntity<Void> inserir(@RequestBody ClienteDTO objeto) {
         try {
-            Cliente obj = ClienteDTO.converte(objDto);
+            Cliente obj = ClienteDTO.converte(objeto);
             service.inserir(obj);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
             return ResponseEntity.created(uri).build();

@@ -9,16 +9,41 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/***
+ * Cliente Service:<br>
+ *  <b>Lista todos as clientes</b><br>
+ *  <b>Lista por id</b><br>
+ *  <b>Insere Cliente</b><br>
+ *  Verifica Duplicidade<br>
+ *  Verifica Dados<br>
+ *
+ * @author Rafael
+ * @author Marcos Sá
+ * @author Fernando Netto
+ */
 @Service
 public class ClienteService {
 
+    /*** Instancia de repositório: <b>ClienteRepository</b> com notação <i>{@literal @}Autowired</i> do lombok
+     */
     @Autowired
     ClienteRepository repository;
 
+    /***
+     *
+     * @return listar todos as Categorias
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     */
     public List<Cliente> encontrarTodos() throws ErrorProcesamentoException{
         return repository.listagem();
     }
 
+    /***
+     *
+     * @param id id
+     * @return listar todos as Categorias por id
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     */
     public Cliente encontrarPorId(long id) throws ErrorProcesamentoException {
         return repository.listagem().stream()
                 .filter(x -> x.getId() == id)
@@ -26,12 +51,24 @@ public class ClienteService {
                 .orElse(null);
     }
 
+    /***
+     *
+     * @param obj obj
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     * @throws RepositoryException Erro ao tentar persistir os dados
+     */
     public void inserir(Cliente obj) throws ErrorProcesamentoException, RepositoryException {
         verificarDados(obj);
         verificarDuplicidade(obj);
         repository.salva(obj);
     }
 
+    /** Método que verifica se há outro objeto igual no repositório e retorna o erro se houver
+     *
+     * @param cliente cliente a ser comparado
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     * @throws RepositoryException Erro ao tentar persistir os dados
+     */
     private void verificarDuplicidade(Cliente cliente) throws ErrorProcesamentoException, RepositoryException {
         for (Cliente cli: repository.listagem()) {
             if (cli.equals(cliente))
@@ -39,6 +76,11 @@ public class ClienteService {
         }
     }
 
+    /** Método que verifica se o objeto é valido para ser inserido no repositório e retorna o erro se houver
+     *
+     * @param cliente cliente a ser verificado
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     */
     private void verificarDados(Cliente cliente) throws ErrorProcesamentoException {
         String erros = "";
         if (cliente.getNome() == null || cliente.getNome().trim().equals("") )

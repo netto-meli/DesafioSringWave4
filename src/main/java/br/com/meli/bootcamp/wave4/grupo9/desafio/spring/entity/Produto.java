@@ -1,5 +1,6 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity;
 
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,11 +53,19 @@ public class Produto {
     /*** Realiza baixa no estoque da quantidade de itens de um produto que foi vendido
      *
      * @param qtd Quantidade de itens vendidos de um produto.
+     * @throws RepositoryException Exceção que a aplicação lança, no caso do cliente comprar
+     * mais itens do que existentes em estoque, de um mesmo produto
      */
-    public void baixarEstoque(long qtd){
+    public void baixarEstoque(long qtd) throws RepositoryException {
         if ( qtd > quantidadeEstoque ){
-            // TODO throw qtd acima do estoque
-            return ;
+            String erro = "Imposssível realizar compra, pois o Produto "
+                    + this.nome
+                    + " tem somente "
+                    + this.quantidadeEstoque
+                    + " itens em estoque, e você está tentando comprar "
+                    + qtd
+                    + " itens.";
+            throw new RepositoryException(erro);
         }
         quantidadeEstoque -= qtd;
     }

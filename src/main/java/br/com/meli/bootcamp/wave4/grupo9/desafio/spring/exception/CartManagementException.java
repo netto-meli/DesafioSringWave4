@@ -2,22 +2,21 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception;
 
 import java.io.IOException;
 
-/***
- * @author Leo
+/*** Exceção no gerenciamento do carrinho
+ * @author Fernando Netto
  */
-public class RepositoryException extends IOException {
+public class CartManagementException extends IOException {
     /***
      * serialVersionUID gerado pelo IntelliJ
      */
-    private static final long serialVersionUID = 2988459374810028462L;
+    private static final long serialVersionUID = 7108601999472973809L;
 
     /***
      * Construtor da classe
      *
      * @param msg Mensagem sobre a exceção recebida
      */
-    public RepositoryException(String msg) {
+    public CartManagementException(String msg) {
         super(msg);
     }
-
 }

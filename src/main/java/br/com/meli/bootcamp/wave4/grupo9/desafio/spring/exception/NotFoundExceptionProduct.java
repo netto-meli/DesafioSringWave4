@@ -1,23 +1,20 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception;
 
-import java.io.IOException;
-
 /***
  * @author Leo
  */
-public class RepositoryException extends IOException {
+public class NotFoundExceptionProduct extends ClassNotFoundException{
     /***
      * serialVersionUID gerado pelo IntelliJ
      */
-    private static final long serialVersionUID = 2988459374810028462L;
+    private static final long serialVersionUID = -3574111920821625288L;
 
     /***
      * Construtor da classe
      *
      * @param msg Mensagem sobre a exceção recebida
      */
-    public RepositoryException(String msg) {
+    public NotFoundExceptionProduct(String msg) {
         super(msg);
     }
-
 }

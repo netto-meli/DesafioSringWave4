@@ -1,36 +1,75 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service;
 
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.CategoriaDTO;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
+/***
+ * Categoria Service:<br>
+ *  <b>Lista todos as categorias</b><br>
+ *  <b>Lista por id</b><br>
+ *  <b>Insere Categoria</b><br>
+ *
+ * @author Marcos Sá
+ */
 @Service
 public class CategoriaService {
 
+    /*** Instancia de Categoria: <b>CategoriaRepository</b> com notação <i>{@literal @}Autowired</i> do lombok
+     */
     @Autowired
     CategoriaRepository repository;
 
-    public List<Categoria> encontrarTodos() {
-        return repository.listarCategoria();
+    /***
+     *
+     * @return listar todos as Categorias
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     */
+    public List<Categoria> encontrarTodos() throws ErrorProcesamentoException{
+        return repository.listagem();
     }
 
-    public Categoria encontrarPorId(long id) {
-        Optional<Categoria> obj = repository.listarCategoria().stream().filter(x -> x.getId() == id).findFirst();
-        return obj.orElse(null);
+    /***
+     *
+     * @param id
+     * @return listar todos as Categorias por id
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     */
+    public Categoria encontrarPorId(long id) throws ErrorProcesamentoException {
+        return repository.listagem().stream()
+                .filter(x -> x.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
-    public Categoria inserir(Categoria obj) {
-        // TODO ver isso
-        //obj.seId(repository.listarCategoria().size());
-        return repository.salvarCategoria(obj);
+    /***
+     *
+     * @param obj
+     * @return inserir categorias
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     * @throws RepositoryException Erro ao tentar persistir os dados
+     */
+    public void inserir(Categoria obj) throws ErrorProcesamentoException, RepositoryException {
+        verificarDados(obj);
+        verificaDuplicidade(obj);
+        repository.salva(obj);
     }
 
-    public Categoria fromDTO(CategoriaDTO objDto) {
-        return new Categoria(objDto.getId(), objDto.getNome());
+    private void verificaDuplicidade(Categoria categoria) throws ErrorProcesamentoException, RepositoryException {
+        for (Categoria cat: repository.listagem()) {
+            if (cat.equals(categoria))
+                throw new RepositoryException("Já existe esta Categoria, favor cadastrar outra.");
+        }
     }
+
+    private void verificarDados(Categoria cat) throws ErrorProcesamentoException {
+        if (cat.getNome() == null || cat.getNome().trim().equals("") )
+            throw new ErrorProcesamentoException("Nome não pode estar vazio.");
+    }
+
 }

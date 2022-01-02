@@ -1,11 +1,12 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller;
 
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.CategoriaDTO;
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto.ClienteDTO;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.RepositoryException;
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service.CategoriaService;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,30 +20,21 @@ import java.net.URI;
 import java.util.List;
 
 /***
- * Categoria Controller:<br>
- *  <b>Lista todos as categorias</b><br>
- *  <b>Lista por id</b><br>
- *  <b>Insere Categoria</b><br>
- *
- * @author Marcos Sá
+ * @author Rafael
+ * @author Fernando
+ * @author Marcos
  */
 @RestController
-@RequestMapping(value = "/loja")
-public class CategoriaController {
+@RequestMapping("/loja")
+public class ClienteController {
 
-    /*** Instancia de Categoria: <b>CategoriaService</b> com notação <i>{@literal @}Autowired</i> do lombok
-     */
     @Autowired
-    CategoriaService service;
+    private ClienteService service;
 
-    /***
-     *
-     * @return endpoint para listar todos as Categorias
-     */
-    @GetMapping(value = "/categorias")
-    public ResponseEntity<List<Categoria>> encontrarTodos()  {
+    @GetMapping(value = "/clientes")
+    public ResponseEntity<List<Cliente>> encontrarTodos()  {
         try {
-            List<Categoria> lista = service.encontrarTodos();
+            List<Cliente> lista = service.encontrarTodos();
             return ResponseEntity.ok().body(lista);
         } catch (ErrorProcesamentoException e) {
             System.out.println(e.getMessage());
@@ -50,15 +42,10 @@ public class CategoriaController {
         }
     }
 
-    /***
-     *
-     * @param id
-     * @return endpoint para listar todos as Categorias por id
-     */
-    @GetMapping(value = "/categorias/{id}")
-    public ResponseEntity<Categoria> encontrarPorId(@PathVariable long id) {
+    @GetMapping(value = "/clientes/{id}")
+    public ResponseEntity<Cliente> encontrarPorId(@PathVariable long id) {
         try {
-            Categoria obj = service.encontrarPorId(id);
+            Cliente obj = service.encontrarPorId(id);
             return ResponseEntity.ok().body(obj);
         } catch (ErrorProcesamentoException e) {
             System.out.println(e.getMessage());
@@ -66,15 +53,10 @@ public class CategoriaController {
         }
     }
 
-    /***
-     *
-     * @param objDto
-     * @return endpoint para inserir categorias
-     */
-    @PostMapping(value = "/categorias")
-    public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objDto) {
+    @PostMapping(value = "/clientes")
+    public ResponseEntity<Void> inserir(@RequestBody ClienteDTO objDto) {
         try {
-            Categoria obj = CategoriaDTO.converte(objDto);
+            Cliente obj = ClienteDTO.converte(objDto);
             service.inserir(obj);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
             return ResponseEntity.created(uri).build();
@@ -84,3 +66,4 @@ public class CategoriaController {
         }
     }
 }
+

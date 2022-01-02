@@ -2,7 +2,6 @@ package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.service;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.*;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.NotFoundExceptionProduct;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.ClienteRepository;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +36,7 @@ public class PedidoService {
     /***s
      *
      * @return todos os pedidos
+     * @throws ErrorProcesamentoException
      */
     public List<Pedido> encontrarTodos() throws ErrorProcesamentoException {
         return pedidoRepository.listagem();
@@ -46,7 +46,7 @@ public class PedidoService {
      *
      * @param id
      * @return Lista de pedidos por id
-     * @throws NotFoundExceptionProduct
+     * @throws ErrorProcesamentoException
      */
     public Pedido encontrarPorId(long id) throws ErrorProcesamentoException{
         Optional<Pedido> pedido = pedidoRepository.listagem().stream().filter(x -> x.getId() == id).findFirst();
@@ -61,6 +61,7 @@ public class PedidoService {
      * 2 - Valor total crescente
      * 3 - Valor Total descrecente
      * @return Lista de pedidos ordenada
+     * @throws ErrorProcesamentoException
      */
     public List<Pedido> ordernarLista(Integer number) throws ErrorProcesamentoException{
         List<Pedido> lista = new ArrayList<>();

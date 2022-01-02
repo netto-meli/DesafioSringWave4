@@ -28,6 +28,7 @@ public class CategoriaService {
     /***
      *
      * @return listar todos as Categorias
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
      */
     public List<Categoria> encontrarTodos() throws ErrorProcesamentoException{
         return repository.listagem();
@@ -37,6 +38,7 @@ public class CategoriaService {
      *
      * @param id
      * @return listar todos as Categorias por id
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
      */
     public Categoria encontrarPorId(long id) throws ErrorProcesamentoException {
         return repository.listagem().stream()
@@ -49,6 +51,8 @@ public class CategoriaService {
      *
      * @param obj
      * @return inserir categorias
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     * @throws RepositoryException Erro ao tentar persistir os dados
      */
     public void inserir(Categoria obj) throws ErrorProcesamentoException, RepositoryException {
         verificarDados(obj);

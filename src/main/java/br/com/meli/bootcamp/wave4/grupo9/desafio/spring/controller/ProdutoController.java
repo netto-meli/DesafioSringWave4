@@ -23,9 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.io.IOException;
-import java.net.URI;
-import java.util.List;
 
 /***
  * Controller dos métodos do carrinho:<br>
@@ -36,6 +33,7 @@ import java.util.List;
  *  * <b>lista ppersonalizada / com dois parametros</b>
  *  *
  *  * @author Leonardo Assuncao
+ *  * @author Fernando Netto
  */
 @RestController
 @RequestMapping("/loja")
@@ -59,7 +57,7 @@ public class ProdutoController {
                     .path("/listarProdutos")
                     .buildAndExpand(lista)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(lista));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(lista));
         } catch (RepositoryException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
@@ -76,15 +74,14 @@ public class ProdutoController {
     @GetMapping(value = "/listarProdutosCategoria")
     public ResponseEntity<List<ProdutoDTO>> obterCategoria(
             @RequestParam(value = "categoria") String categoria,
-            UriComponentsBuilder uriBuilder)  {
+            UriComponentsBuilder uriBuilder) {
         try {
-            Long idCategoria = Long.parseLong(categoria);
-            List<Produto> listaCategoria = produtoService.listaProdutoCategoria(idCategoria);
+            List<Produto> listaCategoria = produtoService.listaProdutoCategoria(categoria);
             URI uri = uriBuilder
                     .path("/listarProdutosCategoria")
                     .buildAndExpand(listaCategoria)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaCategoria));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaCategoria));
         } catch (NotFoundExceptionProduct e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
@@ -105,14 +102,14 @@ public class ProdutoController {
     @GetMapping(value = "/listarProdutosOrdenado")
     public ResponseEntity<List<ProdutoDTO>> obterListaOrdenada(
             @RequestParam(value = "ordenacao", required = true) int ordenacao,
-            UriComponentsBuilder uriBuilder)  {
+            UriComponentsBuilder uriBuilder) {
         try {
             List<Produto> listaOrdenada = produtoService.listaProdutoOrdenado(ordenacao);
             URI uri = uriBuilder
                     .path("/listarProdutosOrdenado")
                     .buildAndExpand(listaOrdenada)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenada));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenada));
         } catch (NotFoundExceptionProduct e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
@@ -137,7 +134,7 @@ public class ProdutoController {
                     .path("/listarProdutosNomeCategoria")
                     .buildAndExpand(listaOrdenadaPersonaliza)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza));
         } catch (NotFoundExceptionProduct e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
@@ -163,13 +160,13 @@ public class ProdutoController {
                     .path("/listarProdutosNomeFrete")
                     .buildAndExpand(listaOrdenadaNomeFrete)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaNomeFrete));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaNomeFrete));
         } catch (ErrorProcesamentoException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
-///-------------Validado ate aqui___________________
+
     /***
      *
      * @param nome
@@ -189,7 +186,7 @@ public class ProdutoController {
                     .path("/listarProdutosNomeMarca")
                     .buildAndExpand(listaOrdenadaPersonaliza3)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza3));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza3));
         } catch (ErrorProcesamentoException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
@@ -208,98 +205,81 @@ public class ProdutoController {
     public ResponseEntity<List<ProdutoDTO>> obterProdutoFreteCategoria(
             @RequestParam(value = "frete", required = true) boolean frete,
             @RequestParam(value = "categoria", required = true) String categoria,
-            UriComponentsBuilder uriBuilder)  {
+            UriComponentsBuilder uriBuilder) {
         try {
             List<Produto> listaOrdenadaPersonaliza4 = produtoService.listaProdutoFiltroFreteCategoria(frete, categoria);
             URI uri = uriBuilder
                     .path("/listarProdutosFreteCategoria")
                     .buildAndExpand(listaOrdenadaPersonaliza4)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza4));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza4));
         } catch (ErrorProcesamentoException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
 
+    /***
+     *
+     * @param ordenacao
+     * @param categoria
+     * @param uriBuilder
+     * @return Lista de produto ordenado por categoria
+     */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosOrdenadosCategoria")
-    public ResponseEntity<List<ProdutoDTO>> obterProdutoOrdenaCategoria(
+    public ResponseEntity<List<ProdutoDTO>> obterProdutoOrdenadoCategoria(
             @RequestParam(value = "ordenacao") int ordenacao,
             @RequestParam(value = "categoria") String categoria,
-            UriComponentsBuilder uriBuilder)  {
+            UriComponentsBuilder uriBuilder) {
         try {
             List<Produto> listaOrdenadaPersonaliza5 = produtoService.ordenaCategoria(ordenacao, categoria);
             URI uri = uriBuilder
                     .path("/listarProdutosOrdenadosCategoria")
                     .buildAndExpand(listaOrdenadaPersonaliza5)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza5));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza5));
         } catch (ErrorProcesamentoException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
         }
-    @GetMapping(value = "/listarProdutosOrdenadosMarca")
-    public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros6(
-            @RequestParam(value = "ordenacao") String ordenacao,
-            @RequestParam(value = "marca") String marca,
-            UriComponentsBuilder uriBuilder) {
-        List<Produto> listaOrdenadaPersonaliza7 = produtoService.listaProdutoFiltorPersonalizadoOrdenacao3(ordenacao, marca);
-        URI uri = uriBuilder
-                .path("/listarProdutosOrdenadosMarca")
-                .buildAndExpand(listaOrdenadaPersonaliza7)
-                .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza7));
     }
 
-    /*@ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/listarProdutosOrdenadosFrete")
-    public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros6(
-            @RequestParam(value = "ordenacao") int ordenacao,
-            @RequestParam(value = "frete") boolean frete,
-            UriComponentsBuilder uriBuilder) {
-        List<Produto> listaOrdenadaPersonaliza6 = produtoService.listaProdutoFiltorPersonalizadoOrdenacao2(ordenacao, frete);
-        URI uri = uriBuilder
-                .path("/listarProdutosOrdenadosFrete")
-                .buildAndExpand(listaOrdenadaPersonaliza6)
-                .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza6));
-    }*/
-
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/listarProdutosOrdenadosQtdEstrelas")
-    public ResponseEntity<List<ProdutoDTO>> obterProdutoDoisParametros7(
-            @RequestParam(value = "ordenacao") String ordenacao,
-            @RequestParam(value = "qtdestrelas") int qtdestrelas,
-            UriComponentsBuilder uriBuilder) {
-        List<Produto> listaOrdenadaPersonaliza8 = produtoService.listaProdutoFiltorPersonalizadoOrdenacao4(ordenacao, qtdestrelas);
-        URI uri = uriBuilder
-                .path("/listarProdutosOrdenadosQtdEstrelas")
-                .buildAndExpand(listaOrdenadaPersonaliza8)
-                .toUri();
-        return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza8));
-    @ResponseStatus(HttpStatus.OK)
+    /***
+     * @param ordenacao
+     * @param marca
+     * @param uriBuilder
+     * @return lista de produtos ordenados por marca
+     */
     @GetMapping(value = "/listarProdutosOrdenadosMarca")
-    public ResponseEntity<List<ProdutoDTO>> obterProdutoOrdenaMarca(
+    public ResponseEntity<List<ProdutoDTO>> obterProdutoOrdenadoMarca(
             @RequestParam(value = "ordenacao") int ordenacao,
             @RequestParam(value = "marca") String marca,
-            UriComponentsBuilder uriBuilder)  {
+            UriComponentsBuilder uriBuilder) {
         try {
             List<Produto> listaOrdenadaPersonaliza7 = produtoService.ordenaMarca(ordenacao, marca);
             URI uri = uriBuilder
                     .path("/listarProdutosOrdenadosMarca")
                     .buildAndExpand(listaOrdenadaPersonaliza7)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza7));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza7));
         } catch (ErrorProcesamentoException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
 
+    /***
+     *
+     * @param ordenacao
+     * @param qtdestrelas
+     * @param uriBuilder
+     * @return lista de produtos ordenados por quantidade de estrelas
+     */
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosOrdenadosQtdEstrelas")
-    public ResponseEntity<List<ProdutoDTO>> obterProdutoOrdenaEstrelas(
+    public ResponseEntity<List<ProdutoDTO>> obterProdutoOrdenadoQtdEstrelas(
             @RequestParam(value = "ordenacao") int ordenacao,
             @RequestParam(value = "qtdestrelas") int qtdestrelas,
             UriComponentsBuilder uriBuilder) {
@@ -309,14 +289,39 @@ public class ProdutoController {
                     .path("/listarProdutosOrdenadosQtdEstrelas")
                     .buildAndExpand(listaOrdenadaPersonaliza8)
                     .toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaOrdenadaPersonaliza8));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaOrdenadaPersonaliza8));
         } catch (ErrorProcesamentoException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
         }
-
     }
 
+    /***
+     * @param estrelas
+     * @param marca
+     * @param uriBuilder
+     * @return Lista de marca ordenada por qtd de estrelas
+     */
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/listarProdutosOrdenadosMarcaQtdEstrelas")
+    public ResponseEntity<List<ProdutoDTO>> obterProdutoMarcaQtdEstrelas(
+            @RequestParam(value = "ordenacao") int estrelas,
+            @RequestParam(value = "marca") String marca,
+            UriComponentsBuilder uriBuilder) {
+        try {
+            List<Produto> listaMarcaQtdestrelas = produtoService.listaProdutoFiltroMarcaEstrela(estrelas, marca);
+            URI uri = uriBuilder
+                    .path("/listarProdutosMarcaQtdEstrelas")
+                    .buildAndExpand(listaMarcaQtdestrelas)
+                    .toUri();
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaMarcaQtdestrelas));
+        } catch (ErrorProcesamentoException e) {
+            e.printStackTrace();
+            return ResponseEntity.unprocessableEntity().body(null);
+        }
+    }
+
+    //TODO colocar java doc
     @PostMapping("/produto/cadastrarlista")
     public ResponseEntity<List<ProdutoDTO>> cadastrar(@RequestBody List<ProdutoDTO> form,
                                                       UriComponentsBuilder uriBuilder) {
@@ -325,7 +330,7 @@ public class ProdutoController {
             listaProduto = produtoService.salvaLista(listaProduto);
 
             URI uri = uriBuilder.path("/produto/").buildAndExpand("").toUri();
-            return ResponseEntity.created(uri).body(ProdutoDTO.converte(listaProduto));
+            return ResponseEntity.created(uri).body(ProdutoDTO.converteList(listaProduto));
         } catch (ErrorProcesamentoException e) {
             e.printStackTrace();
             return ResponseEntity.unprocessableEntity().body(null);
@@ -354,6 +359,5 @@ public class ProdutoController {
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
-
-    }
 }
+

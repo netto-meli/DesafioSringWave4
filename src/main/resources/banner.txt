@@ -5,5 +5,8 @@ ____    __    ____      ___      ____    ____  _______     _  _                 
    \    /\    /     /  _____  \     \    /    |  |____       | |                 |  |__| | |  |\  \----.|  `--'  | |  |      |  `--'  |       / /
     \__/  \__/     /__/     \__\     \__/     |_______|      |_|                  \______| | _| `._____| \______/  | _|       \______/       /_/
 
+Autores:
+Felipe / Fernando / Leonardo / Marcos / Rafael
+
 ${application.title} ${application.version}
 Powered by Spring Boot ${spring-boot.version}

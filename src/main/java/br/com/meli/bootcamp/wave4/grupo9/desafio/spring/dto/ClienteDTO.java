@@ -1,24 +1,23 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/*** DTO par serialização de Cliente
+/*** DTO para serialização de Cliente
  *
- * @author
  * @author Fernando Netto
  */
 @Data
 @AllArgsConstructor
 public class ClienteDTO {
     /***
-     * ID do Cliente do tipo long, com modificador de acesso <i>final</i>
-     * para que a ID depois de atribuída, não possa ser alterada.
+     * ID do Cliente do tipo Long
      */
-    private final long id;
+    private Long id;
     /***
      * Nome do Cliente do tipo String
      */
@@ -35,10 +34,46 @@ public class ClienteDTO {
      * CPF do Cliente do tipo String
      */
     private String cpf;
-    /***
-     * Lista de PedidosDTO, com a notação <i>{@literal @}JsonIgnore</i>,
-     * para que o JSON não utilize esse atributo em seu conteúdo.
+
+    /*** Conversor de Lista Cliente: de Entidade para DTO
+     *
+     * @param listaCliente Lista de Cliente a ser convertida
+     * @return Lista de ClienteDTO convertido
      */
-    @JsonIgnore
-    private List<PedidoDTO> listaPedidoDTOS;
+    public static List<ClienteDTO> converte(List<Cliente> listaCliente) {
+        List<ClienteDTO> listaCliDTO = new ArrayList<>();
+        for (Cliente cli : listaCliente) {
+            ClienteDTO cliDTO = ClienteDTO.converte(cli);
+            listaCliDTO.add(cliDTO);
+        }
+        return listaCliDTO;
+    }
+
+    /*** Conversor da classe Cliente: de Entidade para DTO
+     *
+     * @param cli Objeto Cliente a ser convertido
+     * @return Objeto ClienteDTO convertido
+     */
+    public static ClienteDTO converte(Cliente cli) {
+        return new ClienteDTO(
+                cli.getId(),
+                cli.getNome(),
+                cli.getEndereco(),
+                cli.getEstado(),
+                cli.getCpf() );
+    }
+
+    /*** Conversor da classe Cliente: de DTO para Entidade
+     *
+     * @param cli Objeto ClienteDTO a ser convertido
+     * @return Objeto Cliente convertido
+     */
+    public static Cliente converte(ClienteDTO cli) {
+        return new Cliente(
+                cli.getId(),
+                cli.getNome(),
+                cli.getEndereco(),
+                cli.getEstado(),
+                cli.getCpf() );
+    }
 }

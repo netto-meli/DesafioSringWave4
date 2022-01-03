@@ -1,0 +1,109 @@
+[ {
+  "id" : 1,
+  "nome" : "Serra de Bancada",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "ggg"
+  },
+  "marca" : "FORDGPRO",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 3,
+  "nome" : "Serra de Bancada",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "ggg"
+  },
+  "marca" : "FORDGPRO",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 5,
+  "nome" : "Serra de Bancada",
+  "categoria" : {
+    "id" : 1,
+    "nome" : "ggg"
+  },
+  "marca" : "FORDGPRO",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 2,
+  "nome" : "Serra de Bancada",
+  "categoria" : {
+    "id" : 1,
+    "nome" : "ggg"
+  },
+  "marca" : "FORDGPRO",
+  "valor" : 1.800,
+  "freteGratis" : true,
+  "estrelas" : 4,
+  "quantidadeEstoque" : 5
+}, {
+  "id" : 6,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
+  },
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
+}, {
+  "id" : 7,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
+  },
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
+}, {
+  "id" : 8,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
+  },
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
+}, {
+  "id" : 9,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
+  },
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
+}, {
+  "id" : 10,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
+  },
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
+} ]

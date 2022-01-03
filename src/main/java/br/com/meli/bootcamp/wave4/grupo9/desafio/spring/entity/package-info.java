@@ -3,7 +3,6 @@
  * <b>Categoria</b> -
  * <b>Cliente</b> -
  * <b>ItemCarrinho</b> -
- * <b>Marca</b> -
  * <b>Pedido</b> -
  * <b>Produto</b>
  */

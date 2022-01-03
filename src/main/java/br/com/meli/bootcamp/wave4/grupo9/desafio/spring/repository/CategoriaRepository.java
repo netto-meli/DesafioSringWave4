@@ -1,6 +1,6 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository;
 
-import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Cliente;
+import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Categoria;
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.exception.ErrorProcesamentoException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -13,18 +13,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/*** Classe Repositório de Clientes
+/*** Classe Repositório de Categorias
  *
  * @author Felipe
  * @author Fernando Netto
  */
 @Repository
-public class ClienteRepository implements OurRepository<Cliente, Long>{
+public class CategoriaRepository implements OurRepository<Categoria, Long>{
 
     /***
      * Lista com todas Categorias
      */
-    List<Cliente> clientes = new ArrayList<>();
+    List<Categoria> categorias = new ArrayList<>();
     /***
      * objectMapper para utilização na manipulação do JSON
      */
@@ -32,28 +32,28 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
     /***
      * PATH contendo o caminho/nome do arquivo JSON
      */
-    private final String PATH = "clientes.json";
+    private final String PATH = "categorias.json";
 
-    /*** Método que irá salvar Cliente na lista
+    /*** Método que irá salvar Categoria na lista
      *
-     * @param cliente Objeto Cliente a ser persistida
-     * @return Cliente persistido
+     * @param categoria Objeto Categoria a ser persistida
+     * @return Categoria persistida
      * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
      */
-    public Cliente salva(Cliente cliente) throws ErrorProcesamentoException{
+    public Categoria salva(Categoria categoria) throws ErrorProcesamentoException{
         try {
             /*Mesclar duas ArrayList<>
             * List<String> newList = new ArrayList<String>(listOne);
                 newList.addAll(listTwo);
             * */
-            clientes = listagem();
-            if ( cliente.getId() == null ) cliente.setId(getMaxId()+1L);
-            List<Cliente> novaLista2 =new ArrayList<>();
-            novaLista2.add(cliente);
-            List<Cliente> novaLista = new ArrayList<>(clientes);
+            categorias = listagem();
+            if ( categoria.getId() == null ) categoria.setId(getMaxId()+1L);
+            List<Categoria> novaLista2 =new ArrayList<>();
+            novaLista2.add(categoria);
+            List<Categoria> novaLista = new ArrayList<>(categorias);
             novaLista.addAll(novaLista2);
             objectMapper.writeValue(new File(PATH), novaLista);
-            return cliente;
+            return categoria;
         } catch (IOException e) {
             throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
@@ -65,49 +65,49 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
      */
     public void grava() throws ErrorProcesamentoException{
         try {
-            objectMapper.writeValue(new File(PATH), clientes);
+            objectMapper.writeValue(new File(PATH), categorias);
         } catch (IOException e) {
             throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
     }
 
-    /*** Método que trará a lista de Cliente
+    /*** Método que trará a lista de Categoria
      *
-     * @return Lista contendo Clientes
+     * @return Lista contendo Categorias
      * @throws ErrorProcesamentoException Exceção ao carregar os JSON em memória.
      */
-    public List<Cliente> listagem() throws ErrorProcesamentoException{
+    public List<Categoria> listagem() throws ErrorProcesamentoException {
         try {
             File file = new File(PATH);
             FileInputStream is = new FileInputStream(file);
-            clientes = new ArrayList<>(Arrays.asList(objectMapper.readValue(is, Cliente[].class)));
-            return clientes;
+            categorias = new ArrayList<>(Arrays.asList(objectMapper.readValue(is, Categoria[].class)));
+            return categorias;
         } catch (IOException e) {
             throw new ErrorProcesamentoException("Erro ao localizar categoria");
         }
     }
 
-    /*** Método que busca 1 Cliente na lista do repositório
+    /*** Método que busca 1 Categoria na lista do repositório
      *
-     * @param id ID do Cliente
-     * @return Cliente com o ID informado
+     * @param id ID da Categoria
+     * @return Categoria com o ID informado
      */
-    public Cliente get(Long id) {
-        return clientes.stream()
-                .filter( c -> c.getId().equals(id))
+    public Categoria get(Long id) {
+        return categorias.stream()
+                .filter(u -> u.getId().equals(id) )
                 .findAny()
-                .orElse(null);
+                .orElse(null); // null se nao existe produto
     }
 
     /*** Método que verifica a lista de Categorias e retora o maior ID atual
      *
      * @return ID no formato Long
      */
-    private Long getMaxId(){
+    public Long getMaxId(){
         Long id = 0L;
-        for ( Cliente c : clientes ) {
-            if (c.getId() != null && c.getId().compareTo(id) > 0 ){
-                id = c.getId();
+        for ( Categoria p : categorias ) {
+            if (p.getId() != null && p.getId().compareTo(id) > 0 ){
+                id = p.getId();
             }
         }
         return id;

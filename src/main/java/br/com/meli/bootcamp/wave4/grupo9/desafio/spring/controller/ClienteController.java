@@ -41,6 +41,7 @@ public class ClienteController {
     /***
      *
      * @return endpoint para listar todos as Categorias
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/clientes")
     public ResponseEntity<List<Cliente>> encontrarTodos() throws ErrorProcesamentoException {
@@ -52,6 +53,7 @@ public class ClienteController {
      *
      * @param id id
      * @return endpoint para listar todos os Clientes por id
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/clientes/{id}")
     public ResponseEntity<Cliente> encontrarPorId(@PathVariable long id) throws ErrorProcesamentoException {
@@ -63,6 +65,8 @@ public class ClienteController {
      *
      * @param objeto obj
      * @return endpoint para inserir cliente
+     * @throws ErrorProcesamentoException excecao
+     * @throws RepositoryException excecao
      */
     @PostMapping(value = "/clientes")
     public ResponseEntity<Void> inserir(@RequestBody ClienteDTO objeto) throws RepositoryException, ErrorProcesamentoException {
@@ -78,6 +82,7 @@ public class ClienteController {
      * 0 - Id Cliente crescente
      * 1 - Id Cliente decrescente
      * @return Lista de clientes
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/ordenaEstadoCliente/{ordem}")
     public ResponseEntity<List<Cliente>> ordenacaoLista(@PathVariable Integer ordem) throws ErrorProcesamentoException {

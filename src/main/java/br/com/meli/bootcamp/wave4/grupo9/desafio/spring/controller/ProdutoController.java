@@ -46,6 +46,7 @@ public class ProdutoController {
      *
      * @param uriBuilder uri
      * @return endpoint para listar todos os produtos
+     * @throws RepositoryException excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutos")
@@ -64,6 +65,7 @@ public class ProdutoController {
      * @param categoria categoria
      * @param uriBuilder uri
      * @return Lista de produtos filtrados pela categoria
+     * @throws NotFoundExceptionProduct excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosCategoria")
@@ -88,6 +90,7 @@ public class ProdutoController {
      * 2 - Maior - menor preco
      * 3 - Menor - maior preco
      * @return Lista de produtos filtrados pela categoria, nome e marca ordenados
+     * @throws NotFoundExceptionProduct excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosOrdenado")
@@ -107,6 +110,7 @@ public class ProdutoController {
      * @param categoria categoria
      * @param uriBuilder uri
      * @return lista filtrada pelo nome e categoria
+     * @throws NotFoundExceptionProduct excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosNomeCategoria")
@@ -128,6 +132,7 @@ public class ProdutoController {
      * @param frete frete
      * @param uriBuilder uri
      * @return filtra por nome e frete
+     * @throws ErrorProcesamentoException excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosNomeFrete")
@@ -149,6 +154,7 @@ public class ProdutoController {
      * @param marca marca
      * @param uriBuilder uri
      * @return filtra por nome e marca
+     * @throws ErrorProcesamentoException excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosNomeMarca")
@@ -170,6 +176,7 @@ public class ProdutoController {
      * @param categoria categoria
      * @param uriBuilder uri
      * @return retorna lista filtrada por frete e categoria
+     * @throws ErrorProcesamentoException excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosFreteCategoria")
@@ -191,6 +198,7 @@ public class ProdutoController {
      * @param categoria categoria
      * @param uriBuilder uri
      * @return Lista de produto ordenado por categoria
+     * @throws ErrorProcesamentoException excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosOrdenadosCategoria")
@@ -211,6 +219,7 @@ public class ProdutoController {
      * @param marca marca
      * @param uriBuilder uri
      * @return lista de produtos ordenados por marca
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/listarProdutosOrdenadosMarca")
     public ResponseEntity<List<ProdutoDTO>> obterProdutoOrdenadoMarca(
@@ -231,6 +240,7 @@ public class ProdutoController {
      * @param qtdestrelas quantidade de estrtelas
      * @param uriBuilder uri
      * @return lista de produtos ordenados por quantidade de estrelas
+     * @throws ErrorProcesamentoException excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosOrdenadosQtdEstrelas")
@@ -251,6 +261,7 @@ public class ProdutoController {
      * @param marca marca
      * @param uriBuilder uri
      * @return Lista de marca ordenada por qtd de estrelas
+     * @throws ErrorProcesamentoException excecao
      */
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/listarProdutosOrdenadosMarcaQtdEstrelas")
@@ -270,6 +281,7 @@ public class ProdutoController {
      * @param form  Uma lista de produtos que deseja cadastrar
      * @param uriBuilder uri
      * @return Lista de produtos recém-cadastrados.
+     * @throws ErrorProcesamentoException excecao
      */
     @PostMapping("/produto/cadastrarlista")
     public ResponseEntity<List<ProdutoDTO>> cadastrar(@RequestBody List<ProdutoDTO> form,
@@ -285,6 +297,7 @@ public class ProdutoController {
     /***
      * @param id id
      * @return Produdo um produto requisitado pelo ID.
+     * @throws NotFoundExceptionProduct excecao
      */
     @GetMapping("/produto/{id}")
     public ResponseEntity<ProdutoDTO> obter(@PathVariable Long id) throws NotFoundExceptionProduct {
@@ -296,6 +309,8 @@ public class ProdutoController {
      * @param form Produto aser cadastrado
      * @param uriBuilder uri
      * @return Produto cadastrado
+     * @throws ErrorProcesamentoException excecao
+     * @throws RepositoryException excecao
      */
     @PostMapping("/produto/cadastrar")
     public ResponseEntity<ProdutoDTO> cadastrar(

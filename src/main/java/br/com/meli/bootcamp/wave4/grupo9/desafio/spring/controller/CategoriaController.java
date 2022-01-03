@@ -38,6 +38,7 @@ public class CategoriaController {
     /***
      *
      * @return endpoint para listar todos as Categorias
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/categorias")
     public ResponseEntity<List<Categoria>> encontrarTodos() throws ErrorProcesamentoException {
@@ -49,6 +50,7 @@ public class CategoriaController {
      *
      * @param id id
      * @return endpoint para listar todos as Categorias por id
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/categorias/{id}")
     public ResponseEntity<Categoria> encontrarPorId(@PathVariable long id) throws ErrorProcesamentoException {
@@ -60,6 +62,8 @@ public class CategoriaController {
      *
      * @param objeto obj
      * @return endpoint para inserir categorias
+     * @throws ErrorProcesamentoException excecao
+     * @throws RepositoryException excecao
      */
     @PostMapping(value = "/categorias")
     public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objeto) throws RepositoryException, ErrorProcesamentoException {

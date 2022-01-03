@@ -45,6 +45,7 @@ public class CarrinhoController {
 	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
 	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>CREATED</b> e
 	 * <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
+	 * @throws CartManagementException exception
 	 */
 	@PostMapping("/adicionaNoCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO> adicionaProdutosNoCarrinho(
@@ -69,6 +70,7 @@ public class CarrinhoController {
 	 * @param uriBuilder UriComponentsBuilder que gera URI para o ResponseEntity
 	 * @return Retorna payload de PedidoDTO em um ResponseEntity com status <b>CREATED</b> e
 	 * <i>GET</i>: "/loja/carrinhoAberto/{idCliente}"
+	 * @throws CartManagementException excecao
 	 */
 	@PostMapping("/retiraDoCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO>  retiraProdutosDoCarrinho(
@@ -124,10 +126,14 @@ public class CarrinhoController {
 	 * <i>GET</i>: "/loja/pedidos/{id}" implementado no Controller:
 	 * {@link br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada}
 	 * @see br.com.meli.bootcamp.wave4.grupo9.desafio.spring.controller.ProdutoController obterListaOrdenada
+	 * @throws CartManagementException exceçao
+	 * @throws RepositoryException excecao
+	 * @throws ErrorProcesamentoException excecao
 	 */
 	@PostMapping("/fechaCarrinho/{idCliente}")
 	public ResponseEntity<PedidoDTO> fecharPedido(@PathVariable String idCliente,
-												   UriComponentsBuilder uriBuilder) throws CartManagementException, RepositoryException, ErrorProcesamentoException {
+												   UriComponentsBuilder uriBuilder)
+			throws CartManagementException, RepositoryException, ErrorProcesamentoException {
 			Pedido pedido = carrinhoService.fecharCarrinho(idCliente);
 			URI uri = uriBuilder
 					.path("/pedidos/{id}")

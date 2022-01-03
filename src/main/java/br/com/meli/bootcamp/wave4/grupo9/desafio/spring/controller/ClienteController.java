@@ -20,6 +20,11 @@ import java.net.URI;
 import java.util.List;
 
 /***
+ * Cliente Controller:<br>
+ *  <b>Lista todos os Clientes</b><br>
+ *  <b>Lista por id</b><br>
+ *  <b>Insere Cliente</b><br>
+ *
  * @author Rafael
  * @author Fernando
  * @author Marcos

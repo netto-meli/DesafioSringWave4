@@ -52,6 +52,7 @@ Além disso, a plataforma afirmou que concorda em receber sugestões de melhoria
 
 ***
 ## Utilização
+#### -> GitHub-Pages contendo o JavaDoc [https://netto-meli.github.io/DesafioSringWave4/](https://netto-meli.github.io/DesafioSringWave4/)
 #### -> [Link para importar Collection](https://www.getpostman.com/collections/70c04463c04e0599192e) para o Postman (copiar e colar)
 #### —> Tabela de [produtos iniciais](https://docs.google.com/spreadsheets/d/1VbpRtZXw6DiYoA7VETG9ezf39ghlsCq4EN0drRTxuS4/edit?usp=sharing)
 #### —> [Definições](https://drive.google.com/file/d/1XXDABy-lEhF-MGQkw7Ty91WLscVJ6aQ_/view?usp=sharing) a serem seguidas para completar o desafio.

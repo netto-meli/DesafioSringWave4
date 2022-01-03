@@ -9,6 +9,7 @@ import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.PedidoReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -86,7 +87,7 @@ public class PedidoService {
                             .sorted(Comparator.comparing(Pedido::getValorTotal).reversed())
                             .collect(Collectors.toList());
             }
-        } catch (Exception e){
+        } catch (IOException e){
             throw new NotFoundExceptionProduct("Erro na Ordenação");
         }
         return null;

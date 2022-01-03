@@ -43,14 +43,9 @@ public class ClienteController {
      * @return endpoint para listar todos as Categorias
      */
     @GetMapping(value = "/clientes")
-    public ResponseEntity<List<Cliente>> encontrarTodos()  {
-        try {
+    public ResponseEntity<List<Cliente>> encontrarTodos() throws ErrorProcesamentoException {
             List<Cliente> lista = service.encontrarTodos();
             return ResponseEntity.ok().body(lista);
-        } catch (ErrorProcesamentoException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 
     /***
@@ -59,14 +54,9 @@ public class ClienteController {
      * @return endpoint para listar todos os Clientes por id
      */
     @GetMapping(value = "/clientes/{id}")
-    public ResponseEntity<Cliente> encontrarPorId(@PathVariable long id) {
-        try {
+    public ResponseEntity<Cliente> encontrarPorId(@PathVariable long id) throws ErrorProcesamentoException {
             Cliente obj = service.encontrarPorId(id);
             return ResponseEntity.ok().body(obj);
-        } catch (ErrorProcesamentoException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 
     /***
@@ -75,16 +65,11 @@ public class ClienteController {
      * @return endpoint para inserir cliente
      */
     @PostMapping(value = "/clientes")
-    public ResponseEntity<Void> inserir(@RequestBody ClienteDTO objeto) {
-        try {
+    public ResponseEntity<Void> inserir(@RequestBody ClienteDTO objeto) throws RepositoryException, ErrorProcesamentoException {
             Cliente obj = ClienteDTO.converte(objeto);
             service.inserir(obj);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
             return ResponseEntity.created(uri).build();
-        } catch (ErrorProcesamentoException | RepositoryException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 
     /*** Lista de clientes ordenado por estado (crescente ou decrescente)
@@ -95,14 +80,9 @@ public class ClienteController {
      * @return Lista de clientes
      */
     @GetMapping(value = "/ordenaEstadoCliente/{ordem}")
-    public ResponseEntity<List<Cliente>> ordenacaoLista(@PathVariable Integer ordem) {
-        try {
+    public ResponseEntity<List<Cliente>> ordenacaoLista(@PathVariable Integer ordem) throws ErrorProcesamentoException {
             List<Cliente> lista = service.ordenarLista(ordem);
             return ResponseEntity.ok(lista);
-        } catch (ErrorProcesamentoException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 }
 

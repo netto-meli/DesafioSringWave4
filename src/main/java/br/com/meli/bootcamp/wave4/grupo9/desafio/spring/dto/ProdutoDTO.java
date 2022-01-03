@@ -1,16 +1,15 @@
 package br.com.meli.bootcamp.wave4.grupo9.desafio.spring.dto;
 
 import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.entity.Produto;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-/*** DTO para serialização de Produto
+/*** DTO par serialização de Produto
  *
- * @author Felipe
+ * @author
  * @author Fernando Netto
  */
 @Data
@@ -88,11 +87,11 @@ public class ProdutoDTO {
      * @param produtos Lista de Produto a serem convertidos
      * @return Lista de ProdutosDTO convertidos
      */
-    public static List<ProdutoDTO> converteList(List<Produto> produtos) {
+    public static List<ProdutoDTO> converte(List<Produto> produtos) {
         return produtos.stream().map(ProdutoDTO::converte).collect(Collectors.toList());
     }
 
-    /* Conversor de lista de Produto: de DTO para Entidade
+    /***Conversor de lista de Produto: de DTO para Entidade
      *
      * @param produtosDTO Lista de Produto a serem convertidos
      * @return Lista de Produtos convertidos

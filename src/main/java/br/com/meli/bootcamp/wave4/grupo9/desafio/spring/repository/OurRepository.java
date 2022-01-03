@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/***
+/*** Repositório Intrface
+ *
  * @author Felipe
  * @author Fernando Netto
  *

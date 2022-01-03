@@ -36,7 +36,7 @@ public class Categoria {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Categoria categoria = (Categoria) o;
-        return id.equals(categoria.id);
+        return ( id.equals(categoria.id) || nome.equals(categoria.nome) );
     }
 
     /***

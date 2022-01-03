@@ -112,13 +112,4 @@ public class ClienteRepository implements OurRepository<Cliente, Long>{
         }
         return id;
     }
-
-    //TODO fazer
-    public boolean existsById(Long clienteId) {
-        return false;
-    }
-
-    //TODO fazer
-    public void deleteById(Long clienteId) {
-    }
 }

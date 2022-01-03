@@ -82,4 +82,28 @@
   "freteGratis" : false,
   "estrelas" : 50,
   "quantidadeEstoque" : 70
+}, {
+  "id" : 9,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
+  },
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
+}, {
+  "id" : 10,
+  "nome" : "f",
+  "categoria" : {
+    "id" : 2,
+    "nome" : "j"
+  },
+  "marca" : "i",
+  "valor" : 80.0,
+  "freteGratis" : false,
+  "estrelas" : 50,
+  "quantidadeEstoque" : 70
 } ]

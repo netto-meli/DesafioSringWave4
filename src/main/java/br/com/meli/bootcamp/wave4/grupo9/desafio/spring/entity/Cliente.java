@@ -48,7 +48,7 @@ public class Cliente {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return id.equals(cliente.id);
+        return ( id.equals(cliente.id) || cpf.equals(cliente.getCpf()) );
     }
 
     /***

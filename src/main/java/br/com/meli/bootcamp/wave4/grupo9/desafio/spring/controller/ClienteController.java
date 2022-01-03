@@ -81,5 +81,23 @@ public class ClienteController {
             return ResponseEntity.unprocessableEntity().body(null);
         }
     }
+
+    /*** Lista de clientes ordenado por estado (crescente ou decrescente)
+     *
+     * @param ordem
+     * 0 - Id Cliente crescente
+     * 1 - Id Cliente decrescente
+     * @return Lista de clientes
+     */
+    @GetMapping(value = "/ordenaEstadoCliente/{ordem}")
+    public ResponseEntity<List<Cliente>> ordenacaoLista(@PathVariable Integer ordem) {
+        try {
+            List<Cliente> lista = service.ordenarLista(ordem);
+            return ResponseEntity.ok(lista);
+        } catch (ErrorProcesamentoException e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.unprocessableEntity().body(null);
+        }
+    }
 }
 

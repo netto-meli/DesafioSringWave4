@@ -7,7 +7,9 @@ import br.com.meli.bootcamp.wave4.grupo9.desafio.spring.repository.ClienteReposi
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /***
  * Cliente Service:<br>
@@ -101,4 +103,29 @@ public class ClienteService {
         }
     }
 
+    /*** Método que ordena clientes pelo estado
+     *
+     * @param ordem
+     * 0 - crescente
+     * 1 - decrescente
+     * @return Lista de pedidos ordenada
+     * @throws ErrorProcesamentoException Erro ao tentar buscar os dados
+     */
+    public List<Cliente> ordenarLista(Integer ordem) throws ErrorProcesamentoException {
+        try {
+            switch (ordem) {
+                case 0:
+                    return repository.listagem().stream()
+                            .sorted(Comparator.comparing(Cliente::getEstado))
+                            .collect(Collectors.toList());
+                case 1:
+                    return repository.listagem().stream()
+                            .sorted(Comparator.comparing(Cliente::getEstado).reversed())
+                            .collect(Collectors.toList());
+            }
+        } catch (Exception e){
+            throw new ErrorProcesamentoException("Erro na Ordenação");
+        }
+        return null;
+    }
 }

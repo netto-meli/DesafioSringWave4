@@ -74,7 +74,7 @@ POST/GET base -> http://localhost:8080/loja
 <br>[Repositório Git](https://github.com/LeoDevMeli)
 
 <b>Marcos Vinicius Rodrigues De Sá</b>
-<br>{Listagen e filtros de Pedidos}
+<br>{Listagem e filtros de Pedidos}
 <br>[Repositório Git](https://github.com/marcossa01)
 
 <b>Rafael Menezes Da Silva</b>

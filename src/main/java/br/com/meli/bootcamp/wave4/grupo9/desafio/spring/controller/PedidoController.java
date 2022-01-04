@@ -34,32 +34,24 @@ public class PedidoController {
     /***s
      *
      * @return endpoint para listar todos os pedidos
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/pedidos")
-    public ResponseEntity<List<Pedido>> encontrarTodos() {
-        try {
+    public ResponseEntity<List<Pedido>> encontrarTodos() throws ErrorProcesamentoException {
             List<Pedido> list = pedidoService.encontrarTodos();
             return ResponseEntity.ok().body(list);
-        } catch (ErrorProcesamentoException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 
     /***
      *
      * @param id id
      * @return Lista de pedidos por id
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/pedidos/{id}")
-    public ResponseEntity<Pedido> encontrarPorId(@PathVariable long id) {
-        try {
+    public ResponseEntity<Pedido> encontrarPorId(@PathVariable long id) throws ErrorProcesamentoException {
             Pedido pedido = pedidoService.encontrarPorId(id);
             return ResponseEntity.ok(pedido);
-        } catch (ErrorProcesamentoException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 
     /***
@@ -70,15 +62,13 @@ public class PedidoController {
      * 2 - Valor total crescente
      * 3 - Valor Total descrecente
      * @return Lista de pedidos
+     * @throws ErrorProcesamentoException excecao
+     * @throws NotFoundExceptionProduct excecao
      */
     @GetMapping(value = "/pedidos/ordena/")
-    public ResponseEntity<List<Pedido>> ordenacaoLista(@RequestParam (value = "number") Integer number) {
-        try {
+    public ResponseEntity<List<Pedido>> ordenacaoLista(@RequestParam (value = "number") Integer number)
+            throws NotFoundExceptionProduct, ErrorProcesamentoException {
             List<Pedido> lista = pedidoService.ordenarLista(number);
             return ResponseEntity.ok(lista);
-        } catch (ErrorProcesamentoException | NotFoundExceptionProduct e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 }

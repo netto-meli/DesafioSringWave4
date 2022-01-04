@@ -38,49 +38,38 @@ public class CategoriaController {
     /***
      *
      * @return endpoint para listar todos as Categorias
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/categorias")
-    public ResponseEntity<List<Categoria>> encontrarTodos()  {
-        try {
+    public ResponseEntity<List<Categoria>> encontrarTodos() throws ErrorProcesamentoException {
             List<Categoria> lista = service.encontrarTodos();
             return ResponseEntity.ok().body(lista);
-        } catch (ErrorProcesamentoException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 
     /***
      *
      * @param id id
      * @return endpoint para listar todos as Categorias por id
+     * @throws ErrorProcesamentoException excecao
      */
     @GetMapping(value = "/categorias/{id}")
-    public ResponseEntity<Categoria> encontrarPorId(@PathVariable long id) {
-        try {
+    public ResponseEntity<Categoria> encontrarPorId(@PathVariable long id) throws ErrorProcesamentoException {
             Categoria obj = service.encontrarPorId(id);
             return ResponseEntity.ok().body(obj);
-        } catch (ErrorProcesamentoException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 
     /***
      *
      * @param objeto obj
      * @return endpoint para inserir categorias
+     * @throws ErrorProcesamentoException excecao
+     * @throws RepositoryException excecao
      */
     @PostMapping(value = "/categorias")
-    public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objeto) {
-        try {
+    public ResponseEntity<Void> inserir(@RequestBody CategoriaDTO objeto) throws RepositoryException, ErrorProcesamentoException {
             Categoria obj = CategoriaDTO.converte(objeto);
             service.inserir(obj);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
             return ResponseEntity.created(uri).build();
-        } catch (ErrorProcesamentoException | RepositoryException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 }
